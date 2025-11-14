@@ -1,0 +1,55 @@
+{
+  "name": "Service",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Service name"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "hair_dresser",
+        "foot_massage",
+        "nail_polish",
+        "brow_polish",
+        "cosmetics"
+      ],
+      "description": "Service category"
+    },
+    "description": {
+      "type": "string",
+      "description": "Service description"
+    },
+    "price": {
+      "type": "number",
+      "description": "Service price"
+    },
+    "duration": {
+      "type": "string",
+      "description": "Service duration"
+    },
+    "image_url": {
+      "type": "string",
+      "description": "Service image URL"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false,
+      "description": "Featured service"
+    }
+  },
+  "required": [
+    "name",
+    "category",
+    "price"
+  ],
+  "rls": {
+    "read": {},
+    "write": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

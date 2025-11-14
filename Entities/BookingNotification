@@ -1,0 +1,76 @@
+{
+  "name": "BookingNotification",
+  "type": "object",
+  "properties": {
+    "booking_id": {
+      "type": "string",
+      "description": "Reference to the appointment booking ID"
+    },
+    "client_name": {
+      "type": "string",
+      "description": "Client's full name"
+    },
+    "client_email": {
+      "type": "string",
+      "description": "Client's email address"
+    },
+    "client_phone": {
+      "type": "string",
+      "description": "Client's phone number"
+    },
+    "service_name": {
+      "type": "string",
+      "description": "Name of the service booked"
+    },
+    "service_price": {
+      "type": "number",
+      "description": "Price of the service"
+    },
+    "service_duration": {
+      "type": "string",
+      "description": "Duration of the service"
+    },
+    "appointment_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Appointment date"
+    },
+    "appointment_time": {
+      "type": "string",
+      "description": "Appointment time"
+    },
+    "special_requests": {
+      "type": "string",
+      "description": "Any special requests from client"
+    },
+    "notification_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "viewed",
+        "contacted"
+      ],
+      "default": "pending",
+      "description": "Status of the notification"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "normal",
+        "high",
+        "urgent"
+      ],
+      "default": "normal",
+      "description": "Priority level of the booking"
+    }
+  },
+  "required": [
+    "booking_id",
+    "client_name",
+    "client_email",
+    "client_phone",
+    "service_name",
+    "appointment_date",
+    "appointment_time"
+  ]
+}

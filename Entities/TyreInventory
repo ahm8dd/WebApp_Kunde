@@ -1,0 +1,99 @@
+{
+  "name": "TyreInventory",
+  "type": "object",
+  "properties": {
+    "brand": {
+      "type": "string",
+      "description": "Reifenmarke (z.B. Michelin, Continental)"
+    },
+    "model": {
+      "type": "string",
+      "description": "Reifenmodell"
+    },
+    "size": {
+      "type": "string",
+      "description": "Reifengröße (z.B. 205/55 R16)"
+    },
+    "season": {
+      "type": "string",
+      "enum": [
+        "Sommerreifen",
+        "Winterreifen",
+        "Ganzjahresreifen"
+      ],
+      "description": "Reifensaison"
+    },
+    "price": {
+      "type": "number",
+      "description": "Preis pro Reifen in Euro"
+    },
+    "quantity": {
+      "type": "number",
+      "default": 0,
+      "description": "Verfügbare Anzahl"
+    },
+    "condition": {
+      "type": "string",
+      "enum": [
+        "Neu",
+        "Gebraucht - Sehr gut",
+        "Gebraucht - Gut"
+      ],
+      "default": "Neu",
+      "description": "Zustand der Reifen"
+    },
+    "image_url": {
+      "type": "string",
+      "description": "Bild-URL des Reifens"
+    },
+    "features": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Besondere Eigenschaften"
+    },
+    "load_index": {
+      "type": "string",
+      "description": "Lastindex"
+    },
+    "speed_rating": {
+      "type": "string",
+      "description": "Geschwindigkeitsindex"
+    },
+    "fuel_efficiency": {
+      "type": "string",
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ],
+      "description": "Kraftstoffeffizienz"
+    },
+    "wet_grip": {
+      "type": "string",
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ],
+      "description": "Nasshaftung"
+    },
+    "noise_level": {
+      "type": "number",
+      "description": "Geräuschpegel in dB"
+    }
+  },
+  "required": [
+    "brand",
+    "model",
+    "size",
+    "season",
+    "price",
+    "quantity"
+  ]
+}

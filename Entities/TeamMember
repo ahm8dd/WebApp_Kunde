@@ -1,0 +1,37 @@
+{
+  "name": "TeamMember",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Team member name"
+    },
+    "title": {
+      "type": "string",
+      "description": "Professional title"
+    },
+    "bio": {
+      "type": "string",
+      "description": "Professional biography"
+    },
+    "image_url": {
+      "type": "string",
+      "description": "Profile image URL"
+    },
+    "specialties": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Areas of expertise"
+    },
+    "years_experience": {
+      "type": "number",
+      "description": "Years of experience"
+    }
+  },
+  "required": [
+    "name",
+    "title"
+  ]
+}
