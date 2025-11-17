@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react"; // <--- HIER FEHLTEN useState und useEffect
 import { motion } from "framer-motion";
 
 export default function LoadingScreen({ onLoadingComplete }) {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; // <--- NUR DIESER STANDARD-IMPORT IST NÖTIG
 
 // This component injects advanced, SEO-friendly structured data for M&M Reifenservice
 export default function SeoSchema() {
