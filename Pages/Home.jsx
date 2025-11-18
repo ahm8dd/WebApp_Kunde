@@ -68,31 +68,33 @@ const features = [
 export default function Home() {
   return (
     <div>
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24">
+      {/* Hero Section - FIXED */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background Image */}
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=2400&q=90"
             alt="Reifenwechsel Service in Essen - M&M Reifenservice"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0e131f]/95 via-[#0e131f]/80 to-transparent" />
+          {/* Dark Overlay for better text readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0e131f]/95 via-[#0e131f]/85 to-[#0e131f]/60" />
         </div>
 
-        {/* Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 pt-32 pb-16">
+        {/* Content - Now properly positioned */}
+        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 w-full">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-white max-w-3xl"
+            className="text-white max-w-3xl pt-32 pb-20"
           >
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              Schnellster Reifenservice in Essen
+              Schnellster<br />
+              <span className="text-[#ff0035]">Reifenservice</span> in Essen
             </h1>
             
-            <p className="text-xl md:text-2xl mb-8 text-gray-200">
+            <p className="text-xl md:text-2xl mb-8 text-gray-200 leading-relaxed">
               Lassen Sie Ihre Reifen in unter 30 Minuten wechseln. Professioneller Service zu unschlagbaren Preisen.
             </p>
 
@@ -103,11 +105,11 @@ export default function Home() {
                   key={index}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.2 }}
-                  className="flex items-center gap-2"
+                  transition={{ delay: 0.3 + index * 0.2 }}
+                  className="flex items-center gap-3 bg-black/30 backdrop-blur-sm px-5 py-3 rounded-full"
                 >
                   <feature.icon className="w-6 h-6 text-[#ff0035]" />
-                  <span className="font-medium">{feature.text}</span>
+                  <span className="font-semibold text-lg">{feature.text}</span>
                 </motion.div>
               ))}
             </div>
@@ -116,15 +118,15 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4">
               <button
                 onClick={() => window.dispatchEvent(new CustomEvent('open-booking-modal'))}
-                className="bg-[#ff0035] text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#d9002d] transition-all hover:scale-105 shadow-xl flex items-center justify-center gap-2"
+                className="bg-[#ff0035] text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-[#d9002d] transition-all hover:scale-105 shadow-xl flex items-center justify-center gap-2 group"
               >
                 Jetzt buchen
-                <ArrowRight className="w-6 h-6" />
+                <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
               </button>
               
               <a
                 href="tel:+4920112345678"
-                className="bg-white/10 backdrop-blur-sm text-white border-2 border-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-[#0e131f] transition-all flex items-center justify-center"
+                className="bg-white/10 backdrop-blur-sm text-white border-2 border-white/50 px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-[#0e131f] transition-all flex items-center justify-center"
               >
                 Anrufen: +49 201 1234 5678
               </a>
@@ -135,9 +137,9 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1 }}
-              className="mt-8 bg-black/30 backdrop-blur-sm rounded-xl p-4 max-w-md border border-[#ff0035]/30"
+              className="mt-8 bg-black/40 backdrop-blur-sm rounded-xl p-5 max-w-md border border-[#ff0035]/30"
             >
-              <p className="text-sm text-gray-200">
+              <p className="text-sm text-gray-200 leading-relaxed">
                 ⚡ <strong className="text-[#ff0035]">Heute noch verfügbar!</strong> Buchen Sie jetzt und sparen Sie 10% auf den ersten Service.
               </p>
             </motion.div>
@@ -298,7 +300,7 @@ export default function Home() {
             </p>
             <button
               onClick={() => window.dispatchEvent(new CustomEvent('open-booking-modal'))}
-              className="bg-white text-[#ff0035] px-10 py-5 rounded-lg font-bold text-lg hover:bg-gray-100 transition-all hover:scale-105 shadow-xl inline-flex items-center gap-3"
+              className="bg-white text-[#ff0035] px-10 py-5 rounded-full font-bold text-lg hover:bg-gray-100 transition-all hover:scale-105 shadow-xl inline-flex items-center gap-3"
             >
               Termin vereinbaren
               <ArrowRight className="w-6 h-6" />
