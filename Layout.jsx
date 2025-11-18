@@ -220,7 +220,7 @@ export default function Layout({ children, currentPageName }) {
               </p>
               <div className="flex gap-4">
                 <a 
-                  href="https://instagram.com/mm_reifenservice" 
+                  href="https://instagram.com/mmreifen" 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 bg-[#38405f] rounded-full flex items-center justify-center hover:bg-[#ff0035] transition-colors"
@@ -229,7 +229,7 @@ export default function Layout({ children, currentPageName }) {
                   <Instagram className="w-5 h-5 text-white" />
                 </a>
                 <a 
-                  href="https://tiktok.com/@mm_reifenservice" 
+                  href="https://tiktok.com/@mm.reifen" 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 bg-[#38405f] rounded-full flex items-center justify-center hover:bg-[#ff0035] transition-colors"
@@ -260,11 +260,11 @@ export default function Layout({ children, currentPageName }) {
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone className="w-5 h-5 text-[#ff0035]" />
-                  <a href="tel:+4920112345678" className="text-[#8b939c] hover:text-[#ff0035] transition-colors">+49 201 1234 5678</a>
+                  <a href="tel:+4920125908194" className="text-[#8b939c] hover:text-[#ff0035] transition-colors">+49 201 25908194</a>
                 </div>
                 <div className="flex items-center gap-3">
                   <Mail className="w-5 h-5 text-[#ff0035]" />
-                  <a href="mailto:info@mm-reifen.de" className="text-[#8b939c] hover:text-[#ff0035] transition-colors">info@mm-reifen.de</a>
+                  <a href="mailto:info@mmreifenessen.de" className="text-[#8b939c] hover:text-[#ff0035] transition-colors">info@mmreifenessen.de</a>
                 </div>
               </address>
             </div>
@@ -272,7 +272,7 @@ export default function Layout({ children, currentPageName }) {
             <div>
               <h3 className="text-lg font-semibold mb-6 text-white border-b border-[#38405f] pb-2">Öffnungszeiten</h3>
               <div className="space-y-2 text-sm text-[#8b939c]">
-                <p>Mo - Fr: <span className="text-white">8:00 - 18:00 Uhr</span></p>
+                <p>Mo - Fr: <span className="text-white">9:00 - 18:00 Uhr</span></p>
                 <p>Sa: <span className="text-white">9:00 - 15:00 Uhr</span></p>
                 <p className="text-[#ff0035] font-medium">So: Geschlossen</p>
               </div>
@@ -282,7 +282,7 @@ export default function Layout({ children, currentPageName }) {
           {/* Bottom Bar */}
           <div className="mt-12 pt-8 border-t border-[#38405f] flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-[#8b939c]">
-              © 2024 M&M Reifenservice. Alle Rechte vorbehalten.
+              © 2025 M&M Reifenservice. Alle Rechte vorbehalten.
             </p>
             <nav className="flex gap-6 text-sm" aria-label="Footer Navigation">
               <Link to={createPageUrl("Sitemap")} className="text-[#8b939c] hover:text-[#ff0035] transition-colors">Sitemap</Link>

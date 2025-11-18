@@ -4,12 +4,13 @@ import { Wrench, Award, Users, Clock, Shield, Star } from "lucide-react";
 
 export default function Team() {
   return (
-    <div className="pt-32 pb-24 bg-white min-h-screen">
+    // Vertikaler Platz am Ende reduziert (pb-24 auf pb-12)
+    <div className="pt-32 pb-12 bg-white min-h-screen">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
+          className="text-center mb-10" // mb-16 auf mb-10 reduziert
         >
           <h1 className="text-5xl font-bold text-[#0e131f] mb-6">
             Über M&M Reifenservice
@@ -19,12 +20,12 @@ export default function Team() {
           </p>
         </motion.div>
 
-        {/* Company Info */}
+        {/* Company Info - Jetzt kompakter und mit weniger Abstand nach unten */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-[#59546c]/5 rounded-2xl p-8 md:p-12 mb-16"
+          className="bg-[#59546c]/5 rounded-2xl p-10 mb-10" // mb-16 auf mb-10 reduziert, Padding kompakter
         >
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl font-bold text-[#0e131f] mb-6">
@@ -43,20 +44,21 @@ export default function Team() {
           </div>
         </motion.div>
 
-        {/* Our Values */}
-        <div className="mb-16">
+        {/* Our Values - Abstand nach unten und zum Titel reduziert */}
+        <div className="mb-10"> {/* mb-16 auf mb-10 reduziert */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-8" // Abstand zu den Kacheln reduziert (mb-12 auf mb-8)
           >
             <h2 className="text-3xl font-bold text-[#0e131f] mb-4">
               Unsere Stärken
             </h2>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          {/* Grid Kacheln - Abstand auf gap-12 erhöht (luftiger) */}
+          <div className="grid md:grid-cols-3 gap-12"> 
             {[
               {
                 icon: Clock,
@@ -97,7 +99,7 @@ export default function Team() {
                 transition={{ delay: index * 0.1 }}
                 className="bg-white rounded-xl p-8 shadow-lg border border-gray-100 hover:shadow-2xl transition-all"
               >
-                <div className="w-16 h-16 bg-[#ff0035]/10 rounded-full flex items-center justify-center mb-6">
+                <div className="w-16 h-16 bg-[#ff0035]/10 rounded-full flex items-center justify-center mx-auto mb-6">
                   <item.icon className="w-8 h-8 text-[#ff0035]" />
                 </div>
                 <h3 className="text-xl font-bold text-[#0e131f] mb-3">{item.title}</h3>
@@ -107,12 +109,12 @@ export default function Team() {
           </div>
         </div>
 
-        {/* CTA Section */}
+        {/* CTA Section - Abstand zum letzten Element reduziert, mt-10 hinzugefügt */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-[#ff0035] rounded-2xl p-12 text-center text-white"
+          className="bg-[#ff0035] rounded-2xl p-12 text-center text-white mt-10" // mt-10 (40px) für klare Trennung
         >
           <h2 className="text-3xl font-bold mb-4">
             Überzeugen Sie sich selbst!

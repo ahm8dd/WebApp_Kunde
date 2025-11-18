@@ -292,18 +292,18 @@ export default function TyreStock() {
             <div>
               <h3 className="text-xl font-bold mb-2">Reifen nicht dabei?</h3>
               <p className="mb-4">
-                Wir können fast jeden Reifen innerhalb von 24-48 Stunden für Sie bestellen.
+                Wir können jeden Reifen innerhalb von 24-48 Stunden für Sie bestellen.
                 Rufen Sie uns an oder schreiben Sie uns eine E-Mail.
               </p>
               <div className="flex gap-3">
                 <a
-                  href="tel:+4920112345678"
+                  href="tel:+4920125908194"
                   className="bg-white text-[#ff0035] px-6 py-2 rounded-lg font-medium hover:bg-gray-100 transition-colors"
                 >
                   Jetzt anrufen
                 </a>
                 <a
-                  href="mailto:info@mm-reifen.de"
+                  href="mailto:info@mmreifenessen.de"
                   className="bg-[#0e131f] text-white px-6 py-2 rounded-lg font-medium hover:bg-[#2a2f42] transition-colors"
                 >
                   E-Mail schreiben

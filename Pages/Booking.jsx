@@ -6,7 +6,7 @@ import { Calendar, Clock, User, Mail, Phone, MessageSquare, CheckCircle, X } fro
 const services = [
   {
     name: "Reifenwechsel",
-    price: 20,
+    price: 45,
     duration: "30 min",
     description: "Schneller Austausch für alle Fahrzeuge"
   },
@@ -24,9 +24,9 @@ const services = [
   },
   {
     name: "Einlagerung",
-    price: 5,
+    price: 25,
     duration: "15 min",
-    description: "Sichere Lagerung für Saisonreifen (pro Monat)"
+    description: "Sichere Lagerung für Saisonreifen (pro Saison)"
   }
 ];
 
@@ -468,7 +468,7 @@ export default function BookingPage() {
               <div className="bg-orange-50 border border-orange-200 rounded-xl p-4 text-left">
                 <p className="text-sm text-orange-800">
                   <strong>📍 Adresse:</strong> Sulterkamp 58, 45356 Essen<br/>
-                  <strong>📞 Telefon:</strong> +49 201 1234 5678
+                  <strong>📞 Telefon:</strong> +49 201 25908194
                 </p>
               </div>
 
