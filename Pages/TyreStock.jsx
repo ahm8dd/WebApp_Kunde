@@ -303,22 +303,32 @@ export default function TyreStock() {
             <div>
               <h3 className="text-xl font-bold mb-2">Reifen nicht dabei?</h3>
               <p className="mb-4">
-                Wir können fast jeden Reifen innerhalb von 24-48 Stunden für Sie bestellen.
+                Wir können jeden Reifen innerhalb von 24-48 Stunden für Sie bestellen.
                 Rufen Sie uns an oder schreiben Sie uns eine E-Mail.
               </p>
               <div className="flex gap-3">
                 <a
+<<<<<<< HEAD
                   href={`tel:${BUSINESS_PHONE.replace(/\s/g, '')}`}
                   className={`bg-white px-6 py-2 rounded-lg font-medium hover:bg-gray-100 transition-colors flex items-center gap-2`}
                   style={{ color: ACCENT_COLOR }}
+=======
+                  href="tel:+4920125908194"
+                  className="bg-white text-[#ff0035] px-6 py-2 rounded-lg font-medium hover:bg-gray-100 transition-colors"
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
                 >
                   <Phone className="w-4 h-4" />
                   Jetzt anrufen
                 </a>
                 <a
+<<<<<<< HEAD
                   href={`mailto:${BUSINESS_EMAIL}`}
                   className={`px-6 py-2 rounded-lg font-medium hover:bg-[#4d5678] transition-colors flex items-center gap-2`}
                   style={{ backgroundColor: DARK_COLOR }}
+=======
+                  href="mailto:info@mmreifenessen.de"
+                  className="bg-[#0e131f] text-white px-6 py-2 rounded-lg font-medium hover:bg-[#2a2f42] transition-colors"
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
                 >
                   <Mail className="w-4 h-4" />
                   E-Mail schreiben

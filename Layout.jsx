@@ -46,7 +46,7 @@ export default function Layout({ children, currentPageName }) {
 
   React.useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 80);
+      setIsScrolled(window.scrollY > 100); 
     };
 
     const scrollHandler = (e) => handleScroll();
@@ -109,6 +109,7 @@ export default function Layout({ children, currentPageName }) {
 
   return (
     <div className="min-h-screen bg-white font-sans">
+<<<<<<< HEAD
       <style jsx>{`
         :root {
           --primary-red: ${ACCENT_COLOR};
@@ -142,6 +143,8 @@ export default function Layout({ children, currentPageName }) {
         }
       `}</style>
       
+=======
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
       {/* SEO Components */}
       <SEO 
         title={currentSEO.title}
@@ -152,22 +155,28 @@ export default function Layout({ children, currentPageName }) {
 
       {/* Navigation */}
       <nav 
-        className="fixed top-0 left-0 right-0 z-50 glass-nav py-3 nav-transition"
+        className={`fixed top-0 left-0 right-0 z-50 py-3 transition-all duration-300 ${
+          isScrolled 
+            ? 'bg-[#0e131f] shadow-lg border-b border-[#38405f]'
+            : 'bg-[#0e131f]/90 md:bg-transparent md:backdrop-blur-sm'
+        }`}
         role="navigation"
         aria-label="Hauptnavigation"
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between">
-            {/* Logo */}
+            {/* Logo - FIXED: Much smaller size */}
             <Link 
               to="/" 
-              className="flex items-center"
+              className="flex items-center w-auto max-w-[120px]" 
               aria-label="M&M Reifenservice - Zur Startseite"
             >
               <img 
                 src={LogoImg} // LOKALER IMPORT
                 alt="M&M Reifenservice Logo" 
-                className="h-14 w-auto object-contain"
+                className={`h-10 w-auto object-contain transition-all duration-300 ${
+                  isScrolled ? 'brightness-100' : 'brightness-125'
+                }`}
                 style={{ imageRendering: 'crisp-edges' }}
               />
             </Link>
@@ -180,8 +189,13 @@ export default function Layout({ children, currentPageName }) {
                   to={item.url}
                   className={`text-sm font-medium px-3 py-2 transition-all duration-300 hover:text-[${ACCENT_COLOR}] ${
                     location.pathname === item.url 
+<<<<<<< HEAD
                       ? `text-[${ACCENT_COLOR}]` 
                       : 'text-white/90'
+=======
+                      ? 'text-[#ff0035] border-b-2 border-[#ff0035] pb-1'
+                      : isScrolled ? 'text-white/90' : 'text-white'
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
                   }`}
                   aria-current={location.pathname === item.url ? 'page' : undefined}
                 >
@@ -194,11 +208,15 @@ export default function Layout({ children, currentPageName }) {
             <div className="hidden lg:block">
               <button 
                 onClick={() => window.dispatchEvent(new CustomEvent('open-booking-modal'))}
+<<<<<<< HEAD
                 className={`text-white px-6 py-3 rounded-lg text-sm font-semibold hover:bg-[#d9002d] transition-all hover:scale-105 shadow-lg`}
                 style={{ backgroundColor: ACCENT_COLOR }}
+=======
+                className="bg-[#ff0035] text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-[#d9002d] transition-all hover:scale-105 shadow-xl"
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
                 aria-label="Online Termin buchen"
               >
-                Jetzt buchen
+                Jetzt buchen 
               </button>
             </div>
 
@@ -236,8 +254,12 @@ export default function Layout({ children, currentPageName }) {
                 setIsMenuOpen(false);
                 window.dispatchEvent(new CustomEvent('open-booking-modal'));
               }}
+<<<<<<< HEAD
               className={`mt-8 text-white px-8 py-4 rounded-lg text-lg font-medium hover:bg-[#d9002d]`}
               style={{ backgroundColor: ACCENT_COLOR }}
+=======
+              className="mt-8 bg-[#ff0035] text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-[#d9002d]"
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
             >
               Jetzt buchen
             </button>
@@ -251,7 +273,11 @@ export default function Layout({ children, currentPageName }) {
       </main>
 
       {/* Footer */}
+<<<<<<< HEAD
       <footer className="text-white" style={{ backgroundColor: DARK_COLOR }} role="contentinfo">
+=======
+      <footer className="bg-[#0e131f] text-white border-t-8 border-[#ff0035]" role="contentinfo">
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
             {/* Brand */}
@@ -260,80 +286,126 @@ export default function Layout({ children, currentPageName }) {
                 <img 
                   src={LogoImg} // LOKALER IMPORT
                   alt="M&M Reifenservice Logo" 
-                  className="h-12 w-auto object-contain mb-4"
+                  className="h-14 w-auto object-contain mb-4 filter brightness-125"
                 />
               </div>
+<<<<<<< HEAD
               <p className={`text-sm mb-6`} style={{ color: LIGHT_TEXT_COLOR }}>
                 Schneller, professioneller Reifenservice in Essen.
+=======
+              <p className="text-sm text-[#8b939c] mb-6">
+                Ihr Profi für schnellen, professionellen Reifenservice in Essen.
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
               </p>
               <div className="flex gap-4">
                 <a 
                   href="https://instagram.com/mmreifen" 
                   target="_blank"
                   rel="noopener noreferrer"
+<<<<<<< HEAD
                   className={`w-10 h-10 rounded-full flex items-center justify-center hover:bg-[#d9002d] transition-colors`}
                   style={{ backgroundColor: ACCENT_COLOR }}
+=======
+                  className="w-10 h-10 bg-[#38405f] rounded-full flex items-center justify-center hover:bg-[#ff0035] transition-colors"
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
                   aria-label="Besuchen Sie uns auf Instagram"
                 >
-                  <Instagram className="w-5 h-5" />
+                  <Instagram className="w-5 h-5 text-white" />
                 </a>
                 <a 
                   href="https://tiktok.com/@mm.reifen" 
                   target="_blank"
                   rel="noopener noreferrer"
+<<<<<<< HEAD
                   className={`w-10 h-10 rounded-full flex items-center justify-center hover:bg-[#d9002d] transition-colors`}
                   style={{ backgroundColor: ACCENT_COLOR }}
+=======
+                  className="w-10 h-10 bg-[#38405f] rounded-full flex items-center justify-center hover:bg-[#ff0035] transition-colors"
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
                   aria-label="Folgen Sie uns auf TikTok"
                 >
-                  <TikTokIcon className="w-5 h-5" />
+                  <TikTokIcon className="w-5 h-5 text-white" />
                 </a>
               </div>
             </div>
 
-            {/* Services */}
+            {/* Navigation & Info Sections */}
             <div>
+<<<<<<< HEAD
               <h3 className={`text-lg font-semibold mb-6`} style={{ color: ACCENT_COLOR }}>Unsere Services</h3>
               <ul className="space-y-3 text-sm">
                 <li><Link to={createPageUrl("Services")} className={`hover:text-[${ACCENT_COLOR}] transition-colors`} style={{ color: LIGHT_TEXT_COLOR }}>Reifenwechsel</Link></li>
                 <li><Link to={createPageUrl("Services")} className={`hover:text-[${ACCENT_COLOR}] transition-colors`} style={{ color: LIGHT_TEXT_COLOR }}>Auswuchten</Link></li>
                 <li><Link to={createPageUrl("Services")} className={`hover:text-[${ACCENT_COLOR}] transition-colors`} style={{ color: LIGHT_TEXT_COLOR }}>Reparatur</Link></li>
                 <li><Link to={createPageUrl("Services")} className={`hover:text-[${ACCENT_COLOR}] transition-colors`} style={{ color: LIGHT_TEXT_COLOR }}>Einlagerung</Link></li>
+=======
+              <h3 className="text-lg font-semibold mb-6 text-white border-b border-[#38405f] pb-2">Unsere Services</h3>
+              <ul className="space-y-3 text-sm">
+                <li><Link to={createPageUrl("Services")} className="text-[#8b939c] hover:text-white transition-colors">Reifenwechsel</Link></li>
+                <li><Link to={createPageUrl("Services")} className="text-[#8b939c] hover:text-white transition-colors">Auswuchten</Link></li>
+                <li><Link to={createPageUrl("Services")} className="text-[#8b939c] hover:text-white transition-colors">Reparatur</Link></li>
+                <li><Link to={createPageUrl("Services")} className="text-[#8b939c] hover:text-white transition-colors">Einlagerung</Link></li>
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
               </ul>
             </div>
 
-            {/* Contact */}
             <div>
+<<<<<<< HEAD
               <h3 className={`text-lg font-semibold mb-6`} style={{ color: ACCENT_COLOR }}>Kontakt</h3>
+=======
+              <h3 className="text-lg font-semibold mb-6 text-white border-b border-[#38405f] pb-2">Kontakt</h3>
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
               <address className="space-y-4 text-sm not-italic">
                 <div className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 flex-shrink-0" style={{ color: ACCENT_COLOR }} />
                   <span style={{ color: LIGHT_TEXT_COLOR }}>{BUSINESS_DATA.address}</span>
                 </div>
                 <div className="flex items-center gap-3">
+<<<<<<< HEAD
                   <Phone className="w-5 h-5" style={{ color: ACCENT_COLOR }} />
                   <a href={`tel:${BUSINESS_DATA.phone.replace(/\s/g, '')}`} className={`hover:text-[${ACCENT_COLOR}] transition-colors`} style={{ color: LIGHT_TEXT_COLOR }}>{BUSINESS_DATA.phone}</a>
                 </div>
                 <div className="flex items-center gap-3">
                   <Mail className="w-5 h-5" style={{ color: ACCENT_COLOR }} />
                   <a href={`mailto:${BUSINESS_DATA.email}`} className={`hover:text-[${ACCENT_COLOR}] transition-colors`} style={{ color: LIGHT_TEXT_COLOR }}>{BUSINESS_DATA.email}</a>
+=======
+                  <Phone className="w-5 h-5 text-[#ff0035]" />
+                  <a href="tel:+4920125908194" className="text-[#8b939c] hover:text-[#ff0035] transition-colors">+49 201 25908194</a>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Mail className="w-5 h-5 text-[#ff0035]" />
+                  <a href="mailto:info@mmreifenessen.de" className="text-[#8b939c] hover:text-[#ff0035] transition-colors">info@mmreifenessen.de</a>
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
                 </div>
               </address>
             </div>
 
-            {/* Hours */}
             <div>
+<<<<<<< HEAD
               <h3 className={`text-lg font-semibold mb-6`} style={{ color: ACCENT_COLOR }}>Öffnungszeiten</h3>
               <div className="space-y-2 text-sm" style={{ color: LIGHT_TEXT_COLOR }}>
                 <p>Mo - Fr: {BUSINESS_DATA.openingHours.weekdays}</p>
                 <p>Sa: {BUSINESS_DATA.openingHours.saturday}</p>
                 <p>So: {BUSINESS_DATA.openingHours.sunday}</p>
+=======
+              <h3 className="text-lg font-semibold mb-6 text-white border-b border-[#38405f] pb-2">Öffnungszeiten</h3>
+              <div className="space-y-2 text-sm text-[#8b939c]">
+                <p>Mo - Fr: <span className="text-white">9:00 - 18:00 Uhr</span></p>
+                <p>Sa: <span className="text-white">9:00 - 15:00 Uhr</span></p>
+                <p className="text-[#ff0035] font-medium">So: Geschlossen</p>
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
               </div>
             </div>
           </div>
 
           {/* Bottom Bar */}
+<<<<<<< HEAD
           <div className="mt-12 pt-8 border-t flex flex-col md:flex-row justify-between items-center gap-4" style={{ borderColor: MEDIUM_BLUE }}>
             <p className="text-sm" style={{ color: LIGHT_TEXT_COLOR }}>
+=======
+          <div className="mt-12 pt-8 border-t border-[#38405f] flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-sm text-[#8b939c]">
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
               © 2025 M&M Reifenservice. Alle Rechte vorbehalten.
             </p>
             <nav className="flex gap-6 text-sm" aria-label="Footer Navigation">

@@ -85,7 +85,11 @@ export default function BookingNotifications() {
             Neue Buchungsanfragen
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">
+<<<<<<< HEAD
             Verwalten und verfolgen Sie alle eingehenden Terminanfragen von Ihrer Website.
+=======
+            Manage and track all incoming appointment bookings from your website.
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
           </p>
         </div>
 

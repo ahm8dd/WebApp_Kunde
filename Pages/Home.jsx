@@ -78,9 +78,15 @@ const features = [
 
 export default function Home() {
   return (
+<<<<<<< HEAD
     <div> 
       {/* Hero Section (BLEIBT DUNKEL) */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24">
+=======
+    <div>
+      {/* Hero Section - min-h-screen entfernt, um unnötigen Leerraum zu vermeiden */}
+      <section className="relative overflow-hidden">
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
@@ -92,8 +98,8 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-r from-[#0e131f]/95 via-[#0e131f]/80 to-transparent" /> 
         </div>
 
-        {/* Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 pt-32 pb-16">
+        {/* Content - NEU: pt-32 (um die Navigationsleiste zu umgehen) und pb-12 (kompakter) */}
+        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 pt-32 pb-12"> 
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -124,8 +130,8 @@ export default function Home() {
               ))}
             </div>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
+            {/* CTA Buttons - Abstände beibehalten */}
+            <div className="flex flex-col sm:flex-row gap-8 sm:gap-12">
               <button
                 onClick={() => window.dispatchEvent(new CustomEvent('open-booking-modal'))}
                 className={`bg-[#ff0035] text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#d9002d] transition-all hover:scale-105 shadow-xl flex items-center justify-center gap-2`}
@@ -172,14 +178,19 @@ export default function Home() {
         {/* ÜBERGANG 1 WURDE ENTFERNT */}
       </section>
 
+<<<<<<< HEAD
       {/* Services Section (Bleibt weiß) */}
       <section className="py-20 bg-white">
+=======
+      {/* Services Section - Vertikaler Abstand aggressiv reduziert (py-12) */}
+      <section className="py-12 bg-white">
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-12" // KORRIGIERT: Abstand zur darunterliegenden Sektion
           >
             <h2 className="text-4xl md:text-5xl font-bold text-[#0e131f] mb-4">
               Unsere Services
@@ -189,7 +200,8 @@ export default function Home() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Horizontaler Abstand (gap-16) bleibt für sauberes Design */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-16">
             {services.map((service, index) => (
               <motion.div
                 key={service.id}
@@ -230,21 +242,26 @@ export default function Home() {
         </div>
       </section>
 
+<<<<<<< HEAD
       {/* Why Choose Us (Bleibt Original-Off-White) */}
       <section className="py-20 bg-[#59546c]/10">
+=======
+      {/* Why Choose Us - Vertikaler Abstand aggressiv reduziert (py-12) */}
+      <section className="py-12 bg-[#59546c]/10">
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-12" // KORRIGIERT
           >
             <h2 className="text-4xl md:text-5xl font-bold text-[#0e131f] mb-4">
               Warum M&M Reifenservice?
             </h2>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-16">
             {[
               { icon: Clock, title: "Schnell & Effizient", desc: "Service in unter 30 Minuten" },
               { icon: Shield, title: "Qualität & Sicherheit", desc: "Zertifizierte Mechaniker" },
@@ -269,21 +286,26 @@ export default function Home() {
         </div>
       </section>
 
+<<<<<<< HEAD
       {/* Testimonials (Bleibt weiß) */}
       <section className="py-20 bg-white relative"> 
+=======
+      {/* Testimonials - Vertikaler Abstand aggressiv reduziert (py-12) */}
+      <section className="py-12 bg-white">
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-12" // KORRIGIERT
           >
             <h2 className="text-4xl md:text-5xl font-bold text-[#0e131f] mb-4">
               Was unsere Kunden sagen
             </h2>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-16">
             {testimonials.map((testimonial, index) => (
               <motion.div
                 key={index}
@@ -311,8 +333,13 @@ export default function Home() {
         {/* ÜBERGANG 2 WURDE ENTFERNT */}
       </section>
 
+<<<<<<< HEAD
       {/* CTA Section (Bleibt rot) */}
       <section className="py-20 bg-[#ff0035] text-white">
+=======
+      {/* CTA Section - Vertikaler Abstand aggressiv reduziert (py-12) */}
+      <section className="py-12 bg-[#ff0035] text-white">
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

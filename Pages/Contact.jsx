@@ -34,11 +34,20 @@ export default function Contact() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
+<<<<<<< HEAD
           <h1 className={`text-5xl font-bold mb-6`} style={{ color: DARK_COLOR }}>
             Ihr Reifenservice in Essen
           </h1>
           <p className={`text-xl`} style={{ color: MEDIUM_COLOR }}>
             Wir freuen uns auf Ihren Besuch am Sulterkamp 58
+=======
+          <h1 className="text-5xl font-bold text-[#0e131f] mb-6">
+            Besuchen Sie uns jetzt!
+          </h1>
+          <p className="text-xl text-[#8b939c]">
+            Wir freuen uns auf Ihren Besuch in Essen. Kontaktieren Sie uns für
+            Fragen oder Terminvereinbarungen.
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
           </p>
         </motion.div>
 
@@ -94,9 +103,15 @@ export default function Contact() {
                     <Phone className="w-6 h-6" style={{ color: ACCENT_COLOR }} />
                   </div>
                   <div>
+<<<<<<< HEAD
                     <h3 className={`font-bold mb-1`} style={{ color: DARK_COLOR }}>Telefon</h3>
                     <a href={`tel:${BUSINESS_DATA.phone.replace(/\s/g, '')}`} className={`text-lg hover:underline`} style={{ color: ACCENT_COLOR }}>
                       {BUSINESS_DATA.phone}
+=======
+                    <h3 className="font-bold text-[#0e131f] mb-1">Telefon</h3>
+                    <a href="tel:+4920125908194" className="text-[#ff0035] hover:text-[#d9002d]">
+                      +49 201 25908194 
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
                     </a>
                   </div>
                 </div>
@@ -107,9 +122,15 @@ export default function Contact() {
                     <Mail className="w-6 h-6" style={{ color: ACCENT_COLOR }} />
                   </div>
                   <div>
+<<<<<<< HEAD
                     <h3 className={`font-bold mb-1`} style={{ color: DARK_COLOR }}>E-Mail</h3>
                     <a href={`mailto:${BUSINESS_DATA.email}`} className={`text-lg hover:underline`} style={{ color: ACCENT_COLOR }}>
                       {BUSINESS_DATA.email}
+=======
+                    <h3 className="font-bold text-[#0e131f] mb-1">E-Mail</h3>
+                    <a href="mailto:info@mmreifenessen.de" className="text-[#ff0035] hover:text-[#d9002d]">
+                      info@mmreifenessen.de
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
                     </a>
                   </div>
                 </div>
@@ -120,6 +141,7 @@ export default function Contact() {
                     <Clock className="w-6 h-6" style={{ color: ACCENT_COLOR }} />
                   </div>
                   <div>
+<<<<<<< HEAD
                     <h3 className={`font-bold mb-2`} style={{ color: DARK_COLOR }}>Öffnungszeiten</h3>
                     <div className="space-y-1 text-sm" style={{ color: MEDIUM_COLOR }}>
                       {BUSINESS_DATA.openingHours.map((oh, index) => (
@@ -127,6 +149,13 @@ export default function Contact() {
                           {oh.day}: {oh.time}
                         </p>
                       ))}
+=======
+                    <h3 className="font-bold text-[#0e131f] mb-2">Öffnungszeiten</h3>
+                    <div className="space-y-1 text-[#8b939c]">
+                      <p>Mo - Fr: 9:00 - 18:00 Uhr</p>
+                      <p>Sa: 9:00 - 15:00 Uhr</p>
+                      <p className="text-[#ff0035] font-medium">So: Geschlossen</p>
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
                     </div>
                   </div>
                 </div>

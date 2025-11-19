@@ -56,8 +56,19 @@ export default function Datenschutz() {
                 <Database className="w-6 h-6" style={{ color: ACCENT_COLOR }} />
                 2. Hosting
               </h2>
+<<<<<<< HEAD
               <p>
                 Wir hosten die Inhalte unserer Website bei folgendem Anbieter: [Ihr Hosting-Anbieter]
+=======
+              <p className="text-[#8b939c]">
+                Wir hosten die Inhalte unserer Website bei folgendem Anbieter: [IONOS SE].<br /><br />
+                <strong>Datenschutzinformationen des Hosting-Anbieters:</strong><br />
+                Der Hosting-Anbieter erhebt, verarbeitet und nutzt Ihre Daten nur im Rahmen der gesetzlichen
+                Bestimmungen. Weitere Informationen hierzu finden Sie in der Datenschutzerklärung des Anbieters:
+                <a href="https://www.ionos.de/terms-gtc/privacy-policy/" className="text-[#ff0035] hover:underline">
+                  https://www.ionos.de/terms-gtc/privacy-policy/
+                </a>
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
               </p>
             </div>
 
@@ -76,11 +87,19 @@ export default function Datenschutz() {
               <h3 className={`text-lg font-bold mb-2`} style={{ color: DARK_COLOR }}>Hinweis zur verantwortlichen Stelle</h3>
               <p className="mb-4">
                 Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:<br /><br />
+<<<<<<< HEAD
                 **{BUSINESS_NAME}**<br />
                 {ADDRESS_LINE1}<br />
                 {ADDRESS_LINE2}<br /><br />
                 Telefon: **{PHONE}**<br />
                 E-Mail: **{EMAIL}**
+=======
+                M&M Reifenservice<br />
+                Sulterkamp 58<br />
+                45356 Essen<br /><br />
+                Telefon: +49 201 25908194<br />
+                E-Mail: info@mmreifenessen.de
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
               </p>
             </div>
 
@@ -144,8 +163,13 @@ export default function Datenschutz() {
                 direkt an die für den Datenschutz verantwortliche Person in unserer Organisation:
               </p>
               <p className="mt-3">
+<<<<<<< HEAD
                 <a href={`mailto:${DATENSCHUTZ_EMAIL}`} className={`hover:underline font-medium`} style={{ color: ACCENT_COLOR }}>
                   {DATENSCHUTZ_EMAIL}
+=======
+                <a href="mailto:info@mmreifenessen.de" className="text-[#ff0035] hover:underline font-medium">
+                  info@mmreifenessen.de
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
                 </a>
               </p>
             </div>

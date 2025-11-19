@@ -11,13 +11,18 @@ const MEDIUM_COLOR = "#8b939c"; // Mittelgrau (Text/Akzente)
 
 export default function Team() {
   return (
+<<<<<<< HEAD
     // Hintergrund auf BG_WHITE setzen
     <div className="pt-32 pb-24 min-h-screen bg-white">
+=======
+    // Vertikaler Platz am Ende reduziert (pb-24 auf pb-12)
+    <div className="pt-32 pb-12 bg-white min-h-screen">
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
+          className="text-center mb-10" // mb-16 auf mb-10 reduziert
         >
           <h1 className="text-5xl font-bold mb-6" style={{ color: DARK_COLOR }}>
             Über M&M Reifenservice
@@ -27,14 +32,18 @@ export default function Team() {
           </p>
         </motion.div>
 
-        {/* Company Info */}
+        {/* Company Info - Jetzt kompakter und mit weniger Abstand nach unten */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
+<<<<<<< HEAD
           // Hintergrund auf Original: leicht transparentes Graublau
           className={`rounded-2xl p-8 md:p-12 mb-16`}
           style={{ backgroundColor: LIGHT_BG + '0F' }} 
+=======
+          className="bg-[#59546c]/5 rounded-2xl p-10 mb-10" // mb-16 auf mb-10 reduziert, Padding kompakter
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
         >
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-6" style={{ color: DARK_COLOR }}>
@@ -53,20 +62,21 @@ export default function Team() {
           </div>
         </motion.div>
 
-        {/* Our Values */}
-        <div className="mb-16">
+        {/* Our Values - Abstand nach unten und zum Titel reduziert */}
+        <div className="mb-10"> {/* mb-16 auf mb-10 reduziert */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-8" // Abstand zu den Kacheln reduziert (mb-12 auf mb-8)
           >
             <h2 className="text-3xl font-bold mb-4" style={{ color: DARK_COLOR }}>
               Unsere Stärken
             </h2>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          {/* Grid Kacheln - Abstand auf gap-12 erhöht (luftiger) */}
+          <div className="grid md:grid-cols-3 gap-12"> 
             {[
               {
                 icon: Clock,
@@ -107,8 +117,13 @@ export default function Team() {
                 transition={{ delay: index * 0.1 }}
                 className="bg-white rounded-xl p-8 shadow-lg border border-gray-100 hover:shadow-2xl transition-all"
               >
+<<<<<<< HEAD
                 <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-6`} style={{ backgroundColor: ACCENT_COLOR + '10' }}>
                   <item.icon className="w-8 h-8" style={{ color: ACCENT_COLOR }} />
+=======
+                <div className="w-16 h-16 bg-[#ff0035]/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <item.icon className="w-8 h-8 text-[#ff0035]" />
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
                 </div>
                 <h3 className="text-xl font-bold mb-3" style={{ color: DARK_COLOR }}>{item.title}</h3>
                 <p style={{ color: MEDIUM_COLOR }}>{item.description}</p>
@@ -117,13 +132,17 @@ export default function Team() {
           </div>
         </div>
 
-        {/* CTA Section */}
+        {/* CTA Section - Abstand zum letzten Element reduziert, mt-10 hinzugefügt */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+<<<<<<< HEAD
           className={`rounded-2xl p-12 text-center text-white`}
           style={{ backgroundColor: ACCENT_COLOR }}
+=======
+          className="bg-[#ff0035] rounded-2xl p-12 text-center text-white mt-10" // mt-10 (40px) für klare Trennung
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
         >
           <h2 className="text-3xl font-bold mb-4">
             Überzeugen Sie sich selbst!
