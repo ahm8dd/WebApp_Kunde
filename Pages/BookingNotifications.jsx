@@ -66,7 +66,7 @@ export default function BookingNotifications() {
             Booking Notifications
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Manage and track all incoming appointment bookings from your salon website.
+            Manage and track all incoming appointment bookings from your website.
           </p>
         </div>
 

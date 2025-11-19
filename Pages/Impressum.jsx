@@ -23,7 +23,7 @@ export default function Impressum() {
               </h2>
               <div className="space-y-2">
                 <p className="font-bold text-lg">M&M Reifenservice</p>
-                <p>Inhaber: [Ihr Name]</p>
+                <p>Inhaber: [Mohamad Mouait]</p>
               </div>
             </div>
 
@@ -45,8 +45,8 @@ export default function Impressum() {
                 Kontakt
               </h2>
               <div className="space-y-2">
-                <p><strong>Telefon:</strong> <a href="tel:+4920112345678" className="text-[#ff0035] hover:underline">+49 201 1234 5678</a></p>
-                <p><strong>E-Mail:</strong> <a href="mailto:info@mm-reifen.de" className="text-[#ff0035] hover:underline">info@mm-reifen.de</a></p>
+                <p><strong>Telefon:</strong> <a href="tel:0201 25908194" className="text-[#ff0035] hover:underline">+49 201 1234 5678</a></p>
+                <p><strong>E-Mail:</strong> <a href="mailto:info@mmreifenessen.de" className="text-[#ff0035] hover:underline">info@mm-reifen.de</a></p>
               </div>
             </div>
 
@@ -61,7 +61,7 @@ export default function Impressum() {
             <div className="bg-[#59546c]/5 rounded-xl p-6">
               <h2 className="text-2xl font-bold text-[#0e131f] mb-4">Verantwortlich für den Inhalt</h2>
               <p>
-                [Ihr Name]<br />
+                [Mohamad Mouait]<br />
                 Sulterkamp 58<br />
                 45356 Essen
               </p>

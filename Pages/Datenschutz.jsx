@@ -42,7 +42,13 @@ export default function Datenschutz() {
                 2. Hosting
               </h2>
               <p className="text-[#8b939c]">
-                Wir hosten die Inhalte unserer Website bei folgendem Anbieter: [Ihr Hosting-Anbieter]
+                Wir hosten die Inhalte unserer Website bei folgendem Anbieter: [IONOS SE].<br /><br />
+                <strong>Datenschutzinformationen des Hosting-Anbieters:</strong><br />
+                Der Hosting-Anbieter erhebt, verarbeitet und nutzt Ihre Daten nur im Rahmen der gesetzlichen
+                Bestimmungen. Weitere Informationen hierzu finden Sie in der Datenschutzerklärung des Anbieters:
+                <a href="https://www.ionos.de/terms-gtc/privacy-policy/" className="text-[#ff0035] hover:underline">
+                  https://www.ionos.de/terms-gtc/privacy-policy/
+                </a>
               </p>
             </div>
 
@@ -64,8 +70,8 @@ export default function Datenschutz() {
                 M&M Reifenservice<br />
                 Sulterkamp 58<br />
                 45356 Essen<br /><br />
-                Telefon: +49 201 1234 5678<br />
-                E-Mail: info@mm-reifen.de
+                Telefon: +49 201 25908194<br />
+                E-Mail: info@mmreifenessen.de
               </p>
             </div>
 
@@ -129,8 +135,8 @@ export default function Datenschutz() {
                 direkt an die für den Datenschutz verantwortliche Person in unserer Organisation:
               </p>
               <p className="mt-3">
-                <a href="mailto:datenschutz@mm-reifen.de" className="text-[#ff0035] hover:underline font-medium">
-                  datenschutz@mm-reifen.de
+                <a href="mailto:info@mmreifenessen.de" className="text-[#ff0035] hover:underline font-medium">
+                  info@mmreifenessen.de
                 </a>
               </p>
             </div>

@@ -12,10 +12,11 @@ export default function Contact() {
           className="text-center mb-16"
         >
           <h1 className="text-5xl font-bold text-[#0e131f] mb-6">
-            Besuchen Sie uns
+            Besuchen Sie uns jetzt!
           </h1>
           <p className="text-xl text-[#8b939c]">
-            Wir freuen uns auf Ihren Besuch in Essen-Sulterkamp
+            Wir freuen uns auf Ihren Besuch in Essen. Kontaktieren Sie uns für
+            Fragen oder Terminvereinbarungen.
           </p>
         </motion.div>
 
@@ -65,8 +66,8 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="font-bold text-[#0e131f] mb-1">Telefon</h3>
-                    <a href="tel:+4920112345678" className="text-[#ff0035] hover:text-[#d9002d]">
-                      +49 201 1234 5678
+                    <a href="tel:+4920125908194" className="text-[#ff0035] hover:text-[#d9002d]">
+                      +49 201 25908194 
                     </a>
                   </div>
                 </div>
@@ -77,8 +78,8 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="font-bold text-[#0e131f] mb-1">E-Mail</h3>
-                    <a href="mailto:info@mm-reifen.de" className="text-[#ff0035] hover:text-[#d9002d]">
-                      info@mm-reifen.de
+                    <a href="mailto:info@mmreifenessen.de" className="text-[#ff0035] hover:text-[#d9002d]">
+                      info@mmreifenessen.de
                     </a>
                   </div>
                 </div>
@@ -90,7 +91,7 @@ export default function Contact() {
                   <div>
                     <h3 className="font-bold text-[#0e131f] mb-2">Öffnungszeiten</h3>
                     <div className="space-y-1 text-[#8b939c]">
-                      <p>Mo - Fr: 8:00 - 18:00 Uhr</p>
+                      <p>Mo - Fr: 9:00 - 18:00 Uhr</p>
                       <p>Sa: 9:00 - 15:00 Uhr</p>
                       <p className="text-[#ff0035] font-medium">So: Geschlossen</p>
                     </div>
