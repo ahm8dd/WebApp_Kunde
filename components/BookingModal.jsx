@@ -6,25 +6,25 @@ import { Calendar, Clock, User, Mail, Phone, MessageSquare, Check, X } from "luc
 const services = [
   {
     name: "Reifenwechsel",
-    price: 20,
+    price: 25,
     duration: "30 min",
     description: "Schneller Austausch für alle Fahrzeuge"
   },
   {
     name: "Auswuchten",
-    price: 25,
+    price: 40,
     duration: "30 min",
     description: "Perfektes Gleichgewicht für besseres Handling"
   },
   {
     name: "Reparatur",
-    price: 30,
+    price: 15,
     duration: "45 min",
     description: "Professionelle Reparatur von Reifenschäden"
   },
   {
     name: "Einlagerung",
-    price: 5,
+    price: 25,
     duration: "15 min",
     description: "Sichere Lagerung für Saisonreifen (pro Monat)"
   }

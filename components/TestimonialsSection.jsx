@@ -1,55 +1,58 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
 
+// Werkstatt-Akzentfarbe
+const PRIMARY_COLOR = "#005691";
+const ACCENT_COLOR_CLASS = `text-[${PRIMARY_COLOR}]`;
+
 const testimonials = [
   {
     id: 1,
-    name: "Sunita Verma",
-    role: "Manager",
-    rating: 4,
-    text: "A truly professional and rejuvenating experience. The staff is courteous and the ambiance is perfect for relaxation. I left feeling refreshed and renewed. Highly recommended for anyone seeking a premium spa service in the city.",
+    name: "Thomas Schmidt",
+    role: "Aussendienstmitarbeiter",
+    rating: 5,
+    text: "Absolut professionell und unglaublich schnell! Mein Reifenwechsel war in unter 20 Minuten erledigt, und das Auswuchten war perfekt. Der Service ist erstklassig, und die Preise sind fair. Der beste Reifenservice in Essen!",
     image_url: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/8e0908ef4_image.png?w=800&q=90"
   },
   {
     id: 2,
-    name: "Priya Sharma",
-    role: "Fashion Designer",
+    name: "Laura Wagner",
+    role: "Studentin",
     rating: 5,
-    text: "SERENITY has completely transformed my beauty routine. The highly skilled professionals and premium equipment deliver results that exceed expectations. Every visit feels like a luxury retreat in the heart of Kolkata.",
+    text: "Ich habe meine Winterreifen hier eingelagert. Alles verlief reibungslos, das Personal war sehr freundlich und hat mir alles genau erklärt. Fühle mich hier sehr gut aufgehoben und werde definitiv wiederkommen.",
     image_url: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/845cb87f5_image.png?w=800&q=90"
   },
   {
     id: 3,
-    name: "Anjali Das",
-    role: "Corporate Executive",
+    name: "Michael Berger",
+    role: "Handwerker",
     rating: 4,
-    text: "The attention to detail and professional expertise at SERENITY is unmatched. Their state-of-the-art equipment and skilled staff make every treatment a perfect experience. I wouldn't trust my skin and wellness to anyone else.",
+    text: "Top-Leistung, wenn es um Felgeninstandsetzung geht. Meine Felgen sehen wieder aus wie neu, und das zu einem vernünftigen Preis. Die Expertise und Sorgfalt sind unübertroffen. Ich kann diese Werkstatt nur empfehlen.",
     image_url: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/1acf8ba01_image.png?w=800&q=90"
   },
   {
     id: 4,
-    name: "Ritu Banerjee",
-    role: "Entrepreneur",
+    name: "Sabine Koch",
+    role: "Unternehmensinhaberin",
     rating: 5,
-    text: "From the moment you enter SERENITY, you know you're in for something special. The combination of luxury ambiance, professional staff, and cutting-edge treatments creates an experience that's truly transformative.",
+    text: "Vom ersten Anruf bis zur Abholung des Wagens: schnelle Terminvergabe, klare Kommunikation und hervorragende Arbeit. Ich schätze die Transparenz und die ehrliche Beratung sehr. So muss ein Reifenservice sein!",
     image_url: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/088f1f218_image.png?w=800&q=90"
   },
   {
     id: 5,
-    name: "Meera Singh",
-    role: "Doctor",
+    name: "Dr. Peter Müller",
+    role: "Chemiker",
     rating: 4,
-    text: "As a healthcare professional, I appreciate SERENITY's commitment to using premium equipment and maintaining the highest standards. The skilled therapists understand exactly what my body needs for complete rejuvenation.",
+    text: "Als Vielfahrer brauche ich einen zuverlässigen Partner. M&M Reifenservice bietet genau das: qualifizierte Montage und Premium-Reifen. Kein Vibrieren, perfekte Spurhaltung. Die Investition in Qualität lohnt sich hier.",
     image_url: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/7cf2b68ad_image.png?w=800&q=90"
   },
   {
     id: 6,
-    name: "Kavita Roy",
-    role: "Business Owner",
+    name: "Jennifer Roy",
+    role: "Projektmanagerin",
     rating: 5,
-    text: "SERENITY sets the gold standard for luxury wellness in Kolkata. The professional expertise combined with world-class equipment ensures every treatment delivers exceptional results. It's my personal sanctuary for beauty and wellness.",
+    text: "Ich hatte einen Platten, und sie haben mir sofort geholfen. Die Reifenreparatur war schnell und super günstig. Der Service ist freundlich und lösungsorientiert. Mein neuer Lieblings-Reifenservice in Essen!",
     image_url: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/2ffc407b6_image.png?w=800&q=90"
   }
 ];
@@ -62,9 +65,11 @@ export default function TestimonialsSection() {
   // Function to start the automatic slideshow
   const startSlideshow = () => {
     if (intervalRef.current) clearInterval(intervalRef.current);
+    // Beachte: Timer auf 2000ms (2 Sekunden) ist sehr schnell für Lesbarkeit,
+    // evtl. auf 5000ms erhöhen (5s)
     intervalRef.current = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
-    }, 2000);
+    }, 5000); // Erhöht auf 5 Sekunden für bessere Lesbarkeit
   };
 
   // Function to reset the slideshow timer (used after manual interaction)
@@ -105,7 +110,7 @@ export default function TestimonialsSection() {
 
   return (
     <section
-      className="py-12 relative overflow-hidden"
+      className="py-12 relative overflow-hidden bg-gray-50" // Leichter Hintergrund
       onMouseEnter={() => clearInterval(intervalRef.current)}
       onMouseLeave={startSlideshow}
     >
@@ -118,10 +123,11 @@ export default function TestimonialsSection() {
             viewport={{ once: true }}
             className="relative"
           >
-            <Quote className="absolute -top-2 -right-2 w-16 h-16 text-gray-200/80" />
+            {/* Quote Icon in Akzentfarbe */}
+            <Quote className={`absolute -top-2 -right-2 w-16 h-16 text-[${PRIMARY_COLOR}]/20`} /> 
             
             <h2 className="font-serif text-4xl lg:text-5xl font-light italic text-[#0F0F0F] mb-8 relative z-10">
-              Testimonials
+              Kundenstimmen
             </h2>
 
             <AnimatePresence mode="wait">
@@ -136,7 +142,8 @@ export default function TestimonialsSection() {
                 <div className="flex justify-center mb-4">
                   <div className="w-24 h-24 rounded-full overflow-hidden shadow-lg border-4 border-white bg-gray-200">
                     {imageError[currentTestimonial.id] ? (
-                      <div className="w-full h-full bg-gradient-to-br from-[#C8A882] to-[#FF5C8D] flex items-center justify-center">
+                      // Fallback bei fehlendem Bild, Farbschema anpassen
+                      <div className={`w-full h-full bg-[${PRIMARY_COLOR}] flex items-center justify-center`}>
                         <span className="text-white font-bold text-lg">
                           {currentTestimonial.name.split(' ').map(n => n[0]).join('')}
                         </span>
@@ -144,7 +151,7 @@ export default function TestimonialsSection() {
                     ) : (
                       <img
                         src={currentTestimonial.image_url}
-                        alt={`${currentTestimonial.name}, a happy client of SERENITY Spa in Kolkata`}
+                        alt={`${currentTestimonial.name}, zufriedener Kunde von M&M Reifenservice`}
                         className="w-full h-full object-cover"
                         onError={() => handleImageError(currentTestimonial.id)}
                       />
@@ -152,7 +159,7 @@ export default function TestimonialsSection() {
                   </div>
                 </div>
 
-                <p className="font-sans text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto min-h-[120px]">
+                <p className="font-sans text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto min-h-[120px]">
                   {currentTestimonial.text}
                 </p>
 
@@ -162,7 +169,8 @@ export default function TestimonialsSection() {
                       key={i}
                       className={`w-5 h-5 transition-colors duration-300 ${
                         i < currentTestimonial.rating
-                          ? 'text-[#C8A882] fill-current'
+                          // Akzentfarbe für Sterne
+                          ? ACCENT_COLOR_CLASS + ' fill-current'
                           : 'text-gray-300'
                       }`}
                     />
@@ -185,13 +193,13 @@ export default function TestimonialsSection() {
               <div className="flex items-center gap-4">
                 <button
                   onClick={prevTestimonial}
-                  className="w-10 h-10 bg-white border border-gray-200 rounded-full flex items-center justify-center text-gray-600 hover:bg-[#C8A882] hover:text-white transition-all duration-300"
+                  className={`w-10 h-10 bg-white border border-gray-300 rounded-full flex items-center justify-center text-gray-600 hover:bg-[${PRIMARY_COLOR}] hover:text-white transition-all duration-300`}
                 >
                   <ChevronLeft className="w-4 h-4" />
                 </button>
                 <button
                   onClick={nextTestimonial}
-                  className="w-10 h-10 bg-white border border-gray-200 rounded-full flex items-center justify-center text-gray-600 hover:bg-[#C8A882] hover:text-white transition-all duration-300"
+                  className={`w-10 h-10 bg-white border border-gray-300 rounded-full flex items-center justify-center text-gray-600 hover:bg-[${PRIMARY_COLOR}] hover:text-white transition-all duration-300`}
                 >
                   <ChevronRight className="w-4 h-4" />
                 </button>
@@ -205,7 +213,8 @@ export default function TestimonialsSection() {
                     onClick={() => goToTestimonial(index)}
                     className={`w-2 h-2 rounded-full transition-all duration-300 ${
                       index === currentIndex
-                        ? 'bg-[#C8A882] w-6'
+                        // Akzentfarbe für den aktiven Dot
+                        ? `bg-[${PRIMARY_COLOR}] w-6`
                         : 'bg-gray-300 hover:bg-gray-400'
                     }`}
                   />

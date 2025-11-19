@@ -1,39 +1,48 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Clock, Shield, Star } from "lucide-react";
+import { ArrowRight, Clock, Shield, Star, Phone, MapPin } from "lucide-react"; 
 import { Link } from "react-router-dom";
 import { createPageUrl } from "../utils";
+
+// --- KONSTANTEN BASIEREND AUF PALETTE ---
+const ACCENT_COLOR = "#ff0035"; // Rot
+const DARK_COLOR = "#0e131f"; // Dunkelste Farbe (Für Hero Overlay & Text auf hellen Elementen)
+const MEDIUM_COLOR = "#59546c"; // Graublau (Original Akzentton für helle Hintergründe)
+const BUSINESS_PHONE = "0201 25908194";
+const DISPLAY_PHONE = "0201 25908194"; 
+const GOOGLE_MAPS_LINK = "https://www.google.com/maps/search/?api=1&query=M%26M+Reifenservice+Sulterkamp+Essen"; 
+// ----------------------------------------
 
 const services = [
   {
     id: 1,
-    title: "Reifenwechsel",
+    title: "Radwechsel",
     description: "Schneller Austausch für alle Fahrzeuge. Professionell und zuverlässig.",
-    price: "ab 15€",
+    price: "ab 25€", // Korrigiert
     icon: "🚗",
-    image: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=800&q=80"
+    image: "https://images.unsplash.com/photo-1486262715619-67b5e0b08d3?w=800&q=80"
   },
   {
     id: 2,
-    title: "Auswuchten",
+    title: "Räder Auswuchten",
     description: "Perfektes Gleichgewicht für besseres Handling und längere Lebensdauer.",
-    price: "20€",
+    price: "ab 40€", // Korrigiert
     icon: "⚖️",
     image: "https://images.unsplash.com/photo-1449130015084-2eae8ee6f4d4?w=800&q=80"
   },
   {
     id: 3,
-    title: "Reparatur",
+    title: "Reifenreparatur",
     description: "Professionelle Reparatur von Reifenschäden. Schnell und fachgerecht.",
-    price: "25€",
+    price: "ab 15€", // Korrigiert
     icon: "🔧",
     image: "https://images.unsplash.com/photo-1625047509168-a7026f36de04?w=800&q=80"
   },
   {
     id: 4,
-    title: "Einlagerung",
+    title: "Reifeneinlagerung",
     description: "Sichere Lagerung für Saisonreifen in optimalen Bedingungen.",
-    price: "5€/Monat",
+    price: "ab 25€", // Korrigiert
     icon: "📦",
     image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80"
   }
@@ -61,15 +70,23 @@ const testimonials = [
 ];
 
 const features = [
-  { icon: Clock, text: "Unter 30 Min", color: "#ff0035" }, 
-  { icon: Shield, text: "100% Sicher", color: "#ff0035" }
+  { icon: Clock, text: "Unter 30 Min", color: ACCENT_COLOR }, 
+  { icon: Shield, text: "100% Sicher", color: ACCENT_COLOR }
 ];
+// ----------------------------------------------------------------------
+
 
 export default function Home() {
   return (
+<<<<<<< HEAD
+    <div> 
+      {/* Hero Section (BLEIBT DUNKEL) */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24">
+=======
     <div>
       {/* Hero Section - min-h-screen entfernt, um unnötigen Leerraum zu vermeiden */}
       <section className="relative overflow-hidden">
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
@@ -77,7 +94,8 @@ export default function Home() {
             alt="Reifenwechsel Service in Essen - M&M Reifenservice"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0e131f]/95 via-[#0e131f]/80 to-transparent" />
+          {/* Hero Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0e131f]/95 via-[#0e131f]/80 to-transparent" /> 
         </div>
 
         {/* Content - NEU: pt-32 (um die Navigationsleiste zu umgehen) und pb-12 (kompakter) */}
@@ -116,17 +134,30 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-8 sm:gap-12">
               <button
                 onClick={() => window.dispatchEvent(new CustomEvent('open-booking-modal'))}
-                className="bg-[#ff0035] text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#d9002d] transition-all hover:scale-105 shadow-xl flex items-center justify-center gap-2"
+                className={`bg-[#ff0035] text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#d9002d] transition-all hover:scale-105 shadow-xl flex items-center justify-center gap-2`}
               >
                 Jetzt buchen
                 <ArrowRight className="w-6 h-6" />
               </button>
               
+              {/* Anrufen Button - angepasst */}
               <a
-                href="tel:+4920112345678"
+                href={`tel:${BUSINESS_PHONE.replace(/\s/g, '')}`}
                 className="bg-white/10 backdrop-blur-sm text-white border-2 border-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-[#0e131f] transition-all flex items-center justify-center"
               >
-                Anrufen: +49 201 1234 5678
+                <Phone className="w-6 h-6 mr-2" />
+                Anrufen
+              </a>
+
+              {/* NEUER BUTTON: Google Maps */}
+              <a
+                href={GOOGLE_MAPS_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-transparent text-white border-2 border-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-[#0e131f] transition-all flex items-center justify-center"
+              >
+                <MapPin className="w-6 h-6 mr-2" />
+                Besuchen Sie uns jetzt
               </a>
             </div>
 
@@ -143,10 +174,17 @@ export default function Home() {
             </motion.div>
           </motion.div>
         </div>
+        
+        {/* ÜBERGANG 1 WURDE ENTFERNT */}
       </section>
 
+<<<<<<< HEAD
+      {/* Services Section (Bleibt weiß) */}
+      <section className="py-20 bg-white">
+=======
       {/* Services Section - Vertikaler Abstand aggressiv reduziert (py-12) */}
       <section className="py-12 bg-white">
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -185,7 +223,7 @@ export default function Home() {
                 <div className="p-6">
                   <div className="text-4xl mb-4">{service.icon}</div>
                   <h3 className="text-xl font-bold text-[#0e131f] mb-2">{service.title}</h3>
-                  <p className="text-[#8b939c] text-sm mb-4">{service.description}</p>
+                  <p className="text-[#8b939c] text-sm mb-4">{service.description}</p> 
                   
                   <div className="flex items-center justify-between">
                     <span className="text-2xl font-bold text-[#ff0035]">{service.price}</span>
@@ -204,8 +242,13 @@ export default function Home() {
         </div>
       </section>
 
+<<<<<<< HEAD
+      {/* Why Choose Us (Bleibt Original-Off-White) */}
+      <section className="py-20 bg-[#59546c]/10">
+=======
       {/* Why Choose Us - Vertikaler Abstand aggressiv reduziert (py-12) */}
       <section className="py-12 bg-[#59546c]/10">
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -243,8 +286,13 @@ export default function Home() {
         </div>
       </section>
 
+<<<<<<< HEAD
+      {/* Testimonials (Bleibt weiß) */}
+      <section className="py-20 bg-white relative"> 
+=======
       {/* Testimonials - Vertikaler Abstand aggressiv reduziert (py-12) */}
       <section className="py-12 bg-white">
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -272,7 +320,7 @@ export default function Home() {
                     <Star key={i} className="w-5 h-5 text-[#ff0035] fill-current" />
                   ))}
                 </div>
-                <p className="text-[#8b939c] mb-6 italic">&quot;{testimonial.text}&quot;</p>
+                <p className="text-[#8b939c] mb-6 italic">"{testimonial.text}"</p>
                 <div>
                   <p className="font-bold text-[#0e131f]">{testimonial.name}</p>
                   <p className="text-sm text-[#8b939c]">{testimonial.location}</p>
@@ -281,10 +329,17 @@ export default function Home() {
             ))}
           </div>
         </div>
+        
+        {/* ÜBERGANG 2 WURDE ENTFERNT */}
       </section>
 
+<<<<<<< HEAD
+      {/* CTA Section (Bleibt rot) */}
+      <section className="py-20 bg-[#ff0035] text-white">
+=======
       {/* CTA Section - Vertikaler Abstand aggressiv reduziert (py-12) */}
       <section className="py-12 bg-[#ff0035] text-white">
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -295,15 +350,28 @@ export default function Home() {
               Bereit für Ihren Reifenwechsel?
             </h2>
             <p className="text-xl mb-10 text-white/90">
-              Buchen Sie jetzt online und profitieren Sie von unserem schnellen Service!
+              Buchen Sie jetzt online oder finden Sie uns direkt!
             </p>
-            <button
-              onClick={() => window.dispatchEvent(new CustomEvent('open-booking-modal'))}
-              className="bg-white text-[#ff0035] px-10 py-5 rounded-lg font-bold text-lg hover:bg-gray-100 transition-all hover:scale-105 shadow-xl inline-flex items-center gap-3"
-            >
-              Termin vereinbaren
-              <ArrowRight className="w-6 h-6" />
-            </button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button
+                onClick={() => window.dispatchEvent(new CustomEvent('open-booking-modal'))}
+                className="bg-white text-[#ff0035] px-10 py-5 rounded-lg font-bold text-lg hover:bg-gray-100 transition-all hover:scale-105 shadow-xl inline-flex items-center gap-3"
+              >
+                Termin vereinbaren
+                <ArrowRight className="w-6 h-6" />
+              </button>
+              
+              {/* GOOGLE MAPS BUTTON */}
+              <a
+                href={GOOGLE_MAPS_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white text-[#ff0035] px-10 py-5 rounded-lg font-bold text-lg hover:bg-gray-100 transition-all hover:scale-105 shadow-xl inline-flex items-center gap-3"
+              >
+                Besuchen Sie uns jetzt
+                <MapPin className="w-6 h-6" />
+              </a>
+            </div>
           </motion.div>
         </div>
       </section>

@@ -2,7 +2,30 @@ import React from "react";
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 
+// --- KONSTANTEN BASIEREND AUF GESPEICHERTEN DATEN ---
+const ACCENT_COLOR = "#ff0035"; // Rot
+const DARK_COLOR = "#0e131f"; 
+const MEDIUM_COLOR = "#59546c"; // Graublau
+
+const BUSINESS_DATA = {
+  address: "Sulterkamp 58, 45356 Essen",
+  phone: "0201 25908194",
+  email: "info@mmreifenessen.de",
+  // Geo-Koordinaten für Essen (ungefähr) - für die Karteneinbettung
+  lat: "51.4815", 
+  lng: "7.0181",
+  openingHours: [
+    { day: "Mo - Fr", time: "9:00 - 18:00 Uhr" },
+    { day: "Sa", time: "9:00 - 15:00 Uhr" },
+    { day: "So", time: "Geschlossen" },
+  ],
+};
+// ----------------------------------------------------
+
 export default function Contact() {
+  // Erstellt die Google Maps Embed URL mit der Adresse
+  const mapUrl = `https://maps.google.com/maps?q=${encodeURIComponent(BUSINESS_DATA.address)}&t=&z=14&ie=UTF8&iwloc=&output=embed`;
+
   return (
     <div className="pt-32 pb-24 bg-white min-h-screen">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -11,12 +34,20 @@ export default function Contact() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
+<<<<<<< HEAD
+          <h1 className={`text-5xl font-bold mb-6`} style={{ color: DARK_COLOR }}>
+            Ihr Reifenservice in Essen
+          </h1>
+          <p className={`text-xl`} style={{ color: MEDIUM_COLOR }}>
+            Wir freuen uns auf Ihren Besuch am Sulterkamp 58
+=======
           <h1 className="text-5xl font-bold text-[#0e131f] mb-6">
             Besuchen Sie uns jetzt!
           </h1>
           <p className="text-xl text-[#8b939c]">
             Wir freuen uns auf Ihren Besuch in Essen. Kontaktieren Sie uns für
             Fragen oder Terminvereinbarungen.
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
           </p>
         </motion.div>
 
@@ -26,91 +57,126 @@ export default function Contact() {
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
-            className="rounded-xl overflow-hidden shadow-lg"
+            className="rounded-xl overflow-hidden shadow-2xl"
           >
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2484.267719843847!2d7.068837615746308!3d51.45564427962756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b8c2e1e8e1e1e1%3A0x1e1e1e1e1e1e1e1!2sSulterkamp%2058%2C%2045356%20Essen!5e0!3m2!1sde!2sde!4v1234567890123!5m2!1sde!2sde"
+              src={mapUrl}
               width="100%"
               height="450"
-              style = {{ border: 0 }}
+              style={{ border: 0 }}
               allowFullScreen
               loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
               title="M&M Reifenservice Standort"
             />
           </motion.div>
 
-          {/* Contact Info */}
+          {/* Contact Info & CTA */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}
             className="space-y-8"
           >
-            <div className="bg-[#59546c]/5 rounded-xl p-8">
-              <h2 className="text-2xl font-bold text-[#0e131f] mb-6">Kontaktinformationen</h2>
+            <div className={`rounded-xl p-8`} style={{ backgroundColor: MEDIUM_COLOR + '10' }}>
+              <h2 className={`text-2xl font-bold mb-6`} style={{ color: DARK_COLOR }}>Kontaktinformationen</h2>
               
               <div className="space-y-6">
+                
+                {/* ADRESSE */}
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-[#ff0035]/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <MapPin className="w-6 h-6 text-[#ff0035]" />
+                  <div className={`w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0`} style={{ backgroundColor: ACCENT_COLOR + '15' }}>
+                    <MapPin className="w-6 h-6" style={{ color: ACCENT_COLOR }} />
                   </div>
                   <div>
-                    <h3 className="font-bold text-[#0e131f] mb-1">Adresse</h3>
-                    <p className="text-[#8b939c]">Sulterkamp 58<br />45356 Essen</p>
+                    <h3 className={`font-bold mb-1`} style={{ color: DARK_COLOR }}>Adresse</h3>
+                    <p className={`text-lg`} style={{ color: MEDIUM_COLOR }}>
+                      {BUSINESS_DATA.address.split(',')[0]}<br />
+                      {BUSINESS_DATA.address.split(',')[1].trim()}
+                    </p>
                   </div>
                 </div>
 
+                {/* TELEFON */}
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-[#ff0035]/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Phone className="w-6 h-6 text-[#ff0035]" />
+                  <div className={`w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0`} style={{ backgroundColor: ACCENT_COLOR + '15' }}>
+                    <Phone className="w-6 h-6" style={{ color: ACCENT_COLOR }} />
                   </div>
                   <div>
+<<<<<<< HEAD
+                    <h3 className={`font-bold mb-1`} style={{ color: DARK_COLOR }}>Telefon</h3>
+                    <a href={`tel:${BUSINESS_DATA.phone.replace(/\s/g, '')}`} className={`text-lg hover:underline`} style={{ color: ACCENT_COLOR }}>
+                      {BUSINESS_DATA.phone}
+=======
                     <h3 className="font-bold text-[#0e131f] mb-1">Telefon</h3>
                     <a href="tel:+4920125908194" className="text-[#ff0035] hover:text-[#d9002d]">
                       +49 201 25908194 
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
                     </a>
                   </div>
                 </div>
 
+                {/* E-MAIL */}
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-[#ff0035]/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Mail className="w-6 h-6 text-[#ff0035]" />
+                  <div className={`w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0`} style={{ backgroundColor: ACCENT_COLOR + '15' }}>
+                    <Mail className="w-6 h-6" style={{ color: ACCENT_COLOR }} />
                   </div>
                   <div>
+<<<<<<< HEAD
+                    <h3 className={`font-bold mb-1`} style={{ color: DARK_COLOR }}>E-Mail</h3>
+                    <a href={`mailto:${BUSINESS_DATA.email}`} className={`text-lg hover:underline`} style={{ color: ACCENT_COLOR }}>
+                      {BUSINESS_DATA.email}
+=======
                     <h3 className="font-bold text-[#0e131f] mb-1">E-Mail</h3>
                     <a href="mailto:info@mmreifenessen.de" className="text-[#ff0035] hover:text-[#d9002d]">
                       info@mmreifenessen.de
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
                     </a>
                   </div>
                 </div>
 
+                {/* ÖFFNUNGSZEITEN */}
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-[#ff0035]/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Clock className="w-6 h-6 text-[#ff0035]" />
+                  <div className={`w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0`} style={{ backgroundColor: ACCENT_COLOR + '15' }}>
+                    <Clock className="w-6 h-6" style={{ color: ACCENT_COLOR }} />
                   </div>
                   <div>
+<<<<<<< HEAD
+                    <h3 className={`font-bold mb-2`} style={{ color: DARK_COLOR }}>Öffnungszeiten</h3>
+                    <div className="space-y-1 text-sm" style={{ color: MEDIUM_COLOR }}>
+                      {BUSINESS_DATA.openingHours.map((oh, index) => (
+                        <p key={index} className={oh.day.includes("So") ? `font-medium` : ''}>
+                          {oh.day}: {oh.time}
+                        </p>
+                      ))}
+=======
                     <h3 className="font-bold text-[#0e131f] mb-2">Öffnungszeiten</h3>
                     <div className="space-y-1 text-[#8b939c]">
                       <p>Mo - Fr: 9:00 - 18:00 Uhr</p>
                       <p>Sa: 9:00 - 15:00 Uhr</p>
                       <p className="text-[#ff0035] font-medium">So: Geschlossen</p>
+>>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="bg-[#ff0035] rounded-xl p-8 text-white">
+            {/* CTA Banner */}
+            <div className={`rounded-xl p-8 text-white`} style={{ backgroundColor: ACCENT_COLOR }}>
               <h3 className="text-2xl font-bold mb-4">Termin buchen</h3>
-              <p className="mb-6">Buchen Sie jetzt online und sichern Sie sich Ihren Wunschtermin!</p>
-              <button
+              <p className="mb-6">Buchen Sie jetzt online und sichern Sie sich Ihren Wunschtermin – schnell und unkompliziert!</p>
+              <motion.button
+                whileHover={{ scale: 1.02, boxShadow: '0 10px 20px rgba(0, 0, 0, 0.2)' }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => {
                   window.dispatchEvent(new CustomEvent('open-booking-modal'));
                 }}
-                className="bg-white text-[#ff0035] px-8 py-4 rounded-lg font-bold hover:bg-gray-100 transition-all w-full"
+                className={`bg-white text-lg px-8 py-4 rounded-lg font-bold hover:bg-gray-100 transition-all w-full`}
+                style={{ color: ACCENT_COLOR }}
               >
-                Jetzt buchen
-              </button>
+                Jetzt Termin vereinbaren
+              </motion.button>
             </div>
           </motion.div>
         </div>

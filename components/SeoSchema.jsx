@@ -1,4 +1,4 @@
-import React from 'react'; // <--- NUR DIESER STANDARD-IMPORT IST NÖTIG
+import React from 'react';
 
 // This component injects advanced, SEO-friendly structured data for M&M Reifenservice
 export default function SeoSchema() {
@@ -7,14 +7,14 @@ export default function SeoSchema() {
     "@graph": [
       {
         "@type": "AutomotiveBusiness",
-        "@id": "https://www.mm-reifenservice.de/#organization",
+        "@id": "https://www.mmreifenessen.de/#organization",
         "name": "M&M Reifenservice",
-        "url": "https://www.mm-reifenservice.de/",
+        "url": "https://www.mmreifenessen.de/",
         "logo": "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68e646aa23203e440181174d/01d013296_Artboard-7.jpg",
         "description": "Professioneller Reifenservice in Essen-Sulterkamp. Schneller Reifenwechsel in unter 30 Minuten, Auswuchten, Reparatur und Einlagerung zu fairen Preisen. Jetzt online Termin buchen!",
         "image": "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68e646aa23203e440181174d/01d013296_Artboard-7.jpg",
-        "telephone": "+49-201-1234-5678",
-        "email": "info@mm-reifen.de",
+        "telephone": "0201 25908194",
+        "email": "info@mmreifenessen.de",
         "priceRange": "€€",
         "address": {
           "@type": "PostalAddress",
@@ -33,7 +33,7 @@ export default function SeoSchema() {
           { 
             "@type": "OpeningHoursSpecification", 
             "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], 
-            "opens": "08:00", 
+            "opens": "09:00", // Geändert von 08:00
             "closes": "18:00" 
           },
           { 
@@ -105,10 +105,10 @@ export default function SeoSchema() {
       },
       {
         "@type": "WebSite",
-        "@id": "https://www.mm-reifenservice.de/#website",
-        "url": "https://www.mm-reifenservice.de/",
+        "@id": "https://www.mmreifenessen.de/#website",
+        "url": "https://www.mmreifenessen.de/",
         "name": "M&M Reifenservice Essen",
-        "publisher": { "@id": "https://www.mm-reifenservice.de/#organization" },
+        "publisher": { "@id": "https://www.mmreifenessen.de/#organization" },
         "inLanguage": "de-DE"
       },
       {
@@ -127,14 +127,14 @@ export default function SeoSchema() {
           "latitude": "51.455644",
           "longitude": "7.068838"
         },
-        "url": "https://www.mm-reifenservice.de/",
-        "telephone": "+49-201-1234-5678",
+        "url": "https://www.mmreifenessen.de/",
+        "telephone": "0201 25908194",
         "priceRange": "€€",
         "openingHoursSpecification": [
           {
             "@type": "OpeningHoursSpecification",
             "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-            "opens": "08:00",
+            "opens": "09:00", // Geändert von 08:00
             "closes": "18:00"
           },
           {
@@ -147,14 +147,14 @@ export default function SeoSchema() {
       },
       {
         "@type": "Review",
-        "itemReviewed": { "@id": "https://www.mm-reifenservice.de/#organization" },
+        "itemReviewed": { "@id": "https://www.mmreifenessen.de/#organization" },
         "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
         "author": { "@type": "Person", "name": "Anna M." },
         "reviewBody": "Super Service! Reifen in 20 Min gewechselt. Sehr empfehlenswert!"
       },
       {
         "@type": "Review",
-        "itemReviewed": { "@id": "https://www.mm-reifenservice.de/#organization" },
+        "itemReviewed": { "@id": "https://www.mmreifenessen.de/#organization" },
         "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
         "author": { "@type": "Person", "name": "Thomas K." },
         "reviewBody": "Günstig und zuverlässig. Beste Werkstatt in Sulterkamp."

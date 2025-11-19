@@ -1,8 +1,15 @@
-
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { TyreInventory } from "@/entities/TyreInventory";
-import { Search, Filter, CheckCircle, AlertCircle, Package, Zap, Snowflake, Sun, Calendar } from "lucide-react";
+import { Search, Filter, CheckCircle, AlertCircle, Package, Zap, Snowflake, Sun, Calendar, Phone, Mail } from "lucide-react";
+
+// --- KONSTANTEN BASIEREND AUF GESPEICHERTEN DATEN & PALETTE ---
+const ACCENT_COLOR = "#ff0035"; // Rot
+const DARK_COLOR = "#0e131f"; 
+const MEDIUM_COLOR = "#8b939c"; // Mittelgrau
+const LIGHT_BG = "#59546c"; // Graublau
+const BUSINESS_PHONE = "0201 25908194";
+const BUSINESS_EMAIL = "info@mmreifenessen.de";
 
 const seasonIcons = {
   "Sommerreifen": Sun,
@@ -15,10 +22,12 @@ const seasonColors = {
   "Winterreifen": "bg-blue-100 text-blue-800",
   "Ganzjahresreifen": "bg-green-100 text-green-800"
 };
+// ----------------------------------------------------------------------
+
 
 export default function TyreStock() {
   const [tyres, setTyres] = useState([]);
-  const [isLoading, setIsLoading] = useState(true); // Renamed from loading to isLoading
+  const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [seasonFilter, setSeasonFilter] = useState("all");
   const [conditionFilter, setConditionFilter] = useState("all");
@@ -35,7 +44,7 @@ export default function TyreStock() {
     } catch (error) {
       console.error("Fehler beim Laden der Reifen:", error);
     } finally {
-      setIsLoading(false); // Updated usage
+      setIsLoading(false);
     }
   };
 
@@ -66,12 +75,12 @@ export default function TyreStock() {
     }
   });
 
-  if (isLoading) { // Updated usage
+  if (isLoading) {
     return (
       <div className="pt-32 pb-24 bg-white min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="w-12 h-12 border-4 border-[#ff0035] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-[#8b939c]">Reifenbestand wird geladen...</p>
+          <div className="w-12 h-12 border-4 border-t-transparent rounded-full animate-spin mx-auto mb-4" style={{ borderColor: ACCENT_COLOR, borderTopColor: 'transparent' }}></div>
+          <p className={`text-[${MEDIUM_COLOR}]`}>Reifenbestand wird geladen...</p>
         </div>
       </div>
     );
@@ -86,16 +95,16 @@ export default function TyreStock() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-12"
         >
-          <h1 className="text-5xl font-bold text-[#0e131f] mb-4">
+          <h1 className="text-5xl font-bold mb-4" style={{ color: DARK_COLOR }}>
             Unser Reifenbestand
           </h1>
-          <p className="text-xl text-[#8b939c] max-w-3xl mx-auto">
-            Durchsuchen Sie unseren aktuellen Reifenbestand
+          <p className="text-xl max-w-3xl mx-auto" style={{ color: MEDIUM_COLOR }}>
+            Durchsuchen Sie unseren aktuellen Bestand an Markenreifen
           </p>
         </motion.div>
 
         {/* Filters */}
-        <div className="bg-[#59546c]/5 rounded-xl p-6 mb-8">
+        <div className={`rounded-xl p-6 mb-8`} style={{ backgroundColor: LIGHT_BG + '0F' }}>
           <div className="grid lg:grid-cols-4 gap-4">
             {/* Search */}
             <div className="relative">
@@ -105,7 +114,7 @@ export default function TyreStock() {
                 placeholder="Marke, Modell oder Größe..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-[#ff0035]"
+                className={`w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-[${ACCENT_COLOR}]`}
               />
             </div>
 
@@ -113,7 +122,7 @@ export default function TyreStock() {
             <select
               value={seasonFilter}
               onChange={(e) => setSeasonFilter(e.target.value)}
-              className="px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-[#ff0035]"
+              className={`px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-[${ACCENT_COLOR}]`}
             >
               <option value="all">Alle Saisons</option>
               <option value="Sommerreifen">Sommerreifen</option>
@@ -125,7 +134,7 @@ export default function TyreStock() {
             <select
               value={conditionFilter}
               onChange={(e) => setConditionFilter(e.target.value)}
-              className="px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-[#ff0035]"
+              className={`px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-[${ACCENT_COLOR}]`}
             >
               <option value="all">Alle Zustände</option>
               <option value="Neu">Neu</option>
@@ -137,7 +146,7 @@ export default function TyreStock() {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-[#ff0035]"
+              className={`px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-[${ACCENT_COLOR}]`}
             >
               <option value="brand">Sortieren: Marke</option>
               <option value="price-asc">Preis: Niedrig → Hoch</option>
@@ -148,19 +157,19 @@ export default function TyreStock() {
         </div>
 
         {/* Results Count */}
-        <div className="mb-6 text-[#8b939c]">
+        <div className="mb-6" style={{ color: MEDIUM_COLOR }}>
           {sortedTyres.length} {sortedTyres.length === 1 ? 'Reifen' : 'Reifen'} gefunden
         </div>
 
         {/* Tyres Grid */}
         {sortedTyres.length === 0 ? (
-          <div className="text-center py-16 bg-[#59546c]/5 rounded-xl">
+          <div className={`text-center py-16 rounded-xl`} style={{ backgroundColor: LIGHT_BG + '0F' }}>
             <Package className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-[#0e131f] mb-2">
+            <h3 className="text-xl font-semibold mb-2" style={{ color: DARK_COLOR }}>
               Keine Reifen gefunden
             </h3>
-            <p className="text-[#8b939c]">
-              Versuchen Sie, Ihre Filter anzupassen oder rufen Sie uns an: +49 201 1234 5678
+            <p style={{ color: MEDIUM_COLOR }}>
+              Versuchen Sie, Ihre Filter anzupassen oder rufen Sie uns an: <a href={`tel:${BUSINESS_PHONE.replace(/\s/g, '')}`} className="font-medium" style={{ color: ACCENT_COLOR }}>{BUSINESS_PHONE}</a>
             </p>
           </div>
         ) : (
@@ -175,7 +184,7 @@ export default function TyreStock() {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.05 }}
-                  className="bg-white rounded-xl border-2 border-gray-100 overflow-hidden hover:border-[#ff0035] hover:shadow-lg transition-all"
+                  className={`bg-white rounded-xl border-2 border-gray-100 overflow-hidden hover:border-[${ACCENT_COLOR}] hover:shadow-lg transition-all`}
                 >
                   {/* Image */}
                   <div className="h-48 bg-gray-100 flex items-center justify-center relative">
@@ -200,15 +209,15 @@ export default function TyreStock() {
                   <div className="p-5">
                     {/* Brand & Model */}
                     <div className="mb-3">
-                      <h3 className="text-xl font-bold text-[#0e131f]">
+                      <h3 className="text-xl font-bold" style={{ color: DARK_COLOR }}>
                         {tyre.brand}
                       </h3>
-                      <p className="text-[#8b939c]">{tyre.model}</p>
+                      <p style={{ color: MEDIUM_COLOR }}>{tyre.model}</p>
                     </div>
 
                     {/* Size & Season */}
                     <div className="flex items-center gap-2 mb-3">
-                      <span className="bg-[#ff0035]/10 text-[#ff0035] px-3 py-1 rounded-full text-sm font-medium">
+                      <span className={`px-3 py-1 rounded-full text-sm font-medium`} style={{ backgroundColor: ACCENT_COLOR + '10', color: ACCENT_COLOR }}>
                         {tyre.size}
                       </span>
                       <span className={`px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1 ${seasonColors[tyre.season]}`}>
@@ -219,7 +228,7 @@ export default function TyreStock() {
 
                     {/* Condition */}
                     <div className="mb-3">
-                      <span className="text-sm text-[#8b939c]">
+                      <span className="text-sm" style={{ color: MEDIUM_COLOR }}>
                         Zustand: <strong>{tyre.condition}</strong>
                       </span>
                     </div>
@@ -228,7 +237,7 @@ export default function TyreStock() {
                     {tyre.features && tyre.features.length > 0 && (
                       <div className="mb-4 space-y-1">
                         {tyre.features.slice(0, 3).map((feature, idx) => (
-                          <div key={idx} className="flex items-center gap-2 text-sm text-[#8b939c]">
+                          <div key={idx} className="flex items-center gap-2 text-sm" style={{ color: MEDIUM_COLOR }}>
                             <CheckCircle className="w-4 h-4 text-green-500" />
                             <span>{feature}</span>
                           </div>
@@ -260,14 +269,15 @@ export default function TyreStock() {
                     {/* Price & Action */}
                     <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                       <div>
-                        <p className="text-2xl font-bold text-[#ff0035]">
+                        <p className="text-2xl font-bold" style={{ color: ACCENT_COLOR }}>
                           {tyre.price}€
                         </p>
-                        <p className="text-xs text-[#8b939c]">pro Reifen</p>
+                        <p className="text-xs" style={{ color: MEDIUM_COLOR }}>pro Reifen</p>
                       </div>
                       <button
                         onClick={() => window.dispatchEvent(new CustomEvent('open-booking-modal'))}
-                        className="bg-[#ff0035] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#e6002f] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        className={`text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#e6002f] transition-colors disabled:opacity-50 disabled:cursor-not-allowed`}
+                        style={{ backgroundColor: ACCENT_COLOR }}
                         disabled={!inStock}
                       >
                         {inStock ? 'Anfragen' : 'Nicht verfügbar'}
@@ -285,7 +295,8 @@ export default function TyreStock() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="mt-12 bg-[#ff0035] text-white rounded-xl p-8"
+          className={`mt-12 text-white rounded-xl p-8`}
+          style={{ backgroundColor: ACCENT_COLOR }}
         >
           <div className="flex items-start gap-4">
             <AlertCircle className="w-6 h-6 flex-shrink-0 mt-1" />
@@ -297,15 +308,19 @@ export default function TyreStock() {
               </p>
               <div className="flex gap-3">
                 <a
-                  href="tel:+4920125908194"
-                  className="bg-white text-[#ff0035] px-6 py-2 rounded-lg font-medium hover:bg-gray-100 transition-colors"
+                  href={`tel:${BUSINESS_PHONE.replace(/\s/g, '')}`}
+                  className={`bg-white px-6 py-2 rounded-lg font-medium hover:bg-gray-100 transition-colors flex items-center gap-2`}
+                  style={{ color: ACCENT_COLOR }}
                 >
+                  <Phone className="w-4 h-4" />
                   Jetzt anrufen
                 </a>
                 <a
-                  href="mailto:info@mmreifenessen.de"
-                  className="bg-[#0e131f] text-white px-6 py-2 rounded-lg font-medium hover:bg-[#2a2f42] transition-colors"
+                  href={`mailto:${BUSINESS_EMAIL}`}
+                  className={`px-6 py-2 rounded-lg font-medium hover:bg-[#4d5678] transition-colors flex items-center gap-2`}
+                  style={{ backgroundColor: DARK_COLOR }}
                 >
+                  <Mail className="w-4 h-4" />
                   E-Mail schreiben
                 </a>
               </div>
