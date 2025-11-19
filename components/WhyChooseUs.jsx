@@ -1,33 +1,39 @@
-
 import React from "react";
 import { motion } from "framer-motion";
-import { Leaf, Award, Gift, Sparkles } from "lucide-react";
+// Neue Icons für Werkstatt-Themen
+import { Bolt, Wrench, Shield, Car } from "lucide-react"; 
+
+// Farbpalette
+const PRIMARY_TEXT_COLOR = "#38405f"; // Dunkelblau/Grau für Text
+const ACCENT_COLOR = "#ff0035"; // Rot für Akzente
+const LIGHT_BG_COLOR = "#E8F4F8"; // Sehr helles, neutrales Blau für Hintergrund
+const DARK_BG_COLOR = "#38405f"; // Dunkler Akzent für Blur
 
 const features = [
   {
-    icon: Leaf,
-    title: "The Pinnacle of Technology",
-    subtitle: "FLAWLESS PRECISION",
-    description: "We harness state-of-the-art equipment to deliver treatments with unparalleled accuracy, ensuring visible, lasting results from your very first visit."
+    icon: Bolt, // Blitz für Geschwindigkeit/Technologie
+    title: "Technologie für Präzision",
+    subtitle: "SCHNELL & GENAU",
+    description: "Wir setzen modernste Wucht- und Montagetechnik ein, um Fehlerquellen auszuschließen und eine perfekte Reifenleistung zu gewährleisten."
   },
   {
-    icon: Award,
-    title: "The Touch of Mastery",
-    subtitle: "ELITE THERAPISTS",
-    description: "Our team comprises Kolkata's most sought-after experts, each a master of their craft, dedicated to providing personalized and deeply restorative care."
+    icon: Wrench, // Schraubenschlüssel für Expertise
+    title: "Experten am Werk",
+    subtitle: "ZERTIFIZIERTES TEAM",
+    description: "Unser Team besteht aus erfahrenen, geschulten Fachkräften, die jeden Service mit höchster Sorgfalt und Know-how durchführen."
   },
   {
-    icon: Gift,
-    title: "An Oasis of Calm",
-    subtitle: "ABSOLUTE SANCTUARY",
-    description: "Step into a world designed for your complete tranquility. Every detail, from the ambient lighting to the serene music, is curated for your ultimate comfort and escape."
+    icon: Shield, // Schild für Sicherheit
+    title: "Ihre Sicherheit Priorität",
+    subtitle: "VERLÄSSLICHKEIT",
+    description: "Von der Produktauswahl bis zur Endkontrolle steht Ihre Sicherheit an erster Stelle. Vertrauen Sie auf geprüfte Qualität und Haltbarkeit."
   }
 ];
 
 export default function WhyChooseUs() {
   return (
     <section id="why-us" className="pt-20 md:pt-24 lg:pt-28 pb-16 md:pb-20 lg:pb-24 bg-gradient-to-b from-[#F8F2EC] to-white relative overflow-hidden">
-      {/* Enhanced Background Decorations */}
+      {/* Enhanced Background Decorations (Anpassung der Farbe) */}
       <motion.div 
         initial={{ opacity: 0, scale: 0.3, rotate: 45 }}
         whileInView={{ opacity: 0.1, scale: 1, rotate: 0 }}
@@ -35,7 +41,8 @@ export default function WhyChooseUs() {
         viewport={{ once: true }}
         className="absolute bottom-10 left-10"
       >
-        <div className="w-96 h-96 bg-[#C8A882] rounded-full blur-3xl" />
+        {/* Blur in Dunkelblau/Grau als dezenter Hintergrundeffekt */}
+        <div className="w-96 h-96 rounded-full blur-3xl" style={{ backgroundColor: DARK_BG_COLOR, opacity: 0.15 }} />
       </motion.div>
 
       <div className="mx-auto my-1 px-6 max-w-7xl lg:px-8">
@@ -55,10 +62,11 @@ export default function WhyChooseUs() {
                 whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
                 transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 200 }}
                 viewport={{ once: true }}
-                className="inline-flex items-center gap-2 bg-[#C8A882]/10 rounded-full px-4 py-2 mb-6"
+                className={`inline-flex items-center gap-2 rounded-full px-4 py-2 mb-6`}
+                style={{ backgroundColor: LIGHT_BG_COLOR }}
               >
-                <Sparkles className="w-4 h-4 text-[#C8A882]" />
-                <span className="font-sans text-sm text-[#C8A882] font-medium uppercase tracking-wider">KOLKATA'S PREMIER LUXURY SPA</span>
+                <Car className={`w-4 h-4`} style={{ color: ACCENT_COLOR }} />
+                <span className={`font-sans text-sm font-medium uppercase tracking-wider`} style={{ color: PRIMARY_TEXT_COLOR }}>IHR ZUVERLÄSSIGER REIFENSERVICE IN ESSEN</span>
               </motion.div>
               
               <motion.h2 
@@ -68,9 +76,9 @@ export default function WhyChooseUs() {
                 viewport={{ once: true }}
                 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
               >
-                <span className="text-[#0F0F0F]">Why Choose SERENITY</span>
+                <span className="text-[#0F0F0F]">Warum M&M Reifenservice</span>
                 <br />
-                <span className="text-[#C8A882]">Organic Spa & Salon</span>
+                <span style={{ color: ACCENT_COLOR }}>Die bessere Wahl ist</span>
               </motion.h2>
               
               <motion.p 
@@ -80,7 +88,7 @@ export default function WhyChooseUs() {
                 viewport={{ once: true }}
                 className="font-sans text-lg text-gray-600 leading-relaxed mb-8 max-w-3xl mx-auto"
               >
-                Experience Kolkata's #1 luxury organic spa & salon where advanced technology meets expert care. Our certified therapists use premium organic products and state-of-the-art equipment to deliver transformative wellness treatments that rejuvenate your body, mind, and soul.
+                Erleben Sie den Unterschied: Bei uns trifft modernste Technik auf echte Expertise. Unsere zertifizierten Spezialisten sorgen für die maximale Lebensdauer Ihrer Reifen und garantieren höchste Sicherheit auf der Straße.
               </motion.p>
             </div>
 
@@ -109,9 +117,10 @@ export default function WhyChooseUs() {
                     transition={{ duration: 0.8, delay: index * 0.3 + 0.2, type: "spring", stiffness: 200 }}
                     viewport={{ once: true }}
                     whileHover={{ rotate: 360, scale: 1.2 }}
-                    className="w-14 h-14 bg-[#FF5C8D]/10 rounded-2xl flex items-center justify-center group-hover:bg-[#FF5C8D] transition-all duration-500 flex-shrink-0"
+                    className={`w-14 h-14 rounded-2xl flex items-center justify-center group-hover:bg-[${ACCENT_COLOR}] transition-all duration-500 flex-shrink-0`}
+                    style={{ backgroundColor: LIGHT_BG_COLOR }}
                   >
-                    <feature.icon className="w-7 h-7 text-[#FF5C8D] group-hover:text-white transition-colors duration-300" />
+                    <feature.icon className={`w-7 h-7 group-hover:text-white transition-colors duration-300`} style={{ color: ACCENT_COLOR }} />
                   </motion.div>
                   
                   {/* Content */}
@@ -121,7 +130,8 @@ export default function WhyChooseUs() {
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.8, delay: index * 0.3 + 0.4 }}
                       viewport={{ once: true }}
-                      className="font-serif text-xl font-bold text-[#0F0F0F] mb-1 group-hover:text-[#C8A882] transition-colors duration-300"
+                      className="font-serif text-xl font-bold mb-1 group-hover:text-[#0F0F0F] transition-colors duration-300"
+                      style={{ color: PRIMARY_TEXT_COLOR }}
                     >
                       {feature.title}
                     </motion.h3>
@@ -130,7 +140,8 @@ export default function WhyChooseUs() {
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, delay: index * 0.3 + 0.5 }}
                       viewport={{ once: true }}
-                      className="font-sans text-sm font-medium text-[#C8A882] uppercase tracking-wider mb-2"
+                      className={`font-sans text-sm font-medium uppercase tracking-wider mb-2`}
+                      style={{ color: ACCENT_COLOR }}
                     >
                       {feature.subtitle}
                     </motion.p>
@@ -157,12 +168,13 @@ export default function WhyChooseUs() {
               className="pt-4"
             >
               <motion.button 
-                whileHover={{ scale: 1.1, boxShadow: "0 20px 40px rgba(200, 168, 130, 0.3)" }}
+                whileHover={{ scale: 1.05, boxShadow: `0 20px 40px rgba(255, 0, 53, 0.3)` }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => window.dispatchEvent(new CustomEvent('open-booking-modal'))}
-                className="bg-[#C8A882] text-white px-8 py-4 rounded-full font-sans font-medium hover:bg-[#FF5C8D] transition-all duration-300 shadow-lg"
+                className={`text-white px-8 py-4 rounded-full font-sans font-medium transition-all duration-300 shadow-lg`}
+                style={{ backgroundColor: ACCENT_COLOR, color: 'white' }}
               >
-                Begin Your Transformation
+                Jetzt unverbindlichen Termin buchen
               </motion.button>
             </motion.div>
           </motion.div>

@@ -2,21 +2,21 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const brands = [
-  { name: 'Hugo Boss', url: 'https://cdn.worldvectorlogo.com/logos/hugo-boss-logo.svg' },
-  { name: 'Gucci', url: 'https://cdn.worldvectorlogo.com/logos/gucci-logo-1.svg' },
-  { name: 'Dolce & Gabbana', url: 'https://cdn.worldvectorlogo.com/logos/dolce-gabbana-1.svg' },
-  { name: 'Givenchy', url: 'https://cdn.worldvectorlogo.com/logos/givenchy-1.svg' },
-  { name: 'Estée Lauder', url: 'https://cdn.worldvectorlogo.com/logos/estee-lauder-3.svg' },
-  { name: 'Shiseido', url: 'https://cdn.worldvectorlogo.com/logos/shiseido.svg' },
-  { name: 'Dior', url: 'https://cdn.worldvectorlogo.com/logos/dior-2.svg' },
-  { name: 'Guerlain', url: 'https://cdn.worldvectorlogo.com/logos/guerlain.svg' },
-  { name: 'Biotherm', url: 'https://cdn.worldvectorlogo.com/logos/biotherm.svg' },
-  { name: 'L\'Oréal Professionnel', url: 'https://cdn.worldvectorlogo.com/logos/l-oreal-professionnel.svg' },
-  { name: 'Goldwell', url: 'https://cdn.worldvectorlogo.com/logos/goldwell.svg' },
-  { name: 'Kérastase', url: 'https://cdn.worldvectorlogo.com/logos/kerastase.svg' },
-  { name: 'Lancôme', url: 'https://cdn.worldvectorlogo.com/logos/lancome-2.svg' },
-  { name: 'Chanel', url: 'https://cdn.worldvectorlogo.com/logos/chanel-2.svg' },
-  { name: 'Giorgio Armani', url: 'https://cdn.worldvectorlogo.com/logos/giorgio-armani-1.svg' },
+  { name: 'Michelin', url: 'https://cdn.worldvectorlogo.com/logos/michelin.svg' },
+  { name: 'Continental', url: 'https://cdn.worldvectorlogo.com/logos/continental-2.svg' },
+  { name: 'Pirelli', url: 'https://cdn.worldvectorlogo.com/logos/pirelli.svg' },
+  { name: 'Bridgestone', url: 'https://cdn.worldvectorlogo.com/logos/bridgestone.svg' },
+  { name: 'Goodyear', url: 'https://cdn.worldvectorlogo.com/logos/goodyear-logo.svg' },
+  { name: 'Hankook', url: 'https://cdn.worldvectorlogo.com/logos/hankook-1.svg' },
+  { name: 'Dunlop', url: 'https://cdn.worldvectorlogo.com/logos/dunlop.svg' },
+  { name: 'Falken', url: 'https://cdn.worldvectorlogo.com/logos/falken.svg' },
+  { name: 'Bosch', url: 'https://cdn.worldvectorlogo.com/logos/bosch-2022.svg' },
+  { name: 'ZF', url: 'https://cdn.worldvectorlogo.com/logos/zf.svg' },
+  { name: 'Liqui Moly', url: 'https://cdn.worldvectorlogo.com/logos/liqui-moly.svg' },
+  { name: 'Castrol', url: 'https://cdn.worldvectorlogo.com/logos/castrol-2.svg' },
+  { name: 'Hella', url: 'https://cdn.worldvectorlogo.com/logos/hella.svg' },
+  { name: 'Mahle', url: 'https://cdn.worldvectorlogo.com/logos/mahle.svg' },
+  { name: 'A.T.U', url: 'https://cdn.worldvectorlogo.com/logos/a-t-u.svg' }, // Beispiel für eine Servicekette
 ];
 
 export default function BrandPartners() {
@@ -32,7 +32,7 @@ export default function BrandPartners() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
         <h3 className="text-sm font-sans font-bold uppercase tracking-widest text-gray-500 mb-12">
-          Featuring Products From The World's Finest Brands
+          Wir setzen auf Qualität: Reifen und Teile von führenden Herstellern
         </h3>
         <div className="relative w-full overflow-hidden group">
           <style jsx>{`
@@ -66,7 +66,7 @@ export default function BrandPartners() {
               >
                 <img
                   src={brand.url}
-                  alt={`${brand.name} logo - Premium beauty products at SERENITY Spa Kolkata`}
+                  alt={`${brand.name} logo - Qualitätsprodukte für Ihr Fahrzeug`}
                   className="h-14 w-auto object-contain filter grayscale opacity-70 transition-all duration-300 ease-in-out hover:grayscale-0 hover:opacity-100 hover:scale-110"
                   style={{ 
                     imageRendering: 'crisp-edges',

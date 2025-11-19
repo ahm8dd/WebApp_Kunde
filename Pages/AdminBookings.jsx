@@ -3,10 +3,15 @@ import { motion } from "framer-motion";
 import { 
   Calendar, Clock, User, Mail, Phone, MessageSquare, 
   Eye, CheckCircle, XCircle, Filter, Search, Download,
-  AlertCircle, Star, MapPin, Sparkles, RefreshCw
+  AlertCircle, Star, MapPin, RefreshCw, Car, Wrench, Package, Euro
 } from "lucide-react";
 import { Appointment } from "@/entities/Appointment";
 import { BookingNotification } from "@/entities/BookingNotification";
+
+// --- START: PALETTE & KONSTANTEN FÜR M&M REIFENSERVICE ---
+const ACCENT_COLOR = "#ff0035"; // Rot
+const PRIMARY_COLOR = "#38405f"; // Dunkelblau/Grau
+const LIGHT_BG_COLOR = "#E8F4F8"; // Helles, neutrales Blau/Grau
 
 const statusColors = {
   pending: "bg-yellow-100 text-yellow-800 border-yellow-200",
@@ -14,6 +19,8 @@ const statusColors = {
   completed: "bg-blue-100 text-blue-800 border-blue-200",
   cancelled: "bg-red-100 text-red-800 border-red-200"
 };
+// --- END: PALETTE & KONSTANTEN ---
+
 
 export default function AdminBookings() {
   const [appointments, setAppointments] = useState([]);
@@ -94,11 +101,12 @@ export default function AdminBookings() {
     }
   };
 
+  // Anpassung der Formatierung auf deutsches Format
   const formatDate = (dateString) => {
     if (!dateString) return 'N/A';
     try {
       const date = new Date(dateString);
-      return date.toLocaleDateString('en-IN', { 
+      return date.toLocaleDateString('de-DE', { 
         weekday: 'short', 
         year: 'numeric', 
         month: 'short', 
@@ -109,11 +117,12 @@ export default function AdminBookings() {
     }
   };
 
+  // Anpassung der Formatierung auf deutsches Format
   const formatDateTime = (dateString) => {
     if (!dateString) return 'N/A';
     try {
       const date = new Date(dateString);
-      return date.toLocaleString('en-IN', { 
+      return date.toLocaleString('de-DE', { 
         dateStyle: 'medium',
         timeStyle: 'short'
       });
@@ -138,7 +147,7 @@ export default function AdminBookings() {
 
   const exportToCSV = () => {
     const csvContent = [
-      ["Date Created", "Client Name", "Email", "Phone", "Service", "Price", "Appointment Date", "Time", "Status", "Message"].join(","),
+      ["Date Created", "Client Name", "Email", "Phone", "Service", "Price (€)", "Appointment Date", "Time", "Status", "Message"].join(";"), // Semikolon als Trenner
       ...filteredAppointments.map(apt => [
         formatDateTime(apt.created_date),
         apt.client_name || '',
@@ -149,15 +158,15 @@ export default function AdminBookings() {
         apt.preferred_date || '',
         apt.preferred_time || '',
         apt.status || '',
-        (apt.message || "").replace(/,/g, ";")
-      ].join(","))
+        (apt.message || "").replace(/;/g, ",") // Kommas im Text durch Semikolon ersetzen
+      ].join(";"))
     ].join("\n");
 
-    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `serenity_bookings_${new Date().toISOString().split('T')[0]}.csv`;
+    a.download = `mmreifenservice_bookings_${new Date().toISOString().split('T')[0]}.csv`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -170,9 +179,10 @@ export default function AdminBookings() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center pt-20">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-[#C8A882] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading booking management dashboard...</p>
-          <p className="text-sm text-gray-500 mt-2">Please wait while we fetch your data</p>
+          {/* Ladeanimation in Rot */}
+          <div className="w-16 h-16 border-4 border-t-transparent rounded-full animate-spin mx-auto mb-4" style={{ borderColor: ACCENT_COLOR, borderTopColor: 'transparent' }}></div>
+          <p className="text-gray-600">Lade Buchungs-Dashboard von M&M Reifenservice...</p>
+          <p className="text-sm text-gray-500 mt-2">Bitte warten Sie, während die Daten abgerufen werden</p>
         </div>
       </div>
     );
@@ -185,13 +195,14 @@ export default function AdminBookings() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center pt-20">
         <div className="text-center max-w-md">
           <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
-          <h2 className="text-xl font-bold text-gray-900 mb-2">Error Loading Dashboard</h2>
+          <h2 className="text-xl font-bold text-gray-900 mb-2">Fehler beim Laden des Dashboards</h2>
           <p className="text-gray-600 mb-4">{error}</p>
           <button
             onClick={loadData}
-            className="bg-[#C8A882] text-white px-6 py-2 rounded-lg hover:bg-[#FF5C8D] transition-colors"
+            className={`text-white px-6 py-2 rounded-lg hover:bg-[${PRIMARY_COLOR}] transition-colors`}
+            style={{ backgroundColor: ACCENT_COLOR }} // Roter Button
           >
-            Try Again
+            Erneut versuchen
           </button>
         </div>
       </div>
@@ -208,10 +219,10 @@ export default function AdminBookings() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-3">
-                <Sparkles className="w-8 h-8 text-[#C8A882]" />
+                <Car className={`w-8 h-8`} style={{ color: ACCENT_COLOR }} />
                 <div>
-                  <h1 className="text-3xl font-serif font-bold text-[#0F0F0F]">SERENITY Admin</h1>
-                  <p className="text-gray-600">Booking Management Dashboard</p>
+                  <h1 className="text-3xl font-serif font-bold text-[#0F0F0F]">M&M Reifenservice Admin</h1>
+                  <p className="text-gray-600">Buchungsverwaltung Dashboard</p>
                 </div>
               </div>
             </div>
@@ -219,20 +230,20 @@ export default function AdminBookings() {
             <div className="flex items-center gap-6">
               <button
                 onClick={loadData}
-                className="flex items-center gap-2 text-gray-600 hover:text-[#C8A882] transition-colors"
+                className={`flex items-center gap-2 text-gray-600 hover:text-[${ACCENT_COLOR}] transition-colors`}
               >
                 <RefreshCw className="w-5 h-5" />
-                Refresh
+                Aktualisieren
               </button>
               <div className="text-right">
-                <p className="text-2xl font-bold text-[#C8A882]">{appointments.length}</p>
-                <p className="text-sm text-gray-600">Total Bookings</p>
+                <p className={`text-2xl font-bold`} style={{ color: ACCENT_COLOR }}>{appointments.length}</p>
+                <p className="text-sm text-gray-600">Gesamtbuchungen</p>
               </div>
               <div className="text-right">
                 <p className="text-2xl font-bold text-green-600">
                   {appointments.filter(a => a.status === 'confirmed').length}
                 </p>
-                <p className="text-sm text-gray-600">Confirmed</p>
+                <p className="text-sm text-gray-600">Bestätigt</p>
               </div>
             </div>
           </div>
@@ -241,12 +252,12 @@ export default function AdminBookings() {
 
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* System Status */}
-        <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-8">
-          <h4 className="font-bold text-green-800 mb-2">✅ System Status</h4>
-          <p className="text-sm text-green-700">Dashboard loaded successfully</p>
-          <p className="text-sm text-green-700">Total appointments: {appointments.length}</p>
-          <p className="text-sm text-green-700">Filtered appointments: {filteredAppointments.length}</p>
-          <p className="text-sm text-green-700">Notifications: {notifications.length}</p>
+        <div className={`border border-green-200 rounded-lg p-4 mb-8`} style={{ backgroundColor: LIGHT_BG_COLOR }}>
+          <h4 className="font-bold text-green-800 mb-2">✅ Systemstatus</h4>
+          <p className="text-sm text-green-700">Dashboard erfolgreich geladen</p>
+          <p className="text-sm text-green-700">Gesamtzahl Termine: {appointments.length}</p>
+          <p className="text-sm text-green-700">Gefilterte Termine: {filteredAppointments.length}</p>
+          <p className="text-sm text-green-700">Benachrichtigungen: {notifications.length}</p>
         </div>
 
         {/* Filters and Controls */}
@@ -258,10 +269,10 @@ export default function AdminBookings() {
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   type="text"
-                  placeholder="Search by name, email, phone, or service..."
+                  placeholder="Suche nach Name, E-Mail, Telefon oder Service..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#C8A882] transition-colors"
+                  className={`w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[${ACCENT_COLOR}] transition-colors`}
                 />
               </div>
 
@@ -269,13 +280,13 @@ export default function AdminBookings() {
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#C8A882] transition-colors"
+                className={`px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[${ACCENT_COLOR}] transition-colors`}
               >
-                <option value="all">All Status</option>
-                <option value="pending">Pending</option>
-                <option value="confirmed">Confirmed</option>
-                <option value="completed">Completed</option>
-                <option value="cancelled">Cancelled</option>
+                <option value="all">Alle Status</option>
+                <option value="pending">Offen</option>
+                <option value="confirmed">Bestätigt</option>
+                <option value="completed">Abgeschlossen</option>
+                <option value="cancelled">Storniert</option>
               </select>
 
               {/* Date Filter */}
@@ -283,14 +294,15 @@ export default function AdminBookings() {
                 type="date"
                 value={dateFilter}
                 onChange={(e) => setDateFilter(e.target.value)}
-                className="px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#C8A882] transition-colors"
+                className={`px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[${ACCENT_COLOR}] transition-colors`}
               />
             </div>
 
             {/* Export Button */}
             <button
               onClick={exportToCSV}
-              className="flex items-center gap-2 bg-[#C8A882] text-white px-6 py-3 rounded-xl font-medium hover:bg-[#FF5C8D] transition-colors duration-300"
+              className={`flex items-center gap-2 text-white px-6 py-3 rounded-xl font-medium hover:bg-[${PRIMARY_COLOR}] transition-colors duration-300`}
+              style={{ backgroundColor: ACCENT_COLOR }}
             >
               <Download className="w-5 h-5" />
               Export CSV
@@ -304,7 +316,7 @@ export default function AdminBookings() {
             <div className="flex items-center gap-3 mb-4">
               <AlertCircle className="w-6 h-6 text-orange-600" />
               <h3 className="font-bold text-orange-800">
-                {notifications.filter(n => n.notification_status === 'pending').length} New Booking Notifications
+                {notifications.filter(n => n.notification_status === 'pending').length} neue Buchungsanfragen
               </h3>
             </div>
             <div className="space-y-2">
@@ -312,16 +324,17 @@ export default function AdminBookings() {
                 <div key={notification.id} className="flex items-center justify-between bg-white rounded-lg p-3">
                   <div>
                     <span className="font-medium">{notification.client_name}</span>
-                    <span className="text-gray-600 ml-2">booked {notification.service_name}</span>
+                    <span className="text-gray-600 ml-2">buchte {notification.service_name}</span>
                     <span className="text-sm text-gray-500 ml-2">
-                      on {formatDate(notification.appointment_date)} at {notification.appointment_time}
+                      am {formatDate(notification.appointment_date)} um {notification.appointment_time} Uhr
                     </span>
                   </div>
                   <button
                     onClick={() => markNotificationAsViewed(notification.id)}
-                    className="text-sm bg-[#C8A882] text-white px-3 py-1 rounded-lg hover:bg-[#FF5C8D] transition-colors"
+                    className={`text-sm text-white px-3 py-1 rounded-lg hover:bg-[${PRIMARY_COLOR}] transition-colors`}
+                    style={{ backgroundColor: ACCENT_COLOR }}
                   >
-                    Mark Viewed
+                    Als gelesen markieren
                   </button>
                 </div>
               ))}
@@ -335,20 +348,21 @@ export default function AdminBookings() {
             <div className="bg-white rounded-2xl shadow-sm p-12 text-center">
               <Calendar className="w-16 h-16 text-gray-300 mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                {appointments.length === 0 ? 'No appointments yet' : 'No appointments match your filters'}
+                {appointments.length === 0 ? 'Noch keine Buchungen vorhanden' : 'Keine Buchungen entsprechen den Filtern'}
               </h3>
               <p className="text-gray-600">
                 {appointments.length === 0 
-                  ? 'Appointments will appear here once customers start booking.'
-                  : 'Try adjusting your filters or search terms.'
+                  ? 'Sobald Kunden Termine buchen, erscheinen diese hier.'
+                  : 'Versuchen Sie, die Filter oder Suchbegriffe anzupassen.'
                 }
               </p>
               {appointments.length === 0 && (
                 <button
                   onClick={() => window.dispatchEvent(new CustomEvent('open-booking-modal'))}
-                  className="mt-4 bg-[#C8A882] text-white px-6 py-2 rounded-lg hover:bg-[#FF5C8D] transition-colors"
+                  className={`mt-4 text-white px-6 py-2 rounded-lg hover:bg-[${PRIMARY_COLOR}] transition-colors`}
+                  style={{ backgroundColor: ACCENT_COLOR }}
                 >
-                  Test Booking System
+                  Buchungssystem testen
                 </button>
               )}
             </div>
@@ -363,8 +377,8 @@ export default function AdminBookings() {
                 <div className="p-6">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-[#C8A882]/10 rounded-full flex items-center justify-center">
-                        <User className="w-6 h-6 text-[#C8A882]" />
+                      <div className={`w-12 h-12 rounded-full flex items-center justify-center`} style={{ backgroundColor: LIGHT_BG_COLOR }}>
+                        <User className={`w-6 h-6`} style={{ color: ACCENT_COLOR }} />
                       </div>
                       <div>
                         <h3 className="font-serif text-xl font-bold text-[#0F0F0F]">
@@ -375,7 +389,7 @@ export default function AdminBookings() {
                             <Mail className="w-4 h-4" />
                             <a 
                               href={`mailto:${appointment.email}`} 
-                              className="hover:text-[#C8A882] break-all"
+                              className={`hover:text-[${ACCENT_COLOR}] break-all`}
                             >
                               {appointment.email || 'N/A'}
                             </a>
@@ -384,7 +398,7 @@ export default function AdminBookings() {
                             <Phone className="w-4 h-4" />
                             <a 
                               href={`tel:${appointment.phone}`} 
-                              className="hover:text-[#C8A882]"
+                              className={`hover:text-[${ACCENT_COLOR}]`}
                             >
                               {appointment.phone || 'N/A'}
                             </a>
@@ -395,21 +409,22 @@ export default function AdminBookings() {
                     
                     <div className="flex items-center gap-3">
                       <span className={`px-3 py-1 rounded-full text-xs font-medium border ${statusColors[appointment.status] || statusColors.pending}`}>
-                        {appointment.status ? appointment.status.charAt(0).toUpperCase() + appointment.status.slice(1) : 'Pending'}
+                        {appointment.status ? appointment.status.charAt(0).toUpperCase() + appointment.status.slice(1) : 'Offen'}
                       </span>
                       <span className="text-xs text-gray-500">
-                        #{(appointment.id || '').slice(-8).toUpperCase()}
+                        #{appointment.id ? (appointment.id).slice(-8).toUpperCase() : 'N/A'}
                       </span>
                     </div>
                   </div>
 
                   <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
                     <div className="flex items-center gap-2">
-                      <Star className="w-4 h-4 text-[#C8A882]" />
+                      <Wrench className={`w-4 h-4`} style={{ color: ACCENT_COLOR }} />
                       <div>
                         <p className="font-medium text-[#0F0F0F]">{appointment.service || 'N/A'}</p>
                         <p className="text-sm text-gray-600">
-                          {appointment.service_price ? `₹${appointment.service_price.toLocaleString('en-IN')}` : 'Price N/A'}
+                          {/* Anpassung der Währung und des Formats auf Euro/Deutsch */}
+                          {appointment.service_price ? `€ ${Number(appointment.service_price).toLocaleString('de-DE', { minimumFractionDigits: 2 })}` : 'Preis N/A'}
                         </p>
                       </div>
                     </div>
@@ -418,15 +433,15 @@ export default function AdminBookings() {
                       <Calendar className="w-4 h-4 text-blue-600" />
                       <div>
                         <p className="font-medium text-[#0F0F0F]">{formatDate(appointment.preferred_date)}</p>
-                        <p className="text-sm text-gray-600">Appointment Date</p>
+                        <p className="text-sm text-gray-600">Termin Datum</p>
                       </div>
                     </div>
                     
                     <div className="flex items-center gap-2">
                       <Clock className="w-4 h-4 text-green-600" />
                       <div>
-                        <p className="font-medium text-[#0F0F0F]">{appointment.preferred_time || 'N/A'}</p>
-                        <p className="text-sm text-gray-600">{appointment.duration || 'Duration N/A'}</p>
+                        <p className="font-medium text-[#0F0F0F]">{appointment.preferred_time || 'N/A'} Uhr</p>
+                        <p className="text-sm text-gray-600">{appointment.duration || 'Dauer N/A'}</p>
                       </div>
                     </div>
                     
@@ -434,7 +449,7 @@ export default function AdminBookings() {
                       <AlertCircle className="w-4 h-4 text-gray-400" />
                       <div>
                         <p className="font-medium text-[#0F0F0F]">{formatDateTime(appointment.created_date)}</p>
-                        <p className="text-sm text-gray-600">Booked On</p>
+                        <p className="text-sm text-gray-600">Gebucht am</p>
                       </div>
                     </div>
                   </div>
@@ -444,7 +459,7 @@ export default function AdminBookings() {
                       <div className="flex items-start gap-2">
                         <MessageSquare className="w-4 h-4 text-gray-400 mt-0.5" />
                         <div>
-                          <p className="text-sm font-medium text-gray-700 mb-1">Special Requests:</p>
+                          <p className="text-sm font-medium text-gray-700 mb-1">Sonderwünsche:</p>
                           <p className="text-sm text-gray-600">{appointment.message}</p>
                         </div>
                       </div>
@@ -453,7 +468,7 @@ export default function AdminBookings() {
 
                   <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                     <div className="text-sm text-gray-500">
-                      Last updated: {formatDateTime(appointment.updated_date)}
+                      Zuletzt aktualisiert: {formatDateTime(appointment.updated_date)}
                     </div>
                     
                     <div className="flex items-center gap-2">
@@ -464,14 +479,14 @@ export default function AdminBookings() {
                             className="flex items-center gap-1 bg-green-600 text-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-green-700 transition-colors"
                           >
                             <CheckCircle className="w-4 h-4" />
-                            Confirm
+                            Bestätigen
                           </button>
                           <button
                             onClick={() => updateAppointmentStatus(appointment.id, 'cancelled')}
                             className="flex items-center gap-1 bg-red-600 text-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-red-700 transition-colors"
                           >
                             <XCircle className="w-4 h-4" />
-                            Cancel
+                            Stornieren
                           </button>
                         </>
                       )}
@@ -482,7 +497,7 @@ export default function AdminBookings() {
                           className="flex items-center gap-1 bg-blue-600 text-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
                         >
                           <CheckCircle className="w-4 h-4" />
-                          Mark Complete
+                          Als abgeschlossen markieren
                         </button>
                       )}
                     </div>
@@ -496,13 +511,13 @@ export default function AdminBookings() {
         {/* Summary Stats */}
         <div className="mt-12 grid md:grid-cols-4 gap-6">
           <div className="bg-white rounded-2xl p-6 text-center shadow-sm">
-            <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
-              <Calendar className="w-6 h-6 text-blue-600" />
+            <div className={`w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3`} style={{ backgroundColor: LIGHT_BG_COLOR }}>
+              <Calendar className={`w-6 h-6`} style={{ color: PRIMARY_COLOR }} />
             </div>
-            <p className="text-2xl font-bold text-blue-600">
+            <p className={`text-2xl font-bold`} style={{ color: PRIMARY_COLOR }}>
               {appointments.filter(a => a.status === 'pending').length}
             </p>
-            <p className="text-sm text-gray-600">Pending Approval</p>
+            <p className="text-sm text-gray-600">Offene Anfragen</p>
           </div>
           
           <div className="bg-white rounded-2xl p-6 text-center shadow-sm">
@@ -512,27 +527,28 @@ export default function AdminBookings() {
             <p className="text-2xl font-bold text-green-600">
               {appointments.filter(a => a.status === 'confirmed').length}
             </p>
-            <p className="text-sm text-gray-600">Confirmed</p>
+            <p className="text-sm text-gray-600">Bestätigte Termine</p>
           </div>
           
           <div className="bg-white rounded-2xl p-6 text-center shadow-sm">
             <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
-              <Star className="w-6 h-6 text-purple-600" />
+              <Package className="w-6 h-6 text-purple-600" />
             </div>
             <p className="text-2xl font-bold text-purple-600">
               {appointments.filter(a => a.status === 'completed').length}
             </p>
-            <p className="text-sm text-gray-600">Completed</p>
+            <p className="text-sm text-gray-600">Abgeschlossene Aufträge</p>
           </div>
           
           <div className="bg-white rounded-2xl p-6 text-center shadow-sm">
-            <div className="w-12 h-12 bg-[#C8A882]/20 rounded-full flex items-center justify-center mx-auto mb-3">
-              <MapPin className="w-6 h-6 text-[#C8A882]" />
+            <div className={`w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3`} style={{ backgroundColor: LIGHT_BG_COLOR }}>
+              <Euro className={`w-6 h-6`} style={{ color: ACCENT_COLOR }} />
             </div>
-            <p className="text-2xl font-bold text-[#C8A882]">
-              ₹{appointments.reduce((sum, apt) => sum + (apt.service_price || 0), 0).toLocaleString('en-IN')}
+            <p className={`text-2xl font-bold`} style={{ color: ACCENT_COLOR }}>
+              {/* Berechnung und Formatierung des Gesamtumsatzes in Euro */}
+              {appointments.reduce((sum, apt) => sum + (Number(apt.service_price) || 0), 0).toLocaleString('de-DE', { minimumFractionDigits: 2 })} €
             </p>
-            <p className="text-sm text-gray-600">Total Revenue</p>
+            <p className="text-sm text-gray-600">Geschätzter Gesamtumsatz</p>
           </div>
         </div>
       </div>
