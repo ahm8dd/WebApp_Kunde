@@ -18,7 +18,7 @@ const LIGHT_BG = "#59546c"; // Graublau für Hintergrund (als Basis für Transpa
 
 export default function Impressum() {
   // Hinweis: Der Platzhalter für den Inhaber/Verantwortlichen muss manuell ausgefüllt werden.
-  const INHABER_PLACEHOLDER = "[Name des Inhabers/der Inhaberin]";
+  const INHABER_PLACEHOLDER = "[Mohamad Mouait]";
   
   return (
     <div className="pt-32 pb-24 bg-white min-h-screen">
@@ -38,13 +38,8 @@ export default function Impressum() {
                 Angaben gemäß § 5 TMG
               </h2>
               <div className="space-y-2">
-<<<<<<< HEAD
                 <p className="font-bold text-lg">{BUSINESS_NAME}</p>
                 <p>Inhaber: {INHABER_PLACEHOLDER}</p>
-=======
-                <p className="font-bold text-lg">M&M Reifenservice</p>
-                <p>Inhaber: [Mohamad Mouait]</p>
->>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
               </div>
             </div>
 
@@ -66,7 +61,6 @@ export default function Impressum() {
                 Kontakt
               </h2>
               <div className="space-y-2">
-<<<<<<< HEAD
                 <p>
                   <strong>Telefon:</strong> 
                   <a href={`tel:${PHONE.replace(/\s/g, '')}`} className={`hover:underline ml-1`} style={{ color: ACCENT_COLOR }}>
@@ -79,10 +73,6 @@ export default function Impressum() {
                     {EMAIL}
                   </a>
                 </p>
-=======
-                <p><strong>Telefon:</strong> <a href="tel:0201 25908194" className="text-[#ff0035] hover:underline">+49 201 1234 5678</a></p>
-                <p><strong>E-Mail:</strong> <a href="mailto:info@mmreifenessen.de" className="text-[#ff0035] hover:underline">info@mm-reifen.de</a></p>
->>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
               </div>
             </div>
 
@@ -97,15 +87,9 @@ export default function Impressum() {
             <div className={`rounded-xl p-6`} style={{ backgroundColor: LIGHT_BG + '0F' }}>
               <h2 className={`text-2xl font-bold mb-4`} style={{ color: DARK_COLOR }}>Verantwortlich für den Inhalt</h2>
               <p>
-<<<<<<< HEAD
-                {INHABER_PLACEHOLDER}<br />
-                {ADDRESS_LINE1}<br />
-                {ADDRESS_LINE2}
-=======
                 [Mohamad Mouait]<br />
                 Sulterkamp 58<br />
                 45356 Essen
->>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
               </p>
             </div>
 

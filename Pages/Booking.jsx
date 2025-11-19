@@ -10,17 +10,7 @@ const NEUTRAL_BG_COLOR = "#59546c"; // Mittelgrau für den Hintergrundgradienten
 
 const services = [
   {
-<<<<<<< HEAD
     name: "Radwechsel",
-=======
-    name: "Reifenwechsel",
-    price: 45,
-    duration: "30 min",
-    description: "Schneller Austausch für alle Fahrzeuge"
-  },
-  {
-    name: "Auswuchten",
->>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
     price: 25,
     duration: "30 min",
     description: "Schneller Austausch von Sommer- auf Winterreifen o.ä."
@@ -34,21 +24,14 @@ const services = [
   {
     name: "Reifenreparatur",
     price: 15,
-    duration: "45 min",
+    duration: "15 min",
     description: "Professionelle Reparatur von Einfahrschäden"
   },
   {
-<<<<<<< HEAD
     name: "Reifeneinlagerung",
     price: 25,
     duration: "15 min",
     description: "Sichere Lagerung für eine Saison (kompletter Satz)"
-=======
-    name: "Einlagerung",
-    price: 25,
-    duration: "15 min",
-    description: "Sichere Lagerung für Saisonreifen (pro Saison)"
->>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
   }
 ];
 
@@ -511,11 +494,7 @@ export default function BookingPage() {
               <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 text-left">
                 <p className="text-sm text-gray-700">
                   <strong>📍 Adresse:</strong> Sulterkamp 58, 45356 Essen<br/>
-<<<<<<< HEAD
                   <strong>📞 Telefon:</strong> 0201 25908194
-=======
-                  <strong>📞 Telefon:</strong> +49 201 25908194
->>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
                 </p>
               </div>
 
