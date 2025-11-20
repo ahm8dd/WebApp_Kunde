@@ -69,7 +69,6 @@ export default function Gallery() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-<<<<<<< HEAD
           <div className={`inline-flex items-center gap-2 rounded-full px-4 py-2 mb-6`} style={{ backgroundColor: ACCENT_COLOR + '10' }}>
             <Car className="w-4 h-4" style={{ color: ACCENT_COLOR }} />
             <span className={`text-sm font-medium`} style={{ color: MEDIUM_COLOR }}>Ein Blick hinter die Kulissen</span>
@@ -82,20 +81,6 @@ export default function Gallery() {
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-[1.618]">
             Verschaffen Sie sich einen Eindruck von unserer modernen Werkstatt, der Technologie, die wir nutzen, 
             und unseren freundlichen Servicebereichen.
-=======
-          <div className="inline-flex items-center gap-2 bg-[#C8A882]/10 rounded-full px-4 py-2 mb-6">
-            <Sparkles className="w-4 h-4 text-[#C8A882]" />
-            <span className="text-sm font-medium">Reifen</span>
-          </div>
-          
-          <h1 className="font-serif font-medium text-[length:var(--font-h1)] text-[#0F0F0F] mb-6 leading-tight">
-            M&M Reifenservice Galerie
-          </h1>
-          
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-[1.618]">
-            Entdecken Sie unsere Werkstatt und erfahren Sie mehr über unsere professionellen 
-            Reifenservices.
->>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
           </p>
         </motion.div>
 
@@ -118,11 +103,7 @@ export default function Gallery() {
                 <div className="relative h-80 overflow-hidden">
                   <img
                     src={image.src}
-<<<<<<< HEAD
                     alt={`${image.title} bei M&M Reifenservice in Essen.`}
-=======
-                    alt={`${image.title} bei M&M Reifenservice | Ihr experte für Reifen in der Region.`}
->>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -156,7 +137,6 @@ export default function Gallery() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="text-center mt-16"
         >
-<<<<<<< HEAD
           <div className={`rounded-3xl p-12 shadow-lg border border-[${MEDIUM_COLOR}]/20`} style={{ backgroundColor: ACCENT_COLOR + '0F' }}>
             <h2 className="font-serif text-[length:var(--font-h2)] font-bold mb-4" style={{ color: DARK_COLOR }}>
               Lust auf einen schnellen Service?
@@ -170,19 +150,6 @@ export default function Gallery() {
               style={{ backgroundColor: ACCENT_COLOR }}
             >
               Jetzt Termin vereinbaren
-=======
-          <div className="bg-white rounded-3xl p-12 shadow-lg border border-[#C8A882]/20">
-            <h2 className="font-serif text-[length:var(--font-h2)] font-bold text-[#0F0F0F] mb-4">
-              Buchen Sie noch heute Ihren Termin!
-            </h2>
-            <p className="text-gray-600 mb-8 max-w-2xl mx-auto leading-[1.618]">
-              Erleben Sie den erstklassigen Service von M&M Reifenservice. Klicken Sie auf den Button unten, um Ihren Termin zu vereinbaren.
-            </p>
-            <button 
-              onClick={() => window.dispatchEvent(new CustomEvent('open-booking-modal'))}
-              className="bg-[#C8A882] text-white px-8 py-4 rounded-full font-medium hover:bg-[#FF5C8D] transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl">
-              Jetzt Termin buchen
->>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
             </button>
           </div>
         </motion.div>

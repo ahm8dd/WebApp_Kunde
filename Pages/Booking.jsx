@@ -1,64 +1,87 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { base44 } from "@/api/base44Client";
-import { Calendar, Clock, User, Mail, Phone, MessageSquare, CheckCircle, X } from "lucide-react";
+import { supabase } from "../supabaseClient";
+import {
+  Calendar,
+  Clock,
+  User,
+  Mail,
+  Phone,
+  MessageSquare,
+  CheckCircle,
+  AlertCircle,
+} from "lucide-react";
 
-// --- START: PALETTE & KONSTANTEN FÜR M&M REIFENSERVICE ---
-const ACCENT_COLOR = "#ff0035"; // Rot
-const PRIMARY_TEXT_COLOR = "#38405f"; // Dunkelblau/Grau für Text
-const NEUTRAL_BG_COLOR = "#59546c"; // Mittelgrau für den Hintergrundgradienten
+const ACCENT_COLOR = "#ff0035";
+const PRIMARY_TEXT_COLOR = "#38405f";
+const NEUTRAL_BG_COLOR = "#59546c";
 
 const services = [
   {
     name: "Radwechsel",
     price: 25,
     duration: "30 min",
-    description: "Schneller Austausch von Sommer- auf Winterreifen o.ä."
+    description: "Schneller Austausch von Sommer- auf Winterreifen o.ä.",
   },
   {
     name: "Räder Auswuchten",
     price: 40,
     duration: "30 min",
-    description: "Perfektes Gleichgewicht für mehr Fahrkomfort und Sicherheit"
+    description: "Perfektes Gleichgewicht für mehr Fahrkomfort und Sicherheit",
   },
   {
     name: "Reifenreparatur",
     price: 15,
     duration: "15 min",
-    description: "Professionelle Reparatur von Einfahrschäden"
+    description: "Professionelle Reparatur von Einfahrschäden",
   },
   {
     name: "Reifeneinlagerung",
     price: 25,
     duration: "15 min",
-    description: "Sichere Lagerung für eine Saison (kompletter Satz)"
-  }
+    description: "Sichere Lagerung für eine Saison (kompletter Satz)",
+  },
 ];
 
-// NEUE ÖFFNUNGSZEITEN: Mo-Fr: 9-18 Uhr, Sa: 9-15 Uhr, So: Geschlossen
 const getTimeSlotsForDay = (dayOfWeek) => {
-  // Sonntag: Geschlossen (0)
-  if (dayOfWeek === 0) {
-    return [];
-  }
-  
-  // Samstag: 9:00 bis 15:00 Uhr (6)
+  if (dayOfWeek === 0) return [];
   if (dayOfWeek === 6) {
     return [
-      "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
-      "12:00", "12:30", "13:00", "13:30", "14:00", "14:30"
+      "09:00",
+      "09:30",
+      "10:00",
+      "10:30",
+      "11:00",
+      "11:30",
+      "12:00",
+      "12:30",
+      "13:00",
+      "13:30",
+      "14:00",
+      "14:30",
     ];
   }
-  
-  // Montag bis Freitag: 9:00 bis 18:00 Uhr
   return [
-    "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
-    "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
-    "15:00", "15:30", "16:00", "16:30", "17:00", "17:30"
+    "09:00",
+    "09:30",
+    "10:00",
+    "10:30",
+    "11:00",
+    "11:30",
+    "12:00",
+    "12:30",
+    "13:00",
+    "13:30",
+    "14:00",
+    "14:30",
+    "15:00",
+    "15:30",
+    "16:00",
+    "16:30",
+    "17:00",
+    "17:30",
   ];
 };
-// --- END: PALETTE & KONSTANTEN ---
-
 
 export default function BookingPage() {
   const [formData, setFormData] = useState({
@@ -68,11 +91,11 @@ export default function BookingPage() {
     service: "",
     preferred_date: "",
     preferred_time: "",
-    message: ""
+    message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [step, setStep] = useState(1);
-  const [createdAppointment, setCreatedAppointment] = useState(null);
+  const [createdAppointmentId, setCreatedAppointmentId] = useState(null);
   const [error, setError] = useState("");
   const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
 
@@ -80,36 +103,44 @@ export default function BookingPage() {
     if (formData.preferred_date) {
       const date = new Date(formData.preferred_date);
       const dayOfWeek = date.getDay();
-      setAvailableTimeSlots(getTimeSlotsForDay(dayOfWeek));
-      const selectedTime = formData.preferred_time;
-      const newSlots = getTimeSlotsForDay(dayOfWeek);
-      if (selectedTime && !newSlots.includes(selectedTime)) {
-        setFormData(prev => ({ ...prev, preferred_time: "" }));
+      const slots = getTimeSlotsForDay(dayOfWeek);
+      setAvailableTimeSlots(slots);
+
+      if (formData.preferred_time && !slots.includes(formData.preferred_time)) {
+        setFormData((prev) => ({ ...prev, preferred_time: "" }));
       }
     }
   }, [formData.preferred_date]);
 
-  const selectedService = services.find(s => s.name === formData.service);
+  const selectedService = services.find((s) => s.name === formData.service);
 
   const handleInputChange = (field, value) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
     if (error) setError("");
   };
 
   const validateForm = () => {
-    const { client_name, email, phone, service, preferred_date, preferred_time } = formData;
-    
+    const {
+      client_name,
+      email,
+      phone,
+      service,
+      preferred_date,
+      preferred_time,
+    } = formData;
+
     if (!client_name.trim()) return "Bitte geben Sie Ihren Namen ein";
-    if (!email.trim() || !email.includes("@")) return "Bitte geben Sie eine gültige E-Mail-Adresse ein";
+    if (!email.trim() || !email.includes("@"))
+      return "Bitte geben Sie eine gültige E-Mail-Adresse ein";
     if (!phone.trim()) return "Bitte geben Sie Ihre Telefonnummer ein";
     if (!service) return "Bitte wählen Sie einen Service aus";
     if (!preferred_date) return "Bitte wählen Sie ein Datum aus";
     if (!preferred_time) return "Bitte wählen Sie eine Uhrzeit aus";
-    
+
     const selectedDate = new Date(preferred_date);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    
+
     if (selectedDate < today) {
       return "Bitte wählen Sie ein zukünftiges Datum";
     }
@@ -118,29 +149,13 @@ export default function BookingPage() {
     if (dayOfWeek === 0) {
       return "Sonntags haben wir geschlossen. Bitte wählen Sie einen anderen Tag.";
     }
-    
-    return null;
-  };
 
-  // Anpassung der Formatierung auf deutsches Format
-  const formatDate = (dateString) => {
-    if (!dateString) return 'N/A';
-    try {
-      const date = new Date(dateString);
-      return date.toLocaleDateString('de-DE', { 
-        weekday: 'long', 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric' 
-      });
-    } catch {
-      return dateString;
-    }
+    return null;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const validationError = validateForm();
     if (validationError) {
       setError(validationError);
@@ -151,20 +166,38 @@ export default function BookingPage() {
     setError("");
 
     try {
-      const appointmentData = {
-        ...formData,
-        service_price: selectedService?.price,
-        duration: selectedService?.duration,
-        status: "confirmed"
+      const bookingPayload = {
+        client_name: formData.client_name,
+        email: formData.email,
+        phone: formData.phone,
+        service: formData.service,
+        service_price: selectedService?.price || 0,
+        requested_date: formData.preferred_date,
+        requested_time: formData.preferred_time,
+        message: formData.message,
+        status: "pending", // WICHTIG: Neue Buchungen immer auf "pending"
+        created_at: new Date().toISOString(),
       };
 
-      const appointment = await base44.entities.Appointment.create(appointmentData);
-      setCreatedAppointment(appointment);
+      const { data, error: supabaseError } = await supabase
+        .from("bookings")
+        .insert([bookingPayload])
+        .select();
+
+      if (supabaseError) throw supabaseError;
+
+      if (data && data.length > 0) {
+        setCreatedAppointmentId(data[0].id);
+      } else {
+        setCreatedAppointmentId("NEU-" + Date.now());
+      }
+
       setStep(3);
     } catch (error) {
-      console.error('Booking submission failed:', error);
-      // Verwenden der gespeicherten Telefonnummer
-      setError(`Ein technischer Fehler ist aufgetreten. Bitte versuchen Sie es erneut oder rufen Sie uns direkt an: 0201 25908194`);
+      console.error("Booking submission failed:", error);
+      setError(
+        `Ein technischer Fehler ist aufgetreten. Bitte rufen Sie uns an: 0201 25908194`
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -178,10 +211,10 @@ export default function BookingPage() {
       service: "",
       preferred_date: "",
       preferred_time: "",
-      message: ""
+      message: "",
     });
     setStep(1);
-    setCreatedAppointment(null);
+    setCreatedAppointmentId(null);
     setError("");
     setAvailableTimeSlots([]);
   };
@@ -189,7 +222,7 @@ export default function BookingPage() {
   const getTomorrowDate = () => {
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
-    return tomorrow.toISOString().split('T')[0];
+    return tomorrow.toISOString().split("T")[0];
   };
 
   const getDayName = (dateString) => {
@@ -201,8 +234,20 @@ export default function BookingPage() {
     return "";
   };
 
+  const formatDate = (dateStr) => {
+    if (!dateStr) return "";
+    return new Date(dateStr).toLocaleDateString("de-DE", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
   return (
-    <div className={`pt-32 pb-24 bg-gradient-to-b from-[${NEUTRAL_BG_COLOR}]/5 to-white min-h-screen`}>
+    <div
+      className={`pt-32 pb-24 bg-gradient-to-b from-[${NEUTRAL_BG_COLOR}]/5 to-white min-h-screen`}
+    >
       <div className="max-w-4xl mx-auto px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -213,11 +258,11 @@ export default function BookingPage() {
             Termin buchen
           </h1>
           <p className={`text-xl text-[${PRIMARY_TEXT_COLOR}]`}>
-            Buchen Sie jetzt Ihren Termin bei **M&M Reifenservice**
+            Ihr Termin bei <strong>M&M Reifenservice</strong> in Essen
           </p>
         </motion.div>
 
-        <div className="bg-white rounded-3xl shadow-2xl p-8">
+        <div className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100">
           {error && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
@@ -228,48 +273,57 @@ export default function BookingPage() {
             </motion.div>
           )}
 
+          {/* SCHRITT 1: SERVICE WAHL */}
           {step === 1 && (
             <motion.div
               key="step1"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
               className="space-y-6"
             >
               <div className="text-center mb-8">
-                <p className={`text-[${PRIMARY_TEXT_COLOR}]`}>Schritt 1 von 2: Service auswählen</p>
+                <p
+                  className={`text-[${PRIMARY_TEXT_COLOR}] uppercase tracking-widest text-sm font-bold`}
+                >
+                  Schritt 1 von 2
+                </p>
+                <h2 className="text-2xl font-bold mt-2">
+                  Welchen Service benötigen Sie?
+                </h2>
               </div>
 
-              <div className="grid gap-4">
+              <div className="grid gap-4 md:grid-cols-2">
                 {services.map((service) => (
                   <div
                     key={service.name}
                     onClick={() => {
-                      handleInputChange('service', service.name);
+                      handleInputChange("service", service.name);
                       setStep(2);
                     }}
-                    className={`p-6 rounded-xl border-2 cursor-pointer transition-all duration-300 hover:shadow-lg ${
+                    className={`p-6 rounded-2xl border-2 cursor-pointer transition-all duration-300 hover:shadow-lg flex flex-col justify-between ${
                       formData.service === service.name
                         ? `border-[${ACCENT_COLOR}] bg-[${ACCENT_COLOR}]/5`
-                        : 'border-gray-200 hover:border-[#ff0035]/50'
+                        : "border-gray-100 hover:border-red-200"
                     }`}
                   >
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <h3 className="text-xl font-semibold text-[#0e131f] mb-2">
-                          {service.name}
-                        </h3>
-                        <p className={`text-sm text-[${PRIMARY_TEXT_COLOR}] mb-2`}>{service.description}</p>
-                        <p className={`text-sm text-[${PRIMARY_TEXT_COLOR}]`}>
-                          <Clock className="w-4 h-4 inline mr-1" />
-                          {service.duration}
-                        </p>
-                      </div>
-                      <div className="text-right">
-                        <p className={`text-2xl font-bold`} style={{ color: ACCENT_COLOR }}>
-                          {service.price}€
-                        </p>
-                      </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-[#0e131f] mb-2">
+                        {service.name}
+                      </h3>
+                      <p className="text-sm text-gray-500 mb-4">
+                        {service.description}
+                      </p>
+                    </div>
+                    <div className="flex justify-between items-center mt-2 pt-4 border-t border-gray-100">
+                      <span className="text-sm font-medium text-gray-500 flex items-center gap-1">
+                        <Clock className="w-4 h-4" /> {service.duration}
+                      </span>
+                      <span
+                        className={`text-xl font-bold`}
+                        style={{ color: ACCENT_COLOR }}
+                      >
+                        {service.price} €
+                      </span>
                     </div>
                   </div>
                 ))}
@@ -277,233 +331,247 @@ export default function BookingPage() {
             </motion.div>
           )}
 
+          {/* SCHRITT 2: DATEN & ZEIT */}
           {step === 2 && (
             <motion.div
               key="step2"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
               className="space-y-6"
             >
-              <div className="text-center mb-8">
-                <p className={`text-[${PRIMARY_TEXT_COLOR}]`}>Schritt 2 von 2: Ihre Daten</p>
-                <div className={`mt-4 p-4 rounded-xl`} style={{ backgroundColor: ACCENT_COLOR + '0F' }}>
-                  <p className="text-lg text-[#0e131f] font-semibold">
-                    {formData.service} - {selectedService?.price}€
-                  </p>
-                  <p className={`text-sm text-[${PRIMARY_TEXT_COLOR}]`}>{selectedService?.duration}</p>
+              <div className="text-center mb-6">
+                <p
+                  className={`text-[${PRIMARY_TEXT_COLOR}] uppercase tracking-widest text-sm font-bold`}
+                >
+                  Schritt 2 von 2
+                </p>
+                <h2 className="text-2xl font-bold mt-2">
+                  Ihre Kontaktdaten & Wunschtermin
+                </h2>
+                <div
+                  className={`mt-4 inline-block px-4 py-1 rounded-full text-sm font-medium bg-red-50 text-red-600`}
+                >
+                  {formData.service} ({selectedService?.price}€)
                 </div>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className={`block text-sm font-medium text-[${PRIMARY_TEXT_COLOR}] mb-2`}>
-                      <User className="w-4 h-4 inline mr-2" />
-                      Vollständiger Name *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.client_name}
-                      onChange={(e) => handleInputChange('client_name', e.target.value)}
-                      className={`w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[${ACCENT_COLOR}] transition-colors duration-300`}
-                      placeholder="Max Mustermann"
-                    />
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    <h3 className="font-bold text-gray-900 flex items-center gap-2 border-b pb-2">
+                      <User className="w-4 h-4" /> Persönliches
+                    </h3>
+                    <div>
+                      <label className="block text-xs font-bold text-gray-500 uppercase mb-1">
+                        Name *
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={formData.client_name}
+                        onChange={(e) =>
+                          handleInputChange("client_name", e.target.value)
+                        }
+                        className="w-full px-4 py-3 bg-gray-50 border-transparent focus:bg-white border focus:border-red-500 rounded-xl transition-all outline-none"
+                        placeholder="Max Mustermann"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-bold text-gray-500 uppercase mb-1">
+                        E-Mail *
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={(e) =>
+                          handleInputChange("email", e.target.value)
+                        }
+                        className="w-full px-4 py-3 bg-gray-50 border-transparent focus:bg-white border focus:border-red-500 rounded-xl transition-all outline-none"
+                        placeholder="max@beispiel.de"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-bold text-gray-500 uppercase mb-1">
+                        Telefon *
+                      </label>
+                      <input
+                        type="tel"
+                        required
+                        value={formData.phone}
+                        onChange={(e) =>
+                          handleInputChange("phone", e.target.value)
+                        }
+                        className="w-full px-4 py-3 bg-gray-50 border-transparent focus:bg-white border focus:border-red-500 rounded-xl transition-all outline-none"
+                        placeholder="0201 25908194"
+                      />
+                    </div>
                   </div>
-                  <div>
-                    <label className={`block text-sm font-medium text-[${PRIMARY_TEXT_COLOR}] mb-2`}>
-                      <Mail className="w-4 h-4 inline mr-2" />
-                      E-Mail-Adresse *
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={(e) => handleInputChange('email', e.target.value)}
-                      className={`w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[${ACCENT_COLOR}] transition-colors duration-300`}
-                      placeholder="max@beispiel.de"
-                    />
+
+                  <div className="space-y-4">
+                    <h3 className="font-bold text-gray-900 flex items-center gap-2 border-b pb-2">
+                      <Calendar className="w-4 h-4" /> Zeitplan
+                    </h3>
+                    <div>
+                      <label className="block text-xs font-bold text-gray-500 uppercase mb-1">
+                        Wunschdatum *
+                      </label>
+                      <input
+                        type="date"
+                        required
+                        value={formData.preferred_date}
+                        onChange={(e) =>
+                          handleInputChange("preferred_date", e.target.value)
+                        }
+                        min={getTomorrowDate()}
+                        className="w-full px-4 py-3 bg-gray-50 border-transparent focus:bg-white border focus:border-red-500 rounded-xl transition-all outline-none"
+                      />
+                      {formData.preferred_date && (
+                        <p className="text-xs mt-1 text-red-500 font-medium">
+                          {getDayName(formData.preferred_date)}
+                        </p>
+                      )}
+                    </div>
+                    <div>
+                      <label className="block text-xs font-bold text-gray-500 uppercase mb-1">
+                        Uhrzeit *
+                      </label>
+                      <select
+                        required
+                        value={formData.preferred_time}
+                        onChange={(e) =>
+                          handleInputChange("preferred_time", e.target.value)
+                        }
+                        disabled={
+                          !formData.preferred_date ||
+                          availableTimeSlots.length === 0
+                        }
+                        className="w-full px-4 py-3 bg-gray-50 border-transparent focus:bg-white border focus:border-red-500 rounded-xl transition-all outline-none disabled:opacity-50"
+                      >
+                        <option value="">Zeit wählen...</option>
+                        {availableTimeSlots.map((time) => (
+                          <option key={time} value={time}>
+                            {time} Uhr
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-xs font-bold text-gray-500 uppercase mb-1">
+                        Nachricht (Optional)
+                      </label>
+                      <textarea
+                        value={formData.message}
+                        onChange={(e) =>
+                          handleInputChange("message", e.target.value)
+                        }
+                        rows={2}
+                        className="w-full px-4 py-3 bg-gray-50 border-transparent focus:bg-white border focus:border-red-500 rounded-xl transition-all outline-none resize-none"
+                        placeholder="Z.B. Reifengröße 205/55 R16..."
+                      />
+                    </div>
                   </div>
                 </div>
 
-                <div>
-                  <label className={`block text-sm font-medium text-[${PRIMARY_TEXT_COLOR}] mb-2`}>
-                    <Phone className="w-4 h-4 inline mr-2" />
-                    Telefonnummer *
-                  </label>
-                  <input
-                    type="tel"
-                    required
-                    value={formData.phone}
-                    onChange={(e) => handleInputChange('phone', e.target.value)}
-                    className={`w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[${ACCENT_COLOR}] transition-colors duration-300`}
-                    placeholder="0201 25908194"
-                  />
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className={`block text-sm font-medium text-[${PRIMARY_TEXT_COLOR}] mb-2`}>
-                      <Calendar className="w-4 h-4 inline mr-2" />
-                      Wunschdatum *
-                    </label>
-                    <input
-                      type="date"
-                      required
-                      value={formData.preferred_date}
-                      onChange={(e) => handleInputChange('preferred_date', e.target.value)}
-                      min={getTomorrowDate()}
-                      className={`w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[${ACCENT_COLOR}] transition-colors duration-300`}
-                    />
-                    {formData.preferred_date && getDayName(formData.preferred_date) && (
-                      <p className={`text-xs mt-2`} style={{ color: ACCENT_COLOR }}>
-                        {getDayName(formData.preferred_date)}
-                      </p>
-                    )}
-                  </div>
-                  <div>
-                    <label className={`block text-sm font-medium text-[${PRIMARY_TEXT_COLOR}] mb-2`}>
-                      <Clock className="w-4 h-4 inline mr-2" />
-                      Wunschzeit *
-                    </label>
-                    <select
-                      required
-                      value={formData.preferred_time}
-                      onChange={(e) => handleInputChange('preferred_time', e.target.value)}
-                      className={`w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[${ACCENT_COLOR}] transition-colors duration-300`}
-                      disabled={!formData.preferred_date}
-                    >
-                      <option value="">Uhrzeit wählen</option>
-                      {availableTimeSlots.map((time) => (
-                        <option key={time} value={time}>{time} Uhr</option>
-                      ))}
-                    </select>
-                    {formData.preferred_date && availableTimeSlots.length === 0 && (
-                      <p className="text-xs text-red-600 mt-2">
-                        Sonntags haben wir geschlossen
-                      </p>
-                    )}
-                  </div>
-                </div>
-
-                <div>
-                  <label className={`block text-sm font-medium text-[${PRIMARY_TEXT_COLOR}] mb-2`}>
-                    <MessageSquare className="w-4 h-4 inline mr-2" />
-                    Besondere Wünsche (Optional)
-                  </label>
-                  <textarea
-                    value={formData.message}
-                    onChange={(e) => handleInputChange('message', e.target.value)}
-                    rows={3}
-                    className={`w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[${ACCENT_COLOR}] transition-colors duration-300 resize-none`}
-                    placeholder="Z.B. Reifengröße, besondere Wünsche..."
-                  />
-                </div>
-
-                <div className="flex gap-4">
+                <div className="flex gap-4 pt-4">
                   <button
                     type="button"
                     onClick={() => setStep(1)}
-                    className="flex-1 py-3 px-6 border border-gray-300 rounded-xl font-medium text-[#0e131f] hover:bg-gray-50 transition-colors duration-300"
+                    className="px-6 py-3 rounded-xl font-bold text-gray-600 hover:bg-gray-100 transition-colors"
                   >
                     Zurück
                   </button>
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={`flex-1 py-3 px-6 text-white rounded-xl font-medium hover:bg-[#d9002d] transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2`}
+                    className={`flex-1 py-3 px-6 text-white rounded-xl font-bold shadow-lg hover:shadow-xl transform active:scale-95 transition-all flex items-center justify-center gap-2`}
                     style={{ backgroundColor: ACCENT_COLOR }}
                   >
-                    {isSubmitting ? (
-                      <>
-                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                        Wird gebucht...
-                      </>
-                    ) : (
-                      'Termin bestätigen'
-                    )}
+                    {isSubmitting ? "Verarbeite..." : "Terminanfrage senden"}
                   </button>
                 </div>
               </form>
             </motion.div>
           )}
 
+          {/* SCHRITT 3: BESTÄTIGUNG - ÜBERARBEITET */}
           {step === 3 && (
             <motion.div
               key="step3"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="text-center space-y-6 py-8"
+              className="text-center space-y-8 py-8"
             >
-              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto">
-                <CheckCircle className="w-10 h-10 text-green-600" />
+              {/* Icon mit Info statt Erfolg */}
+              <div className="w-24 h-24 bg-orange-100 rounded-full flex items-center justify-center mx-auto shadow-inner">
+                <AlertCircle className="w-12 h-12 text-orange-600" />
               </div>
-              
+
               <div>
-                <h3 className="text-3xl font-bold text-[#0e131f] mb-2">
-                  Termin bestätigt!
+                <h3 className="text-3xl font-bold text-gray-900 mb-2">
+                  Anfrage erfolgreich gesendet!
                 </h3>
-                <p className={`text-[${PRIMARY_TEXT_COLOR}]`}>
-                  Vielen Dank, {formData.client_name}. Wir freuen uns auf Ihren Besuch.
+                <p className="text-gray-600 max-w-md mx-auto">
+                  Danke, {formData.client_name}! Ihre Terminanfrage wurde an uns
+                  übermittelt und ist momentan{" "}
+                  <strong className="text-orange-600">in Prüfung</strong>.
                 </p>
               </div>
 
-              <div className={`rounded-2xl p-6 text-left border-2 border-[${ACCENT_COLOR}]/30 mx-auto max-w-lg`} style={{ backgroundColor: ACCENT_COLOR + '0F' }}>
-                <h4 className="font-bold text-[#0e131f] mb-4 text-center">
-                  📋 Ihre Terminbestätigung
-                </h4>
-                
-                <div className="space-y-3 text-sm">
-                  <div className="flex justify-between">
-                    <strong className="text-[#0e131f]">Buchungs-Nr.:</strong>
-                    <span className={`font-mono`} style={{ color: ACCENT_COLOR }}>#{createdAppointment?.id?.slice(-8)?.toUpperCase()}</span>
-                  </div>
-                  
-                  <div className="w-full h-[1px] bg-gray-300"></div>
-                  
-                  <div className="flex justify-between">
-                    <strong className="text-[#0e131f]">Service:</strong>
-                    <span className={`text-[${PRIMARY_TEXT_COLOR}]`}>{createdAppointment?.service}</span>
-                  </div>
-                  
-                  <div className="flex justify-between">
-                    <strong className="text-[#0e131f]">Preis:</strong>
-                    <span className={`font-bold`} style={{ color: ACCENT_COLOR }}>{selectedService?.price}€</span>
-                  </div>
-                  
-                  <div className="flex justify-between">
-                    <strong className="text-[#0e131f]">Dauer:</strong>
-                    <span className={`text-[${PRIMARY_TEXT_COLOR}]`}>{selectedService?.duration}</span>
-                  </div>
-                  
-                  <div className="w-full h-[1px] bg-gray-300"></div>
-                  
-                  <div className="flex justify-between">
-                    <strong className="text-[#0e131f]">Datum:</strong>
-                    <span className={`text-[${PRIMARY_TEXT_COLOR}]`}>{formatDate(createdAppointment?.preferred_date)}</span>
-                  </div>
-                  
-                  <div className="flex justify-between">
-                    <strong className="text-[#0e131f]">Uhrzeit:</strong>
-                    <span className={`font-bold text-[${PRIMARY_TEXT_COLOR}]`}>{createdAppointment?.preferred_time} Uhr</span>
+              {/* Hinweis Box */}
+              <div className="bg-orange-50 border-l-4 border-orange-500 p-6 max-w-lg mx-auto text-left rounded-xl">
+                <div className="flex items-start gap-3">
+                  <Clock className="w-6 h-6 text-orange-600 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="font-bold text-gray-900 mb-2">
+                      ⏳ Warten auf Bestätigung
+                    </h4>
+                    <p className="text-sm text-gray-700 leading-relaxed">
+                      Wir prüfen Ihre Anfrage und melden uns innerhalb von{" "}
+                      <strong>24 Stunden</strong> per E-Mail oder Telefon zur
+                      finalen Terminbestätigung.
+                    </p>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 text-left">
-                <p className="text-sm text-gray-700">
-                  <strong>📍 Adresse:</strong> Sulterkamp 58, 45356 Essen<br/>
-                  <strong>📞 Telefon:</strong> 0201 25908194
-                </p>
+              <div className="bg-gray-50 rounded-2xl p-6 max-w-md mx-auto border border-gray-200 text-left space-y-3">
+                <div className="flex justify-between border-b border-gray-200 pb-2">
+                  <span className="text-gray-500">Datum:</span>
+                  <span className="font-bold text-gray-800">
+                    {formatDate(formData.preferred_date)}
+                  </span>
+                </div>
+                <div className="flex justify-between border-b border-gray-200 pb-2">
+                  <span className="text-gray-500">Uhrzeit:</span>
+                  <span className="font-bold text-gray-800">
+                    {formData.preferred_time} Uhr
+                  </span>
+                </div>
+                <div className="flex justify-between border-b border-gray-200 pb-2">
+                  <span className="text-gray-500">Service:</span>
+                  <span className="font-bold text-gray-800">
+                    {formData.service}
+                  </span>
+                </div>
+                <div className="flex justify-between pt-1">
+                  <span className="text-gray-500">Preis ca.:</span>
+                  <span className="font-bold text-red-600">
+                    {selectedService?.price} €
+                  </span>
+                </div>
+                {createdAppointmentId && (
+                  <div className="text-center pt-4 text-xs text-gray-400">
+                    Referenz-ID: #{String(createdAppointmentId).slice(-6)}
+                  </div>
+                )}
               </div>
 
               <button
-                onClick={resetForm}
-                className={`w-full py-3 px-6 text-white rounded-xl font-medium hover:bg-[#d9002d] transition-colors duration-300`}
-                style={{ backgroundColor: ACCENT_COLOR }}
+                onClick={() => (window.location.href = "/")}
+                className="px-8 py-3 bg-gray-900 text-white rounded-xl font-bold hover:bg-gray-800 transition-colors shadow-lg"
               >
-                Fertig
+                Zurück zur Startseite
               </button>
             </motion.div>
           )}

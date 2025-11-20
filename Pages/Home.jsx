@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Clock, Shield, Star, Phone, MapPin } from "lucide-react"; 
+import { ArrowRight, Clock, Shield, Star, Phone, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "../utils";
 
@@ -9,34 +9,38 @@ const ACCENT_COLOR = "#ff0035"; // Rot
 const DARK_COLOR = "#0e131f"; // Dunkelste Farbe (Für Hero Overlay & Text auf hellen Elementen)
 const MEDIUM_COLOR = "#59546c"; // Graublau (Original Akzentton für helle Hintergründe)
 const BUSINESS_PHONE = "0201 25908194";
-const DISPLAY_PHONE = "0201 25908194"; 
-const GOOGLE_MAPS_LINK = "https://www.google.com/maps/search/?api=1&query=M%26M+Reifenservice+Sulterkamp+Essen"; 
+const DISPLAY_PHONE = "0201 25908194";
+const GOOGLE_MAPS_LINK =
+  "https://www.google.com/maps/search/?api=1&query=M%26M+Reifenservice+Sulterkamp+Essen";
 // ----------------------------------------
 
 const services = [
   {
     id: 1,
     title: "Radwechsel",
-    description: "Schneller Austausch für alle Fahrzeuge. Professionell und zuverlässig.",
+    description:
+      "Schneller Austausch für alle Fahrzeuge. Professionell und zuverlässig.",
     price: "ab 25€", // Korrigiert
     icon: "🚗",
-    image: "https://images.unsplash.com/photo-1486262715619-67b5e0b08d3?w=800&q=80"
+    image: "/imgs/radwechsel.jpg",
   },
   {
     id: 2,
     title: "Räder Auswuchten",
-    description: "Perfektes Gleichgewicht für besseres Handling und längere Lebensdauer.",
+    description:
+      "Perfektes Gleichgewicht für besseres Handling und längere Lebensdauer.",
     price: "ab 40€", // Korrigiert
     icon: "⚖️",
-    image: "https://images.unsplash.com/photo-1449130015084-2eae8ee6f4d4?w=800&q=80"
+    image: "imgs/wuchten.jpg",
   },
   {
     id: 3,
     title: "Reifenreparatur",
-    description: "Professionelle Reparatur von Reifenschäden. Schnell und fachgerecht.",
+    description:
+      "Professionelle Reparatur von Reifenschäden. Schnell und fachgerecht.",
     price: "ab 15€", // Korrigiert
     icon: "🔧",
-    image: "https://images.unsplash.com/photo-1625047509168-a7026f36de04?w=800&q=80"
+    image: "imgs/reifen_reparatur.jpg",
   },
   {
     id: 4,
@@ -44,49 +48,42 @@ const services = [
     description: "Sichere Lagerung für Saisonreifen in optimalen Bedingungen.",
     price: "ab 25€", // Korrigiert
     icon: "📦",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80"
-  }
+    image: "imgs/reifen_lager.png",
+  },
 ];
 
 const testimonials = [
   {
-    name: "Anna M.",
+    name: "Bassam M.",
     location: "Essen",
     text: "Super Service! Reifen in 20 Min gewechselt. Sehr empfehlenswert!",
-    rating: 5
+    rating: 5,
   },
   {
-    name: "Thomas K.",
+    name: "Jara E.T.",
     location: "Essen",
-    text: "Günstig und zuverlässig. Beste Werkstatt in Sulterkamp.",
-    rating: 5
+    text: "Günstig und zuverlässig. Beste Werkstatt in Essen.",
+    rating: 5,
   },
   {
-    name: "Maria S.",
+    name: "Elissar M.",
     location: "Essen",
     text: "Professionelles Team und faire Preise. Top!",
-    rating: 5
-  }
+    rating: 5,
+  },
 ];
 
 const features = [
-  { icon: Clock, text: "Unter 30 Min", color: ACCENT_COLOR }, 
-  { icon: Shield, text: "100% Sicher", color: ACCENT_COLOR }
+  { icon: Clock, text: "Express-Service", color: ACCENT_COLOR },
+  { icon: Shield, text: "Geprüfte Qualität", color: ACCENT_COLOR },
 ];
 // ----------------------------------------------------------------------
 
-
 export default function Home() {
   return (
-<<<<<<< HEAD
-    <div> 
+    <div>
       {/* Hero Section (BLEIBT DUNKEL) */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24">
-=======
-    <div>
-      {/* Hero Section - min-h-screen entfernt, um unnötigen Leerraum zu vermeiden */}
-      <section className="relative overflow-hidden">
->>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
@@ -95,11 +92,11 @@ export default function Home() {
             className="w-full h-full object-cover"
           />
           {/* Hero Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0e131f]/95 via-[#0e131f]/80 to-transparent" /> 
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0e131f]/95 via-[#0e131f]/80 to-transparent" />
         </div>
 
         {/* Content - NEU: pt-32 (um die Navigationsleiste zu umgehen) und pb-12 (kompakter) */}
-        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 pt-32 pb-12"> 
+        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 pt-32 pb-12">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -107,11 +104,11 @@ export default function Home() {
             className="text-white max-w-3xl"
           >
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              Schnellster Reifenservice in Essen
+              Ihr Reifen Partner in Essen
             </h1>
-            
+
             <p className="text-xl md:text-2xl mb-8 text-gray-200">
-              Lassen Sie Ihre Reifen in unter 30 Minuten wechseln. Professioneller Service zu unschlagbaren Preisen.
+              Professioneller Service zu unschlagbaren Preisen.
             </p>
 
             {/* Features */}
@@ -132,32 +129,23 @@ export default function Home() {
 
             {/* CTA Buttons - Abstände beibehalten */}
             <div className="flex flex-col sm:flex-row gap-8 sm:gap-12">
-              <button
-                onClick={() => window.dispatchEvent(new CustomEvent('open-booking-modal'))}
-                className={`bg-[#ff0035] text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#d9002d] transition-all hover:scale-105 shadow-xl flex items-center justify-center gap-2`}
-              >
-                Jetzt buchen
-                <ArrowRight className="w-6 h-6" />
-              </button>
-              
-              {/* Anrufen Button - angepasst */}
-              <a
-                href={`tel:${BUSINESS_PHONE.replace(/\s/g, '')}`}
-                className="bg-white/10 backdrop-blur-sm text-white border-2 border-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-[#0e131f] transition-all flex items-center justify-center"
-              >
-                <Phone className="w-6 h-6 mr-2" />
-                Anrufen
-              </a>
-
-              {/* NEUER BUTTON: Google Maps */}
               <a
                 href={GOOGLE_MAPS_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-transparent text-white border-2 border-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-[#0e131f] transition-all flex items-center justify-center"
+                className={`bg-[#ff0035] text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#d9002d] transition-all hover:scale-105 shadow-xl flex items-center justify-center gap-2`}
               >
                 <MapPin className="w-6 h-6 mr-2" />
                 Besuchen Sie uns jetzt
+              </a>
+
+              {/* Anrufen Button - angepasst */}
+              <a
+                href={`tel:${BUSINESS_PHONE.replace(/\s/g, "")}`}
+                className="bg-white/10 backdrop-blur-sm text-white border-2 border-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-[#0e131f] transition-all flex items-center justify-center"
+              >
+                <Phone className="w-6 h-6 mr-2" />
+                Anrufen
               </a>
             </div>
 
@@ -169,22 +157,21 @@ export default function Home() {
               className="mt-8 bg-black/30 backdrop-blur-sm rounded-xl p-4 max-w-md border border-[#ff0035]/30"
             >
               <p className="text-sm text-gray-200">
-                ⚡ <strong className="text-[#ff0035]">Heute noch verfügbar!</strong> Buchen Sie jetzt und sparen Sie 10% auf den ersten Service.
+                ⚡{" "}
+                <strong className="text-[#ff0035]">
+                  Heute noch verfügbar!
+                </strong>{" "}
+                Besuchen Sie jetzt uns und sparen Sie auf den ersten Service.
               </p>
             </motion.div>
           </motion.div>
         </div>
-        
+
         {/* ÜBERGANG 1 WURDE ENTFERNT */}
       </section>
 
-<<<<<<< HEAD
       {/* Services Section (Bleibt weiß) */}
       <section className="py-20 bg-white">
-=======
-      {/* Services Section - Vertikaler Abstand aggressiv reduziert (py-12) */}
-      <section className="py-12 bg-white">
->>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -196,7 +183,8 @@ export default function Home() {
               Unsere Services
             </h2>
             <p className="text-xl text-[#8b939c] max-w-2xl mx-auto">
-              Wir bieten eine Reihe von Reifenservices, um Sie sicher auf der Straße zu halten.
+              Wir bieten eine Reihe von Reifenservices, um Sie sicher auf der
+              Straße zu halten.
             </p>
           </motion.div>
 
@@ -219,14 +207,19 @@ export default function Home() {
                     className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
                   />
                 </div>
-                
+
                 <div className="p-6">
-                  <div className="text-4xl mb-4">{service.icon}</div>
-                  <h3 className="text-xl font-bold text-[#0e131f] mb-2">{service.title}</h3>
-                  <p className="text-[#8b939c] text-sm mb-4">{service.description}</p> 
-                  
+                  <h3 className="text-xl font-bold text-[#0e131f] mb-2">
+                    {service.title}
+                  </h3>
+                  <p className="text-[#8b939c] text-sm mb-4">
+                    {service.description}
+                  </p>
+
                   <div className="flex items-center justify-between">
-                    <span className="text-2xl font-bold text-[#ff0035]">{service.price}</span>
+                    <span className="text-2xl font-bold text-[#ff0035]">
+                      {service.price}
+                    </span>
                     <Link
                       to={createPageUrl("Services")}
                       className="text-[#ff0035] hover:text-[#d9002d] font-medium flex items-center gap-1"
@@ -242,13 +235,8 @@ export default function Home() {
         </div>
       </section>
 
-<<<<<<< HEAD
       {/* Why Choose Us (Bleibt Original-Off-White) */}
       <section className="py-20 bg-[#59546c]/10">
-=======
-      {/* Why Choose Us - Vertikaler Abstand aggressiv reduziert (py-12) */}
-      <section className="py-12 bg-[#59546c]/10">
->>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -263,9 +251,21 @@ export default function Home() {
 
           <div className="grid md:grid-cols-3 gap-16">
             {[
-              { icon: Clock, title: "Schnell & Effizient", desc: "Service in unter 30 Minuten" },
-              { icon: Shield, title: "Qualität & Sicherheit", desc: "Zertifizierte Mechaniker" },
-              { icon: Star, title: "Faire Preise", desc: "Top Preis-Leistungs-Verhältnis" }
+              {
+                icon: Clock,
+                title: "Schnell & Effizient",
+                desc: "Service in unter 30 Minuten",
+              },
+              {
+                icon: Shield,
+                title: "Qualität & Sicherheit",
+                desc: "Zertifizierte Mechaniker",
+              },
+              {
+                icon: Star,
+                title: "Faire Preise",
+                desc: "Top Preis-Leistungs-Verhältnis",
+              },
             ].map((item, index) => (
               <motion.div
                 key={index}
@@ -278,7 +278,9 @@ export default function Home() {
                 <div className="w-16 h-16 bg-[#ff0035]/10 rounded-full flex items-center justify-center mx-auto mb-6">
                   <item.icon className="w-8 h-8 text-[#ff0035]" />
                 </div>
-                <h3 className="text-xl font-bold text-[#0e131f] mb-3">{item.title}</h3>
+                <h3 className="text-xl font-bold text-[#0e131f] mb-3">
+                  {item.title}
+                </h3>
                 <p className="text-[#8b939c]">{item.desc}</p>
               </motion.div>
             ))}
@@ -286,13 +288,8 @@ export default function Home() {
         </div>
       </section>
 
-<<<<<<< HEAD
       {/* Testimonials (Bleibt weiß) */}
-      <section className="py-20 bg-white relative"> 
-=======
-      {/* Testimonials - Vertikaler Abstand aggressiv reduziert (py-12) */}
-      <section className="py-12 bg-white">
->>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
+      <section className="py-20 bg-white relative">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -317,29 +314,31 @@ export default function Home() {
               >
                 <div className="flex gap-1 mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-[#ff0035] fill-current" />
+                    <Star
+                      key={i}
+                      className="w-5 h-5 text-[#ff0035] fill-current"
+                    />
                   ))}
                 </div>
-                <p className="text-[#8b939c] mb-6 italic">"{testimonial.text}"</p>
+                <p className="text-[#8b939c] mb-6 italic">
+                  "{testimonial.text}"
+                </p>
                 <div>
                   <p className="font-bold text-[#0e131f]">{testimonial.name}</p>
-                  <p className="text-sm text-[#8b939c]">{testimonial.location}</p>
+                  <p className="text-sm text-[#8b939c]">
+                    {testimonial.location}
+                  </p>
                 </div>
               </motion.div>
             ))}
           </div>
         </div>
-        
+
         {/* ÜBERGANG 2 WURDE ENTFERNT */}
       </section>
 
-<<<<<<< HEAD
       {/* CTA Section (Bleibt rot) */}
       <section className="py-20 bg-[#ff0035] text-white">
-=======
-      {/* CTA Section - Vertikaler Abstand aggressiv reduziert (py-12) */}
-      <section className="py-12 bg-[#ff0035] text-white">
->>>>>>> 6abfd2bef49573cf2b3ceb00142c1c97edaae6e9
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -350,27 +349,17 @@ export default function Home() {
               Bereit für Ihren Reifenwechsel?
             </h2>
             <p className="text-xl mb-10 text-white/90">
-              Buchen Sie jetzt online oder finden Sie uns direkt!
+              Nehmen Sie direkt Kontakt zu uns auf!
             </p>
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button
-                onClick={() => window.dispatchEvent(new CustomEvent('open-booking-modal'))}
+              <Link
+                to="/Contact" // <-- HIER WIRD AUF /Contact WEITERGELEITET
                 className="bg-white text-[#ff0035] px-10 py-5 rounded-lg font-bold text-lg hover:bg-gray-100 transition-all hover:scale-105 shadow-xl inline-flex items-center gap-3"
               >
-                Termin vereinbaren
+                Kontakt aufnehmen
                 <ArrowRight className="w-6 h-6" />
-              </button>
-              
-              {/* GOOGLE MAPS BUTTON */}
-              <a
-                href={GOOGLE_MAPS_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-white text-[#ff0035] px-10 py-5 rounded-lg font-bold text-lg hover:bg-gray-100 transition-all hover:scale-105 shadow-xl inline-flex items-center gap-3"
-              >
-                Besuchen Sie uns jetzt
-                <MapPin className="w-6 h-6" />
-              </a>
+              </Link>
             </div>
           </motion.div>
         </div>
