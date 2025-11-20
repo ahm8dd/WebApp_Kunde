@@ -37,8 +37,7 @@ const servicesData = [
       "Komplettservice: Wechsel der Reifen auf die Felgen (Montage) plus professionelles Auswuchten. Das Rundum-Sorglos-Paket.",
     price: 50,
     duration: "45 min",
-    image:
-      "https://images.unsplash.com/photo-1625047509168-a7026f36de04?w=800&q=80",
+    image: "imgs/komplett.jpg",
     features: ["Montage & Wuchten", "Ventilkontrolle", "Achsvermessungs-Check"],
   },
   {
@@ -74,10 +73,9 @@ const servicesData = [
     name: "Felgeninstandsetzung",
     description:
       "Reparatur und Aufbereitung von Aluminium- oder Stahlfelgen. Entfernung von Kratzern und Bordsteinschäden.",
-    price: 80,
+    price: "",
     duration: "Individuell",
-    image:
-      "https://images.unsplash.com/photo-1625047509168-a7026f36de04?w=800&q=80",
+    image: "imgs/felgen.jpg",
     features: [
       "Kratzer entfernen",
       "Lackaufbereitung",
