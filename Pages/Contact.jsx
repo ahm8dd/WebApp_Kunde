@@ -22,6 +22,127 @@ const BUSINESS_DATA = {
 };
 // ----------------------------------------------------
 
+/**
+ * Komponente für das Kontaktformular.
+ * Verwendet FormSubmit für die Weiterleitung der E-Mail.
+ */
+const ContactForm = ({ email, darkColor, accentColor, mediumColor }) => {
+  // Wichtig: Dies ist der Endpunkt, an den die Daten gesendet werden
+  const FORM_ENDPOINT = `https://formsubmit.co/${email}`;
+
+  return (
+    // Das Formular verwendet die 'action' und 'method' Attribute, um FormSubmit zu aktivieren.
+    <form
+      action={FORM_ENDPOINT}
+      method="POST"
+      className={`p-8 rounded-xl shadow-2xl space-y-6`}
+      style={{ backgroundColor: MEDIUM_COLOR + "10" }}
+    >
+      <h2 className={`text-2xl font-bold`} style={{ color: darkColor }}>
+        Senden Sie uns eine Nachricht
+      </h2>
+      <p className="text-sm pb-2" style={{ color: mediumColor }}>
+        Felder mit * sind Pflichtfelder.
+      </p>
+
+      {/* VERSTECKTE FELDER FÜR FORMSUBMIT KONFIGURATION */}
+      {/* Leitet den Benutzer nach Erfolg zurück auf die Kontaktseite */}
+      <input type="hidden" name="_next" value={window.location.href} />
+      {/* Verhindert, dass FormSubmit Captchas anzeigt, wenn Sie die E-Mail bestätigt haben */}
+      <input
+        type="hidden"
+        name="_subject"
+        value="Neue Kontaktanfrage über Website M&M Reifenservice"
+      />
+
+      {/* 2. **Wichtig:** name-Attribute müssen gesetzt sein */}
+
+      {/* Name */}
+      <input
+        type="text"
+        name="Name"
+        placeholder="Ihr Name *"
+        required
+        className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-offset-2 transition-colors"
+        style={{ borderColor: mediumColor + "50", outlineColor: accentColor }}
+      />
+
+      {/* Email */}
+      <input
+        type="email"
+        name="E-Mail"
+        placeholder="Ihre E-Mail-Adresse *"
+        required
+        className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-offset-2 transition-colors"
+        style={{ borderColor: mediumColor + "50", outlineColor: accentColor }}
+      />
+
+      {/* Betreff */}
+      <input
+        type="text"
+        name="Betreff"
+        placeholder="Betreff"
+        className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-offset-2 transition-colors"
+        style={{ borderColor: mediumColor + "50", outlineColor: accentColor }}
+      />
+
+      {/* Nachricht */}
+      <textarea
+        name="Nachricht"
+        rows="4"
+        placeholder="Ihre Nachricht *"
+        required
+        className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-offset-2 transition-colors"
+        style={{ borderColor: mediumColor + "50", outlineColor: accentColor }}
+      ></textarea>
+
+      {/* DATENSCHUTZ-CHECKBOX (Jetzt funktionsfähig) */}
+      <div
+        className="flex items-start gap-2 text-sm"
+        style={{ color: mediumColor }}
+      >
+        {/* Korrektur der Checkbox-Styling: 'accent-color' wird korrekt über CSS Style gesetzt */}
+        <input
+          type="checkbox"
+          id="privacy"
+          name="Datenschutz_Einverstaendnis"
+          required
+          // Wichtig: margin-right hinzufügen, um Abstand zum Label zu schaffen
+          className="mt-1 flex-shrink-0 w-4 h-4 mr-1"
+          // Der 'accent-color' CSS-Wert färbt die Checkbox bei Auswahl
+          style={{ accentColor: accentColor }}
+        />
+        <label htmlFor="privacy" className="cursor-pointer">
+          Ich habe die{" "}
+          <a
+            href="/Datenschutz"
+            className="underline"
+            style={{ color: accentColor }}
+          >
+            Datenschutzerklärung
+          </a>{" "}
+          gelesen und bin mit der Verarbeitung meiner Daten einverstanden. *
+        </label>
+      </div>
+
+      {/* Senden Button */}
+      <motion.button
+        type="submit"
+        className={`w-full text-white text-lg font-bold py-3 rounded-lg transition-all shadow-md flex items-center justify-center`}
+        style={{ backgroundColor: accentColor }}
+        whileHover={{
+          scale: 1.02,
+          boxShadow: "0 10px 20px rgba(255, 0, 53, 0.4)",
+        }}
+        whileTap={{ scale: 0.98 }}
+      >
+        Nachricht senden
+      </motion.button>
+    </form>
+  );
+};
+
+// --- HAUPTKOMPONENTE CONTACT ---
 export default function Contact() {
   // Erstellt die Google Maps Embed URL mit der Adresse
   const mapUrl = `https://maps.google.com/maps?q=${encodeURIComponent(
@@ -47,13 +168,14 @@ export default function Contact() {
           </p>
         </motion.div>
 
+        {/* Layout: Karte, Info und Formular */}
         <div className="grid lg:grid-cols-2 gap-12">
-          {/* Map */}
+          {/* LINKER BLOCK: Karte */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
-            className="rounded-xl overflow-hidden shadow-2xl"
+            className="rounded-xl overflow-hidden shadow-2xl mb-12"
           >
             <iframe
               src={mapUrl}
@@ -67,15 +189,16 @@ export default function Contact() {
             />
           </motion.div>
 
-          {/* Contact Info & CTA */}
+          {/* RECHTER BLOCK: Kontaktinformationen und Formular */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}
             className="space-y-8"
           >
+            {/* Kontaktinformationen */}
             <div
-              className={`rounded-xl p-8`}
+              className={`rounded-xl p-8 shadow-xl`}
               style={{ backgroundColor: MEDIUM_COLOR + "10" }}
             >
               <h2
@@ -201,22 +324,15 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* CTA Banner */}
-            {/* <div className={`rounded-xl p-8 text-white`} style={{ backgroundColor: ACCENT_COLOR }}>
-              <h3 className="text-2xl font-bold mb-4">Termin buchen</h3>
-              <p className="mb-6">Buchen Sie jetzt online und sichern Sie sich Ihren Wunschtermin – schnell und unkompliziert!</p>
-              <motion.button
-                whileHover={{ scale: 1.02, boxShadow: '0 10px 20px rgba(0, 0, 0, 0.2)' }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => {
-                  window.dispatchEvent(new CustomEvent('open-booking-modal'));
-                }}
-                className={`bg-white text-lg px-8 py-4 rounded-lg font-bold hover:bg-gray-100 transition-all w-full`}
-                style={{ color: ACCENT_COLOR }}
-              >
-                Jetzt Termin vereinbaren
-              </motion.button>
-            </div> */}
+            {/* Kontaktformular */}
+            <div className="mt-8">
+              <ContactForm
+                email={BUSINESS_DATA.email}
+                darkColor={DARK_COLOR}
+                accentColor={ACCENT_COLOR}
+                mediumColor={MEDIUM_COLOR}
+              />
+            </div>
           </motion.div>
         </div>
       </div>

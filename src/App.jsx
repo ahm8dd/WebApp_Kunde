@@ -7,6 +7,7 @@ import Layout from "../Layout.jsx";
 
 // Importiert alle Seiten
 // KORREKTUR: Pfade von "../Pages/..." zu "./Pages/..." geändert
+import ScrollToTop from "../components/ScrollToTop";
 import Home from "../Pages/Home.jsx";
 import Services from "../Pages/Services.jsx";
 import TyreStock from "../Pages/TyreStock.jsx";
@@ -28,6 +29,7 @@ const PageNotFound = () => <h1>404 | Seite nicht gefunden</h1>;
 export default function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         {/* Hauptseiten, verpackt im Layout */}
         <Route

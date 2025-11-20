@@ -195,7 +195,7 @@ export default function Layout({ children, currentPageName }) {
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-8">
+            {/*<div className="hidden lg:flex items-center gap-8">
               {currentNavItems.map((item) => (
                 <Link
                   key={item.name}
@@ -212,7 +212,7 @@ export default function Layout({ children, currentPageName }) {
                   {item.name}
                 </Link>
               ))}
-            </div>
+            </div>/*}
 
             {/* CTA Button */}
             {/*<div className="hidden lg:block">
