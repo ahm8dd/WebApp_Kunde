@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { TyreInventory } from "@/entities/TyreInventory";
-import { Search, Filter, CheckCircle, AlertCircle, Package, Zap, Snowflake, Sun, Calendar, Phone, Mail } from "lucide-react";
+import { supabase } from '../supabaseClient'; 
+import { Search, Package, CheckCircle, AlertCircle, Zap, Wind, Snowflake, Sun, Calendar, Phone, Mail } from "lucide-react";
 
-// --- KONSTANTEN BASIEREND AUF GESPEICHERTEN DATEN & PALETTE ---
+// --- KONSTANTEN ---
 const ACCENT_COLOR = "#ff0035"; // Rot
 const DARK_COLOR = "#0e131f"; 
 const MEDIUM_COLOR = "#8b939c"; // Mittelgrau
@@ -22,8 +22,6 @@ const seasonColors = {
   "Winterreifen": "bg-blue-100 text-blue-800",
   "Ganzjahresreifen": "bg-green-100 text-green-800"
 };
-// ----------------------------------------------------------------------
-
 
 export default function TyreStock() {
   const [tyres, setTyres] = useState([]);
@@ -39,10 +37,16 @@ export default function TyreStock() {
 
   const loadTyres = async () => {
     try {
-      const data = await TyreInventory.list("-created_date", 100);
-      setTyres(data);
+      setIsLoading(true);
+      const { data, error } = await supabase
+        .from('inventory')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setTyres(data || []);
     } catch (error) {
-      console.error("Fehler beim Laden der Reifen:", error);
+      console.error("Fehler beim Laden der Reifen:", error.message);
     } finally {
       setIsLoading(false);
     }
@@ -80,7 +84,7 @@ export default function TyreStock() {
       <div className="pt-32 pb-24 bg-white min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-t-transparent rounded-full animate-spin mx-auto mb-4" style={{ borderColor: ACCENT_COLOR, borderTopColor: 'transparent' }}></div>
-          <p className={`text-[${MEDIUM_COLOR}]`}>Reifenbestand wird geladen...</p>
+          <p style={{ color: MEDIUM_COLOR }}>Reifenbestand wird geladen...</p>
         </div>
       </div>
     );
@@ -106,7 +110,6 @@ export default function TyreStock() {
         {/* Filters */}
         <div className={`rounded-xl p-6 mb-8`} style={{ backgroundColor: LIGHT_BG + '0F' }}>
           <div className="grid lg:grid-cols-4 gap-4">
-            {/* Search */}
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
               <input
@@ -114,15 +117,15 @@ export default function TyreStock() {
                 placeholder="Marke, Modell oder Größe..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className={`w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-[${ACCENT_COLOR}]`}
+                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none"
+                style={{ borderColor: 'e5e7eb' }}
               />
             </div>
 
-            {/* Season Filter */}
             <select
               value={seasonFilter}
               onChange={(e) => setSeasonFilter(e.target.value)}
-              className={`px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-[${ACCENT_COLOR}]`}
+              className="px-4 py-3 border border-gray-200 rounded-lg focus:outline-none"
             >
               <option value="all">Alle Saisons</option>
               <option value="Sommerreifen">Sommerreifen</option>
@@ -130,11 +133,10 @@ export default function TyreStock() {
               <option value="Ganzjahresreifen">Ganzjahresreifen</option>
             </select>
 
-            {/* Condition Filter */}
             <select
               value={conditionFilter}
               onChange={(e) => setConditionFilter(e.target.value)}
-              className={`px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-[${ACCENT_COLOR}]`}
+              className="px-4 py-3 border border-gray-200 rounded-lg focus:outline-none"
             >
               <option value="all">Alle Zustände</option>
               <option value="Neu">Neu</option>
@@ -142,11 +144,10 @@ export default function TyreStock() {
               <option value="Gebraucht - Gut">Gebraucht - Gut</option>
             </select>
 
-            {/* Sort */}
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className={`px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-[${ACCENT_COLOR}]`}
+              className="px-4 py-3 border border-gray-200 rounded-lg focus:outline-none"
             >
               <option value="brand">Sortieren: Marke</option>
               <option value="price-asc">Preis: Niedrig → Hoch</option>
@@ -217,7 +218,7 @@ export default function TyreStock() {
 
                     {/* Size & Season */}
                     <div className="flex items-center gap-2 mb-3">
-                      <span className={`px-3 py-1 rounded-full text-sm font-medium`} style={{ backgroundColor: ACCENT_COLOR + '10', color: ACCENT_COLOR }}>
+                      <span className="px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800">
                         {tyre.size}
                       </span>
                       <span className={`px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1 ${seasonColors[tyre.season]}`}>
@@ -247,21 +248,21 @@ export default function TyreStock() {
 
                     {/* EU Labels */}
                     {(tyre.fuel_efficiency || tyre.wet_grip || tyre.noise_level) && (
-                      <div className="mb-4 flex items-center gap-2 text-xs text-gray-500">
+                      <div className="mb-4 flex items-center gap-2 text-xs text-gray-500 border-t pt-2 mt-2">
                         {tyre.fuel_efficiency && (
-                          <span className="bg-green-100 text-green-700 px-2 py-1 rounded">
-                            Kraftstoff: {tyre.fuel_efficiency}
-                          </span>
+                          <div className="flex items-center gap-1" title="Kraftstoff">
+                            <Zap size={14} /> {tyre.fuel_efficiency}
+                          </div>
                         )}
                         {tyre.wet_grip && (
-                          <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded">
-                            Nässe: {tyre.wet_grip}
-                          </span>
+                          <div className="flex items-center gap-1" title="Nässe">
+                            <Wind size={14} /> {tyre.wet_grip}
+                          </div>
                         )}
                         {tyre.noise_level && (
-                          <span className="bg-gray-100 text-gray-700 px-2 py-1 rounded">
-                            {tyre.noise_level} dB
-                          </span>
+                          <div className="flex items-center gap-1" title="Lautstärke">
+                            <span className="font-bold">{tyre.noise_level}</span> dB
+                          </div>
                         )}
                       </div>
                     )}
@@ -290,7 +291,7 @@ export default function TyreStock() {
           </div>
         )}
 
-        {/* Info Box - Nur Anrufen und Mail */}
+        {/* Info Box */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
