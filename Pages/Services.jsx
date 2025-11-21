@@ -1,20 +1,22 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle, Clock } from "lucide-react";
+import { ArrowRight, CheckCircle, Clock, Phone } from "lucide-react"; // Phone Icon hinzugefügt
 
 // --- KONSTANTEN BASIEREND AUF ORIGINAL PALETTE ---
 const ACCENT_COLOR = "#ff0035"; // Rot
 const DARK_COLOR = "#0e131f"; // Dunkel (Text auf Weiß)
 const MEDIUM_COLOR = "#8b939c"; // Mittelgrau (Text/Akzente)
 const LIGHT_ACCENT_COLOR = "#59546c"; // Graublau (Basis für Transparenz)
+const BUSINESS_PHONE = "0201 25908194"; // Telefonnummer für CTA
 // ----------------------------------------
 
 const servicesData = [
   {
     id: 1,
-    name: "Radwechsel",
+    name: "Express Radwechsel", // Text angepasst
     description:
-      "Schneller und professioneller Radwechsel für alle Fahrzeugtypen (Montage von Kompletträdern). Inklusive Sichtprüfung und Luftdruckkontrolle.",
+      "Schneller und professioneller Radwechsel für alle Fahrzeugtypen (Montage von Kompletträdern). **Kommen Sie ohne Termin vorbei!**",
     price: 25,
     duration: "30 min",
     image: "imgs/radwechsel.jpg",
@@ -32,7 +34,7 @@ const servicesData = [
   },
   {
     id: 3,
-    name: "Reifenwechsel mit Auswuchten",
+    name: "Reifenmontage mit Wuchten", // Text angepasst
     description:
       "Komplettservice: Wechsel der Reifen auf die Felgen (Montage) plus professionelles Auswuchten. Das Rundum-Sorglos-Paket.",
     price: 50,
@@ -73,7 +75,7 @@ const servicesData = [
     name: "Felgeninstandsetzung",
     description:
       "Reparatur und Aufbereitung von Aluminium- oder Stahlfelgen. Entfernung von Kratzern und Bordsteinschäden.",
-    price: "",
+    price: "Auf Anfrage", // Einheitlicher Preis-Text
     duration: "Individuell",
     image: "imgs/felgen.jpg",
     features: [
@@ -141,6 +143,7 @@ const ServiceGridContent = ({ services }) => (
             ))}
           </div>
 
+          {/* Fußzeile: Dauer & Link zur Kontaktseite */}
           <div className="flex items-center justify-between pt-4 border-t border-gray-100">
             {service.duration && (
               <span className={`text-sm`} style={{ color: MEDIUM_COLOR }}>
@@ -149,25 +152,15 @@ const ServiceGridContent = ({ services }) => (
               </span>
             )}
 
-            <button
-              onClick={() =>
-                window.dispatchEvent(
-                  new CustomEvent("open-booking-modal-with-service", {
-                    detail: {
-                      service: {
-                        name: service.name,
-                        price: service.price,
-                      },
-                    },
-                  })
-                )
-              }
+            {/* AKTION: Link zur Kontaktseite (statt Modal-Button) */}
+            <Link
+              to="/Contact"
               className={`font-medium flex items-center gap-1 hover:text-[#d9002d]`}
               style={{ color: ACCENT_COLOR }}
             >
-              Buchen
+              Details/Anfragen
               <ArrowRight className="w-4 h-4" />
-            </button>
+            </Link>
           </div>
         </div>
       </motion.div>
@@ -177,28 +170,44 @@ const ServiceGridContent = ({ services }) => (
 
 export default function Services() {
   return (
-    // Hintergrund auf BG_WHITE setzen
     <div className="pt-32 pb-24 min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        {/* HEADER */}
+        {/* HEADER mit Walk-In Fokus */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
           <h1
-            className={`text-5xl font-bold mb-6`}
+            className={`text-5xl font-bold mb-4`}
             style={{ color: DARK_COLOR }}
           >
-            Unsere Reifenservices
+            Ihr Reifenservice OHNE TERMIN
           </h1>
+          <h2
+            className={`text-2xl max-w-4xl mx-auto font-medium`}
+            style={{ color: ACCENT_COLOR }}
+          >
+            Kommen Sie einfach während der Öffnungszeiten vorbei – Ihr
+            Boxenstopp in Essen!
+          </h2>
           <p
-            className={`text-xl max-w-3xl mx-auto`}
+            className={`text-lg mt-4 max-w-4xl mx-auto`}
             style={{ color: MEDIUM_COLOR }}
           >
-            Professionelle Reifenservices zu fairen Preisen. Schnell und
-            zuverlässig.
+            Wir bieten alle Services schnell und zuverlässig an. Lange
+            Wartezeiten und lästige Online-Buchungen entfallen.
           </p>
+
+          {/* CTA Button für Sofort-Anruf */}
+          <a
+            href={`tel:${BUSINESS_PHONE.replace(/\s/g, "")}`}
+            className={`mt-6 inline-flex items-center gap-3 px-8 py-4 rounded-xl text-lg font-bold hover:bg-[#d9002d] transition-colors shadow-xl`}
+            style={{ backgroundColor: ACCENT_COLOR, color: "white" }}
+          >
+            <Phone className="w-6 h-6" />
+            Jetzt anrufen & Verfügbarkeit prüfen
+          </a>
         </motion.div>
 
         {/* Services Grid Content */}
@@ -209,26 +218,27 @@ export default function Services() {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}
-          className={`mt-16 p-8 rounded-xl text-center shadow-lg`}
+          className={`mt-16 p-8 rounded-xl text-center shadow-lg border border-red-200`}
           style={{ backgroundColor: ACCENT_COLOR + "10" }}
         >
           <h3
             className={`text-2xl font-bold mb-4`}
             style={{ color: DARK_COLOR }}
           >
-            Nicht fündig geworden?
+            Individuelle Beratung gewünscht?
           </h3>
           <p className={`text-lg mb-6`} style={{ color: MEDIUM_COLOR }}>
-            Kontaktieren Sie uns für individuelle Anfragen oder komplexere
-            Reparaturen.
+            Wir beraten Sie gerne persönlich zu Sondergrößen, Felgen oder
+            komplexen Reparaturen.
           </p>
-          <a
-            href={`tel:020125908194`}
-            className={`text-white px-8 py-4 rounded-full font-medium transition-all duration-300 hover:scale-105`}
-            style={{ backgroundColor: ACCENT_COLOR }}
+          <Link
+            to="/Contact"
+            className={`text-white px-8 py-4 rounded-full font-medium transition-all duration-300 hover:scale-105 shadow-md`}
+            style={{ backgroundColor: DARK_COLOR }}
           >
-            Jetzt anrufen
-          </a>
+            Kontaktseite besuchen
+            <ArrowRight className="w-5 h-5 inline ml-2" />
+          </Link>
         </motion.div>
       </div>
     </div>

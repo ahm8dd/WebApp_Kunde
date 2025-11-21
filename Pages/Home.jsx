@@ -8,11 +8,19 @@ import { createPageUrl } from "../utils";
 const ACCENT_COLOR = "#ff0035"; // Rot
 const DARK_COLOR = "#0e131f"; // Dunkelste Farbe (Für Hero Overlay & Text auf hellen Elementen)
 const MEDIUM_COLOR = "#59546c"; // Graublau (Original Akzentton für helle Hintergründe)
+// Ich verwende Ihre gespeicherte Telefonnummer und Adresse für die Links
 const BUSINESS_PHONE = "0201 25908194";
 const DISPLAY_PHONE = "0201 25908194";
 const GOOGLE_MAPS_LINK =
-  "https://www.google.com/maps/search/?api=1&query=M%26M+Reifenservice+Sulterkamp+Essen";
+  "https://www.google.com/maps/place/Sulterkamp+58,+45356+Essen";
 // ----------------------------------------
+
+// NEU: HINWEIS FÜR TERMINLOSEN SERVICE
+const WALK_IN_MESSAGE = (
+  <span className="text-2xl font-bold text-white bg-[#ff0035] p-3 rounded-lg shadow-2xl inline-block mt-4 mb-6">
+    KEIN TERMIN NÖTIG!
+  </span>
+);
 
 const services = [
   {
@@ -54,7 +62,7 @@ const services = [
 
 const testimonials = [
   {
-    name: "Bassam M.",
+    name: "Hadi M.",
     location: "Essen",
     text: "Super Service! Reifen in 20 Min gewechselt. Sehr empfehlenswert!",
     rating: 5,
@@ -73,9 +81,11 @@ const testimonials = [
   },
 ];
 
+// ANGEPASST: Fügt den Haupt-USP hinzu
 const features = [
   { icon: Clock, text: "Express-Service", color: ACCENT_COLOR },
   { icon: Shield, text: "Geprüfte Qualität", color: ACCENT_COLOR },
+  { icon: Phone, text: "Ohne Termin", color: ACCENT_COLOR }, // NEUER FOKUS
 ];
 // ----------------------------------------------------------------------
 
@@ -103,12 +113,17 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="text-white max-w-3xl"
           >
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              Ihr Reifen Partner in Essen
+            <h1 className="text-5xl md:text-7xl font-bold mb-4 leading-tight">
+              Ihr Reifen Partner in Essen <br />
             </h1>
 
+            {/* NEU: TERMINLOSER SERVICE PROMINENT HERVORGEHOBEN */}
+            {WALK_IN_MESSAGE}
+
             <p className="text-xl md:text-2xl mb-8 text-gray-200">
-              Professioneller Service zu unschlagbaren Preisen.
+              Professioneller Reifen-Service, schnell und ohne Termin. Wir
+              halten Sie mit Top-Qualität zu unschlagbaren Preisen sicher auf
+              der Straße.
             </p>
 
             {/* Features */}
@@ -136,7 +151,7 @@ export default function Home() {
                 className={`bg-[#ff0035] text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#d9002d] transition-all hover:scale-105 shadow-xl flex items-center justify-center gap-2`}
               >
                 <MapPin className="w-6 h-6 mr-2" />
-                Besuchen Sie uns jetzt
+                Adresse finden & Losfahren
               </a>
 
               {/* Anrufen Button - angepasst */}
@@ -145,11 +160,11 @@ export default function Home() {
                 className="bg-white/10 backdrop-blur-sm text-white border-2 border-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-[#0e131f] transition-all flex items-center justify-center"
               >
                 <Phone className="w-6 h-6 mr-2" />
-                Anrufen
+                Anrufen ({DISPLAY_PHONE})
               </a>
             </div>
 
-            {/* Urgency Element */}
+            {/* Urgency Element - ANGEPASST AUF TERMINLOSEN SERVICE */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -157,11 +172,8 @@ export default function Home() {
               className="mt-8 bg-black/30 backdrop-blur-sm rounded-xl p-4 max-w-md border border-[#ff0035]/30"
             >
               <p className="text-sm text-gray-200">
-                ⚡{" "}
-                <strong className="text-[#ff0035]">
-                  Heute noch verfügbar!
-                </strong>{" "}
-                Besuchen Sie jetzt uns und sparen Sie auf den ersten Service.
+                ⭐ Keine Wartezeit für einen Termin! Fahren Sie direkt zu uns
+                und wir kümmern uns um Ihre Reifen.
               </p>
             </motion.div>
           </motion.div>
@@ -183,8 +195,8 @@ export default function Home() {
               Unsere Services
             </h2>
             <p className="text-xl text-[#8b939c] max-w-2xl mx-auto">
-              Wir bieten eine Reihe von Reifenservices, um Sie sicher auf der
-              Straße zu halten.
+              Wir bieten eine Reihe von Reifenservices an – spontan und ohne
+              Termindruck.
             </p>
           </motion.div>
 
@@ -257,9 +269,9 @@ export default function Home() {
                 desc: "Service in unter 30 Minuten",
               },
               {
-                icon: Shield,
-                title: "Qualität & Sicherheit",
-                desc: "Zertifizierte Mechaniker",
+                icon: Phone, // Icon für spontanen Service
+                title: "Einfach Vorbeikommen",
+                desc: "Kein Termin nötig – kommen Sie jederzeit vorbei!",
               },
               {
                 icon: Star,
@@ -333,8 +345,6 @@ export default function Home() {
             ))}
           </div>
         </div>
-
-        {/* ÜBERGANG 2 WURDE ENTFERNT */}
       </section>
 
       {/* CTA Section (Bleibt rot) */}
@@ -346,10 +356,11 @@ export default function Home() {
             viewport={{ once: true }}
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Bereit für Ihren Reifenwechsel?
+              Kein Termin nötig – Einfach vorbeikommen!
             </h2>
             <p className="text-xl mb-10 text-white/90">
-              Nehmen Sie direkt Kontakt zu uns auf!
+              Sparen Sie Zeit und Nerven. Wir sind für Sie da, wenn Sie uns
+              brauchen.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -357,7 +368,7 @@ export default function Home() {
                 to="/Contact" // <-- HIER WIRD AUF /Contact WEITERGELEITET
                 className="bg-white text-[#ff0035] px-10 py-5 rounded-lg font-bold text-lg hover:bg-gray-100 transition-all hover:scale-105 shadow-xl inline-flex items-center gap-3"
               >
-                Kontakt aufnehmen
+                Noch Fragen? Kontakt aufnehmen
                 <ArrowRight className="w-6 h-6" />
               </Link>
             </div>
